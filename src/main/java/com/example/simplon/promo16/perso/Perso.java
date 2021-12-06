@@ -5,7 +5,7 @@ public class Perso {
     protected String name ;
     protected String weapon;
     protected String manaPower;
-    protected int life;
+    protected int health;
     protected int mana;
     protected int manaAttack;
     protected int weaponAttack;
@@ -14,11 +14,11 @@ public class Perso {
     public Perso(){}
 
     public void weaponAttack(Perso perso){
-        perso.setLife(-this.weaponAttack);
+        perso.setHealth(-this.weaponAttack);
     }
 
     public void manaAttack(Perso perso){
-        perso.setLife(-this.manaAttack);
+        perso.setHealth(-this.manaAttack);
         this.setMana(-this.getManaAttack());
     }
 
@@ -36,12 +36,12 @@ public class Perso {
         return manaPower;
     }
 
-    public int getLife() {
-        return life;
+    public int getHealth() {
+        return health;
     }
 
-    public void setLife(int attack) {
-        this.life += attack;
+    public void setHealth(int attack) {
+        this.health += attack;
     }
 
     public int getMana() {
