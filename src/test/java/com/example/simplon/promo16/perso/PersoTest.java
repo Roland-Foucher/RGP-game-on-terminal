@@ -24,14 +24,14 @@ public class PersoTest {
     @Test
     void testWeaponAttack() {
         orc.weaponAttack(elfe);
-        assertEquals(20, elfe.getLife());
+        assertEquals(20, elfe.getHealth());
     }
 
     @Test
     void testManaAttackOrc(){
         orc.manaAttack(elfe);
-        assertEquals(40, elfe.getLife());
-        assertEquals(120,orc.getLife());
+        assertEquals(40, elfe.getHealth());
+        assertEquals(120,orc.getHealth());
     }
 
     @Test
@@ -44,7 +44,7 @@ public class PersoTest {
     void testManaAttackElfe(){
         orc.weaponAttack(elfe);
         elfe.manaAttack(orc);
-        assertEquals(120, orc.getLife());
-        assertEquals(50, elfe.getLife());
+        assertEquals(120, orc.getHealth());
+        assertEquals(50, elfe.getHealth());
     }
 }
