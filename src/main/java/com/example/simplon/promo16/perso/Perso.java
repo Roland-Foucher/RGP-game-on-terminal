@@ -2,30 +2,23 @@ package com.example.simplon.promo16.perso;
 
 public class Perso {
 
-    private String name ;
-    private String weapon;
-    private String manaPower;
-    private int life;
-    private int mana;
-    private int manaAttack;
-    private int weaponAttack;
-    
-    // public Perso(String name, String weapon, String manaPower, int life, int mana, int manaAttack, int weaponAttack) {
-    //     this.name = name;
-    //     this.weapon = weapon;
-    //     this.manaPower = manaPower;
-    //     this.life = life;
-    //     this.mana = mana;
-    //     this.manaAttack = manaAttack;
-    //     this.weaponAttack = weaponAttack;
-    // }
+    protected String name ;
+    protected String weapon;
+    protected String manaPower;
+    protected int life;
+    protected int mana;
+    protected int manaAttack;
+    protected int weaponAttack;
+
+
+    public Perso(){}
 
     public void weaponAttack(Perso perso){
-        perso.setLife(this.weaponAttack);
+        perso.setLife(-this.weaponAttack);
     }
 
     public void manaAttack(Perso perso){
-        perso.setLife(this.manaAttack);
+        perso.setLife(-this.manaAttack);
         this.setMana(-this.getManaAttack());
     }
 
@@ -48,7 +41,7 @@ public class Perso {
     }
 
     public void setLife(int attack) {
-        this.life -= attack;
+        this.life += attack;
     }
 
     public int getMana() {
@@ -56,7 +49,7 @@ public class Perso {
     }
 
     public void setMana(int attack) {
-        this.mana -= attack;
+        this.mana += attack;
     }
 
     public int getManaAttack() {
