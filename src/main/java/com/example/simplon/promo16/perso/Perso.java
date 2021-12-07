@@ -15,6 +15,7 @@ public class Perso {
     protected int weaponAttack;
     protected int maxMana;
     protected int maxHealth;
+    protected boolean isAlive = true;
 
     /**
      * perso weapon attack an other personnage 
@@ -45,7 +46,7 @@ public class Perso {
             this.health = maxHealth;
         }
         if (this.health < 0) {
-            System.out.println(this.getName() + " is dead");
+            this.isAlive = false;
             this.health = 0;
         }
     }
@@ -101,6 +102,15 @@ public class Perso {
 
     public int getManaCost() {
         return manaCost;
+    }
+
+    public boolean isAlive() {
+        return isAlive;
+    }
+
+    @Override
+    public String toString() {
+        return this.getName();
     }
 
 

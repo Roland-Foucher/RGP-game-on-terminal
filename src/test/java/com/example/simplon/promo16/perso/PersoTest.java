@@ -53,6 +53,7 @@ public class PersoTest {
     void playerIsDead(){
         orc.setHealth(-200);
         assertEquals(0, orc.getHealth());
+        assertEquals(false, orc.isAlive());
     }
 
     @Test // mana ne depasse pas maxMana

@@ -24,7 +24,7 @@ public class Necromancer extends Perso {
      */
     @Override
     public void manaAttack(Perso perso) {
-        if (perso.getHealth()==0){
+        if (!perso.isAlive()){
             perso.setHealth(perso.getMaxHealth()/2);
             this.setMana(-this.getManaCost());
         }

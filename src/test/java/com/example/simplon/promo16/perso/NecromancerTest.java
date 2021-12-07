@@ -8,8 +8,8 @@ import org.junit.jupiter.api.Test;
 
 public class NecromancerTest {
 
-    Orc orc;
-    Necromancer necro;
+    Perso orc;
+    Perso necro;
 
     @BeforeEach
     public void init(){
