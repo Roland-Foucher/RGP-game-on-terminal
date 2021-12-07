@@ -1,5 +1,7 @@
 package com.example.simplon.promo16.perso;
-
+/**
+ * Orc have standard attack and a lot of life
+ */
 public class Orc extends Perso {
 
    
