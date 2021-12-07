@@ -11,8 +11,9 @@ public class Orc extends Perso {
         this.weapon = "Gourdin";
         this.manaPower = "Morsure";
         this.health = 120;
-        this.mana = 40;
+        this.mana = 60;
         this.manaAttack = 40;
+        this.manaCost = 20;
         this.weaponAttack = 60;
         this.maxHealth = this.health;
         this.maxMana = this.mana;

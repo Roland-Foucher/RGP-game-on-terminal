@@ -11,6 +11,7 @@ public class Elfe extends Perso {
         this.health = 80;
         this.mana = 60;
         this.manaAttack = 0;
+        this.manaCost = 30;
         this.weaponAttack = 40;
         this.maxHealth = this.health;
         this.maxMana = this.mana;
@@ -23,7 +24,7 @@ public class Elfe extends Perso {
     @Override
     public void manaAttack(Perso perso){
         perso.setHealth(-this.manaAttack);
-        this.setMana(-this.getManaAttack());
+        this.setMana(-this.getManaCost());
         this.setHealth(30);
     }
 

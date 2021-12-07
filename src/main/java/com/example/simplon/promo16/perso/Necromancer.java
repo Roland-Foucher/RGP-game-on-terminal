@@ -1,22 +1,37 @@
 package com.example.simplon.promo16.perso;
 
+/**
+ * necro can make resurection on perso
+ */
 public class Necromancer extends Perso {
 
     public Necromancer() {
         this.name = "Necromancer";
         this.weapon = "Baton";
         this.manaPower = "Resurection";
-        this.life = 80;
+        this.health = 80;
         this.mana = 100;
-        this.manaAttack = 50;
+        this.manaAttack = 0;
+        this.manaCost = 50;
         this.weaponAttack = 20;
+        this.maxHealth = this.health;
+        this.maxMana = this.mana;
     }
 
+    /**
+     * Necro can make perso alive if health of perso == 0.
+     * perso have 1/2 init Health
+     */
     @Override
     public void manaAttack(Perso perso) {
-        if (perso.getLife()==0){
-            perso.setLife(//TODO add the max health of perso);
+        if (perso.getHealth()==0){
+            perso.setHealth(perso.getMaxHealth()/2);
+            this.setMana(-this.getManaCost());
         }
+        else{
+            System.out.println(perso.getName() + "is not dead");
+        }
+        
     }
 
     
