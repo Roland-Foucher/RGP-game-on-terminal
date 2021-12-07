@@ -1,23 +1,30 @@
 package com.example.simplon.promo16.perso;
 
 public class Elfe extends Perso {
-   
+    /**
+     * Constructor Elfe
+     */
     public Elfe(){
-    name = " Elfe" ;
-    weapon = "Arc";
-    manaPower = "giveHealth";
-    life = 80;
-    mana = 60;
-    manaAttack = 0;
-    weaponAttack = 40;
+        this.name = " Elfe" ;
+        this.weapon = "Arc";
+        this.manaPower = "giveHealth";
+        this.health = 80;
+        this.mana = 60;
+        this.manaAttack = 0;
+        this.weaponAttack = 40;
+        this.maxHealth = this.health;
+        this.maxMana = this.mana;
     }
 
-
+    /**
+     * Elfe can add health itself but don't hurt ennemy
+     * override Perso methode manaAttack to setHealth
+     */
     @Override
     public void manaAttack(Perso perso){
-        perso.setLife(-this.manaAttack);
+        perso.setHealth(-this.manaAttack);
         this.setMana(-this.getManaAttack());
-        this.setLife(30);
+        this.setHealth(30);
     }
 
     
