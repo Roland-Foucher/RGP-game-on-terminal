@@ -45,7 +45,7 @@ public class Perso {
         if (this.health > maxHealth) {
             this.health = maxHealth;
         }
-        if (this.health < 0) {
+        if (this.health <= 0) {
             this.isAlive = false;
             this.health = 0;
         }
