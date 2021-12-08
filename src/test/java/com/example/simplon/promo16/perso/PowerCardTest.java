@@ -31,6 +31,6 @@ public class PowerCardTest {
     void testAddMana() {
         orc.setMana(-40);
         powercard.addMana(orc);
-        assertEquals(50, orc.getMana());
+        assertEquals(60, orc.getMana());
     }
 }
