@@ -39,29 +39,6 @@ public class Player {
         }
         return true;
     }
-    /**
-     * check the number of perso in the array
-     * @return normaly 4
-     */
-
-    public int getNumberOfPerso(){
-        return this.playerListOfPerso.size();
-    }
-
-    /**
-     * get a perso in the list
-     * @param i the index of list
-     * @return  the perso we want
-     */
-    public Perso getIndividualPlayerPerso(int i){
-        
-            try {
-                return playerListOfPerso.get(i);
-            } catch (IndexOutOfBoundsException e) {
-                System.out.println("personnage innexistant!");
-            }
-            return null;
-    }
     
      /**
      * methode to choose the option attack. if perso is a necromancer, 
@@ -73,11 +50,35 @@ public class Player {
      */
     public void attackOption(int persoAttack, int choiceAttach, int persoToAttack, Player playerAgainst){
         
+        // check value perso are OK
+        if (persoAttack<1 || persoAttack >4){
+            System.out.println("invalide perso choice");
+            return;
+        }
+
+        if (persoToAttack<1 || persoToAttack >4){
+            System.out.println("invalide perso to attack choice");
+            return;
+        }
+
+        // convert choice to index list value
+        persoAttack-=1;
+        persoToAttack-=1;
+
+        // take perso list to a variable and check is alive
         Perso persoPlayerTurn = this.getIndividualPlayerPerso(persoAttack);
-        Perso persoPlayerAgainst = playerAgainst.getIndividualPlayerPerso(persoToAttack);;
+        Perso persoPlayerAgainst = playerAgainst.getIndividualPlayerPerso(persoToAttack);
+        if (!persoPlayerTurn.isAlive()){
+            System.out.println("error = this perso is dead !");
+            return;
+        }
+        if (!persoPlayerAgainst.isAlive()){
+            System.out.println("error = this perso is dead !");
+            return;
+        }
        
-        
-        
+       
+        //switch choices and check option
         switch (choiceAttach){
             case 1 :
                 persoPlayerTurn.weaponAttack(persoPlayerAgainst);
@@ -87,7 +88,7 @@ public class Player {
                  }
                 persoPlayerTurn.manaAttack(persoPlayerAgainst);
             default :
-                System.out.println("cette option n'existe pas");
+                System.out.println("invalid choice of perso");
         }
     }
 
@@ -99,29 +100,67 @@ public class Player {
      */
     public void chooseCardOption(int option, int perso){
 
+        if (this.getPowerCard().getNumberOfCard() == 0){
+            System.out.println("not anougth card to do this");
+            return;
+        }
+        
+        // check perso choice is OK 
         if (perso < 1 || perso > 4) {
-            System.out.println("ce perso n'existe pas");
+            System.out.println("invalid choice of perso");
+            return;
+        }
+        // convert choice to index list value
+        perso-=1;
+        // take perso list to a variable and check is alive
+        Perso persoToApplyCard = this.getIndividualPlayerPerso(perso);
+        if (!persoToApplyCard.isAlive()){
+            System.out.println("error = this perso is dead !");
             return;
         }
 
-        Perso persoToApplyCard = this.getIndividualPlayerPerso(perso);
+        //switch choices and check option is OK
         switch (option){
             case 1 :
                 this.getPowerCard().addHealth(persoToApplyCard);
             case 2 :
                 this.getPowerCard().addMana(persoToApplyCard);
             default :
-                System.out.println("cette option n'existe pas");
+                System.out.println("this option does not exist");
         }
     }
 
-    public int getNumberOfPowerCard() {
-        return powerCard.getNumberOfCard();
-    }
+    //
+    // getter
+    //
 
-    public PowerCard getPowerCard() {
+    private PowerCard getPowerCard() {
         return powerCard;
     }
+
+    /**
+     * check the number of perso in the array
+     * @return normaly 4
+     */
+
+    public int getNumberOfPerso(){
+        return this.playerListOfPerso.size();
+    }
+
+        /**
+     * get a perso in the list
+     * @param i the index of list
+     * @return  the perso we want
+     */
+    public Perso getIndividualPlayerPerso(int i){
+        
+        try {
+            return playerListOfPerso.get(i);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("invalid choice of perso");
+        }
+        return null;
+}
 
 
 }
