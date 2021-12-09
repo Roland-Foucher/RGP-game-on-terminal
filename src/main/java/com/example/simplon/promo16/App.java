@@ -1,5 +1,8 @@
 package com.example.simplon.promo16;
 
+
+import com.example.simplon.promo16.game.Match;
+
 /**
  * Hello world!
  *
@@ -8,6 +11,9 @@ public class App
 {
     public static void main( String[] args )
     {
-        System.out.println( "Hello World!" );
+        Match match = new Match();
+        match.runProgramme();
+        
+        
     }
 }
