@@ -11,6 +11,7 @@ public class Player {
 
     private List <Perso> playerListOfPerso = new ArrayList<>();
     private PowerCard powerCard = new PowerCard();
+    private String playerName;
 
     /**
      * constructor of player to add in the list
@@ -19,11 +20,12 @@ public class Player {
      * @param perso3 type of perso selected
      * @param perso4 type of perso selected
      */
-    public Player(Perso perso1, Perso perso2, Perso perso3, Perso perso4) {
+    public Player(Perso perso1, Perso perso2, Perso perso3, Perso perso4,String name) {
         playerListOfPerso.add(perso1);
         playerListOfPerso.add(perso2);
         playerListOfPerso.add(perso3);
         playerListOfPerso.add(perso4);
+        this.playerName = name;
     }
 
     /**
@@ -82,13 +84,16 @@ public class Player {
         switch (choiceAttach){
             case 1 :
                 persoPlayerTurn.weaponAttack(persoPlayerAgainst);
+                break;
             case 2 :
                  if (persoPlayerTurn.getClass() == Necromancer.class){  // check if necro is selected
                     persoPlayerAgainst = this.getIndividualPlayerPerso(persoToAttack);
                  }
                 persoPlayerTurn.manaAttack(persoPlayerAgainst);
+                break;
             default :
                 System.out.println("invalid choice of perso");
+                break;
         }
     }
 
@@ -123,10 +128,13 @@ public class Player {
         switch (option){
             case 1 :
                 this.getPowerCard().addHealth(persoToApplyCard);
+                break;
             case 2 :
                 this.getPowerCard().addMana(persoToApplyCard);
+                break;
             default :
                 System.out.println("this option does not exist");
+                break;
         }
     }
 
@@ -136,6 +144,10 @@ public class Player {
 
     private PowerCard getPowerCard() {
         return powerCard;
+    }
+
+    public int getNumberOfCardPlayer(){
+        return powerCard.getNumberOfCard();
     }
 
     /**
@@ -160,7 +172,12 @@ public class Player {
             System.out.println("invalid choice of perso");
         }
         return null;
-}
+    }
+
+    public String getPlayerName() {
+        return playerName;
+    }
+    
 
 
 }

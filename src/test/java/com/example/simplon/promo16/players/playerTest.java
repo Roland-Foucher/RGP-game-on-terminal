@@ -36,8 +36,8 @@ public class playerTest {
         elfe2 = new Elfe();
         necro2 = new Necromancer();
         knight2 = new Knigth();
-        player1 = new Player(orc, elfe, necro, knight);
-        player2 = new Player(orc2, elfe2, necro2, knight2);
+        player1 = new Player(orc, elfe, necro, knight, "test");
+        player2 = new Player(orc2, elfe2, necro2, knight2, "test");
     }
     @AfterEach
     public void finish(){
@@ -132,7 +132,7 @@ public class playerTest {
     @Test 
     void attackOption_chooseWeaponAttack(){
         player1.attackOption(1, 1, 1, player2);
-        assertEquals(20, player2.getIndividualPlayerPerso(0).getHealth());
+        assertEquals(60, player2.getIndividualPlayerPerso(0).getHealth());
     }
 
     @Test
@@ -141,7 +141,7 @@ public class playerTest {
         assertEquals(80, player2.getIndividualPlayerPerso(0).getHealth());
     }
 
-    @Test // TODO finir test attack option
+    @Test
     void attackOption_invalidAttackNumber(){
         player1.attackOption(1, 4, 1, player2);
         assertEquals(120, player2.getIndividualPlayerPerso(0).getHealth());
