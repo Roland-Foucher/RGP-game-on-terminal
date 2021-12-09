@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 
 public class PersoTest {
 
-
     Perso orc;
     Perso elfe;
 
@@ -50,8 +49,15 @@ public class PersoTest {
    
 
     @Test
-    void playerIsDead(){
+    void playerIsDead_whenLifeLessThan0(){
         orc.setHealth(-200);
+        assertEquals(0, orc.getHealth());
+        assertEquals(false, orc.isAlive());
+    }
+
+    @Test
+    void playerIsDead_WhenLifeEqual0(){
+        orc.setHealth(-120);
         assertEquals(0, orc.getHealth());
         assertEquals(false, orc.isAlive());
     }

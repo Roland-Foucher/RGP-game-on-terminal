@@ -45,7 +45,7 @@ public class Perso {
         if (this.health > maxHealth) {
             this.health = maxHealth;
         }
-        if (this.health < 0) {
+        if (this.health <= 0) {
             this.isAlive = false;
             this.health = 0;
         }
@@ -62,6 +62,12 @@ public class Perso {
         if (this.mana <0){
             this.mana = 0;
         }
+    }
+
+    @Override
+    public String toString() {
+        return String.format("name : %s\npoints de vie : %s\npoints de mana: %s\narme: %s / degats arme : %s\n pouvoir magique :%s / degats pouvoir magique :%s / cout du pouvoir : %s\n ", 
+        this.name, this.health, this.mana, this.weapon, this.weaponAttack, this.manaPower, this.manaAttack, this.manaCost);
     }
 
     //getter
@@ -92,8 +98,10 @@ public class Perso {
     public int getWeaponAttack() {
         return weaponAttack;
     }
-        public int getMaxMana() {
-        return maxMana;
+
+    public int getMaxMana() {
+    return maxMana;
+
     }
 
     public int getMaxHealth() {
@@ -108,10 +116,7 @@ public class Perso {
         return isAlive;
     }
 
-    @Override
-    public String toString() {
-        return this.getName();
-    }
+
 
 
 

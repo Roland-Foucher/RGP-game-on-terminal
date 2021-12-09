@@ -28,7 +28,7 @@ public class KnigthTest {
         orc.weaponAttack(knight);
         knight.manaAttack(orc);
         assertEquals(110, orc.getHealth());
-        assertEquals(32, knight.getHealth());
+        assertEquals(30, knight.getHealth());
     }
     @Test
     void testManaProtected_After_Attack() {
@@ -36,7 +36,12 @@ public class KnigthTest {
         orc.weaponAttack(knight);
         
         assertEquals(110, orc.getHealth());
-        assertEquals(44, knight.getHealth());
+        assertEquals(50, knight.getHealth());
+    }
+    @Test
+    void testKnightIsDead(){
+        knight.setHealth(-2000);
+        assertEquals(false, knight.isAlive);
     }
 
 

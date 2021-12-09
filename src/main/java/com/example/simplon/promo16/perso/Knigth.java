@@ -5,7 +5,7 @@ package com.example.simplon.promo16.perso;
  */
 public class Knigth extends Perso {
 
-    private int armore = 20;
+    private int armore = 10;
 
     public Knigth() {
         this.name = "Chevalier";
@@ -28,7 +28,7 @@ public class Knigth extends Perso {
     public void setHealth(int attack) {
 
         if (attack<0){
-            this.health+= attack - attack*armore/100;
+            this.health+= attack + armore;
         }else{
             this.health += attack;
         }
@@ -37,7 +37,7 @@ public class Knigth extends Perso {
             this.health = maxHealth;
         }
         if (this.health < 0) {
-            System.out.println(this.getName() + " is dead");
+            this.isAlive = false;
             this.health = 0;
         }
     }
