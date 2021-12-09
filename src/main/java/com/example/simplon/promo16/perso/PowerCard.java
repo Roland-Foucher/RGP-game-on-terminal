@@ -25,7 +25,10 @@ public class PowerCard {
         return numberOfCard;
     }
 
-    public void playOneCard() {
+    private void playOneCard() {
         this.numberOfCard -= 1;
+        if (this.numberOfCard<=0){
+            this.numberOfCard = 0;
+        }
     }
 }
