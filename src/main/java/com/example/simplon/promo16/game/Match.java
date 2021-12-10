@@ -41,11 +41,15 @@ public class Match {
         personnageInitChoicePlayer2[3] = display.personnageChoice("quatrieme", playerNames[1], personnageInitChoicePlayer2);
         player2 = this.makePlayer(personnageInitChoicePlayer2[0], personnageInitChoicePlayer2[1], personnageInitChoicePlayer2[2], personnageInitChoicePlayer2[3], playerNames[1]);
         
-        while(!player1.playerLoose() || !player2.playerLoose()){
+        while(!player1.playerLoose() && !player2.playerLoose()){
             display.arena(player1, player2);
             this.playerTurn(player1, player2);
+            if (player2.playerLoose()){
+                return;
+            }
             display.arena(player1, player2);
             this.playerTurn(player2, player1);
+            
         }
         if (player1.playerLoose()){
             System.out.println(player2.getPlayerName() +  " win !!");
