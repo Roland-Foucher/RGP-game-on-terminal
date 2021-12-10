@@ -308,6 +308,7 @@ public class Display {
         while (!inputOk){
             try{
                 input = scanner.nextInt();
+                inputOk = true;
                 
             }catch(InputMismatchException e){
                 System.out.println("Entrée invalide !");
