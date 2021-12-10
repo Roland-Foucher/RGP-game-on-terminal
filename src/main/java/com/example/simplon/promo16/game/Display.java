@@ -1,6 +1,7 @@
 package com.example.simplon.promo16.game;
 
 import java.util.HashMap;
+import java.util.InputMismatchException;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -27,7 +28,7 @@ public class Display {
     
     
     /**
-     * First display of perso description. Next players choose names
+     * First display of perso description. Next players choose names (verify input not blank)
      * @return array of player's names to init players
      */
     public String[] init(){
@@ -70,7 +71,8 @@ public class Display {
         return playerNames;
     }
     /**
-     * Display the arena with all the perso's of player with health points and mana points
+     * Display the arena with all the perso's of player with health points and mana points.
+     * 
      * @param player1 player1 to display perso
      * @param player2 player2 to display perso
      */
@@ -149,12 +151,12 @@ public class Display {
 
             System.out.println("8 - description des perso");
         
-            inputValue = scanner.nextInt();
+            inputValue = this.userInput();
             // check if perso already choosen
             for (int i : personnageChoice) {
                 while (inputValue == i){
                     System.out.println("Le personnage a déjà été choisie");
-                    inputValue = scanner.nextInt();
+                    inputValue = this.userInput();
                 }
             }
 
@@ -168,7 +170,7 @@ public class Display {
                 System.out.println(necro);
                 System.out.println(orc);
                 System.out.println("tapez '0' pour continuer");
-                scanner.nextInt();
+                inputValue = this.userInput();
             }
         }while(!(inputValue > 0 && inputValue <8));
         
@@ -177,20 +179,28 @@ public class Display {
     }
     /**
      * On game, player choose his perso to play.
+     * take a skull if player dead
      * 
      * @param player player turn
      * @return id of perso selected (-1 to match the array)
      */
     public int playerChoosePersoToPlay(Player player){
+        Perso perso1 = player.getIndividualPlayerPerso(0);
+        Perso perso2 = player.getIndividualPlayerPerso(1);
+        Perso perso3 = player.getIndividualPlayerPerso(2);
+        Perso perso4 = player.getIndividualPlayerPerso(3);
+        
         int persoSelected = 0;
         do{
             persoSelected = 0;
-        System.out.println(player.getPlayerName() +  " choisissez votre personnage");
-        System.out.println("1 - " + player.getIndividualPlayerPerso(0).getName());
-        System.out.println("2 - " + player.getIndividualPlayerPerso(1).getName());
-        System.out.println("3 - " + player.getIndividualPlayerPerso(2).getName());
-        System.out.println("4 - " + player.getIndividualPlayerPerso(3).getName());
-        persoSelected = scanner.nextInt();
+            String name;
+            System.out.println(player.getPlayerName() +  " choisissez votre personnage");
+            System.out.println(name = perso1.isAlive() ? "1 - " + perso1.getName() : "1 - " + perso1.getName() + " 💀");
+            System.out.println(name = perso2.isAlive() ? "2 - " + perso2.getName() : "2 - " + perso2.getName() + " 💀");
+            System.out.println(name = perso3.isAlive() ? "3 - " + perso3.getName() : "3 - " + perso3.getName() + " 💀");
+            System.out.println(name = perso4.isAlive() ? "4 - " + perso4.getName() : "4 - " + perso4.getName() + " 💀");
+            
+            persoSelected  = this.userInput();
         }while(!(persoSelected>0 && persoSelected<5));
         return  (persoSelected) ;
 
@@ -210,7 +220,8 @@ public class Display {
             System.out.println("Que voulez vous faire : ");
             System.out.println("1 - Attack");
             System.out.println("2 - PowerCard");
-            optionSelected = scanner.nextInt();
+            optionSelected = this.userInput();
+            
             }while(optionSelected!=1 && optionSelected!=2);
 
         }else{
@@ -218,7 +229,7 @@ public class Display {
                 optionSelected = 0;
                 System.out.println("Que voulez vous faire : ");
                 System.out.println("1 - Attack");
-                optionSelected = scanner.nextInt();
+                optionSelected = this.userInput();
                 }while(optionSelected!=1);
         }
         return optionSelected;
@@ -237,10 +248,12 @@ public class Display {
             System.out.println("Quelle attack choississez vous ? ");
             System.out.println("1 - weapon");
             System.out.println("2 - mana");
-            attackSelected = scanner.nextInt();
+
+            attackSelected = this.userInput();
+
             while (attackSelected == 2 && perso.getManaCost()>perso.getMana()){
                 System.out.println("pas assez de mana pour attacker");
-                attackSelected = scanner.nextInt();
+                attackSelected = this.userInput();
             }
         }while(attackSelected!=1 && attackSelected!=2);
         return attackSelected;
@@ -262,7 +275,7 @@ public class Display {
             System.out.println("2 - " + player2.getIndividualPlayerPerso(1).getName());
             System.out.println("3 - " + player2.getIndividualPlayerPerso(2).getName());
             System.out.println("4 - " + player2.getIndividualPlayerPerso(3).getName());
-            persoEnemySelected = scanner.nextInt();
+            persoEnemySelected = this.userInput();
         }while(!(persoEnemySelected>0 && persoEnemySelected<5));
         return  persoEnemySelected ;
     }
@@ -278,18 +291,37 @@ public class Display {
             System.out.println("Quelle pouvoir de carte choississez vous ? ");
             System.out.println("1 - add health");
             System.out.println("2 - add mana");
-            optionCardSelected = scanner.nextInt();
+            optionCardSelected = this.userInput();
             
         }while(optionCardSelected!=1 && optionCardSelected!=2);
 
         return optionCardSelected;
     }
 
+    /**
+     * methode to check if the user input is an integer.
+     * @return integer input user OK
+     */
+    private int userInput(){
+        boolean inputOk = false;
+        int input = 0;
+        while (!inputOk){
+            try{
+                input = scanner.nextInt();
+                
+            }catch(InputMismatchException e){
+                System.out.println("Entrée invalide !");
+                scanner.next();
+            }
+        }
+        return input;
+    }
+
     // TODO : NE PAS POUVOIR SOIGNER OU AJOUTER MANA SI MAX
     // TODO : AFFICHER IS DEAD SI DEAD ET NE PAS POUVOIR SELECTIONNER
     // TODO debug mana necro
     // TODO Input mismatch exception (nextint)
-    // TODO make loops whith perso make a getter of the list?
+    // 
 
 
 }
