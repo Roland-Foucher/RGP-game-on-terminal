@@ -139,12 +139,24 @@ public class playerTest {
     void attackOption_chooseManaAttack(){
         player1.attackOption(1, 2, 1, player2);
         assertEquals(80, player2.getIndividualPlayerPerso(0).getHealth());
+        assertEquals(40, player1.getIndividualPlayerPerso(0).getMana());
+        player1.attackOption(2, 2, 2, player2);
+        assertEquals(80, player2.getIndividualPlayerPerso(1).getHealth());
+        assertEquals(30, player1.getIndividualPlayerPerso(1).getMana());
     }
 
     @Test
     void attackOption_invalidAttackNumber(){
         player1.attackOption(1, 4, 1, player2);
         assertEquals(120, player2.getIndividualPlayerPerso(0).getHealth());
+    }
+
+    @Test
+    void attackOption_ChooseManaAttackNecro(){
+        player1.getIndividualPlayerPerso(0).setHealth(-200);
+        player1.attackOption(3, 2, 1, player2);
+        assertEquals(60, player1.getIndividualPlayerPerso(0).getHealth());
+        
     }
 
 

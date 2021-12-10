@@ -64,17 +64,24 @@ public class Match {
      */
     public void playerTurn(Player playerTurn , Player playerAdvers){
 
-        int persoSelected = display.playerChoosePerso(playerTurn);
-        int playerChooseWhatToDo = display.playerChooseWhatToDo(playerTurn);
+        int persoSelectedID = display.playerChoosePersoToPlay(playerTurn);
+        int playerChooseAttackOrCardID = display.playerChooseAttackOrCard(playerTurn);
+        Perso persoSelected = playerTurn.getIndividualPlayerPerso(persoSelectedID-1);
 
-        if (playerChooseWhatToDo == 1){
-            int playerChooseAttack = display.playerChooseAttack(playerTurn, playerTurn.getIndividualPlayerPerso(persoSelected));
-            int playerChooseAdversToAttack = display.playerChooseAdversToAttack(playerTurn, playerAdvers);
-            player1.attackOption(persoSelected, playerChooseAttack, playerChooseAdversToAttack, playerAdvers);
+        if (playerChooseAttackOrCardID == 1){
+            int playerAttack = display.playerChooseAttack(persoSelected);
+            if (persoSelected.getClass() == Necromancer.class){
+                int selfPersoToMakeAlive = display.playerChoosePersoToPlay(playerTurn);
+                playerTurn.attackOption(persoSelectedID, playerAttack, selfPersoToMakeAlive, playerAdvers);
+            }else{
+                int playerAdversToAttack = display.playerChooseAdversToAttack(playerTurn, playerAdvers);
+                playerTurn.attackOption(persoSelectedID, playerAttack, playerAdversToAttack, playerAdvers);
+            }
+            
 
-        }else if (playerChooseWhatToDo == 2){
-            int playerChooseCardOption = display.playerChooseCardOption();
-            player1.chooseCardOption(playerChooseCardOption, persoSelected);
+        }else if (playerChooseAttackOrCardID == 2){
+            int playerChooseCardOptionID = display.playerChooseCardOption();
+            player1.chooseCardOption(playerChooseCardOptionID, persoSelectedID);
 
         }else{
             System.out.println("error in the choose attack");

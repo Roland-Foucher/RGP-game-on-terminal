@@ -26,7 +26,10 @@ public class Display {
     private Perso orc = new Orc();
     
     
-
+    /**
+     * First display of perso description. Next players choose names
+     * @return array of player's names to init players
+     */
     public String[] init(){
         String[] playerNames = new String[2];
         String player1 ="";
@@ -66,7 +69,11 @@ public class Display {
         playerNames[1] = player2;
         return playerNames;
     }
-
+    /**
+     * Display the arena with all the perso's of player with health points and mana points
+     * @param player1 player1 to display perso
+     * @param player2 player2 to display perso
+     */
     public void arena(Player player1, Player player2){
 
         System.out.println();
@@ -102,6 +109,12 @@ public class Display {
             System.out.println();
         }
     }
+
+    /**
+     * Methode to display the names and caracteristiques of perso into the area.
+     * @param text1 param to display of player 1
+     * @param text2 param ot display of player 2
+     */
     private void displayTextInArena(String text1, String text2){
         System.out.print(text1);
         for (int i = 0; i < 72-text1.length()-text2.length(); i++) {
@@ -110,9 +123,15 @@ public class Display {
         System.out.print(text2);
         System.out.println();
     }
-   
     
-
+    /**
+     * Display the differents perso to choose and return the id of perso choosen.
+     * The player can't choose the same perso two times
+     * @param timeToChoosePerso the turn of choose (1 to 4)
+     * @param player player turn to choose perso
+     * @param personnageChoice array of ids selected before
+     * @return the id of perso selected
+     */
     public int personnageChoice(String timeToChoosePerso, String player, int[] personnageChoice){
         int inputValue;
         HashMap <Integer, String> persos = new HashMap<>(Map.of(1,  "1 - Orc", 2, "2 - Knight", 3, "3 - Assassin", 4, "4 - Druide ", 5, "5 - Elfe", 6, "6 - Magician", 7, "7 - Necromancien"));
@@ -156,8 +175,13 @@ public class Display {
         return inputValue;
         
     }
-
-    public int playerChoosePerso(Player player){
+    /**
+     * On game, player choose his perso to play.
+     * 
+     * @param player player turn
+     * @return id of perso selected (-1 to match the array)
+     */
+    public int playerChoosePersoToPlay(Player player){
         int persoSelected = 0;
         do{
             persoSelected = 0;
@@ -168,11 +192,17 @@ public class Display {
         System.out.println("4 - " + player.getIndividualPlayerPerso(3).getName());
         persoSelected = scanner.nextInt();
         }while(!(persoSelected>0 && persoSelected<5));
-        return  persoSelected ;
+        return  (persoSelected) ;
 
     }
 
-    public int playerChooseWhatToDo(Player player){
+    /**
+     * After choose perso, player choose Attack option or Card option
+     * If player don't have any card, don't display et can't select card
+     * @param player player turn
+     * @return id of the option selected (1 = attack / 2 = Card)
+     */
+    public int playerChooseAttackOrCard(Player player){
         int optionSelected = 0;
         if (player.getNumberOfCardPlayer()>0){
             do{
@@ -181,7 +211,7 @@ public class Display {
             System.out.println("1 - Attack");
             System.out.println("2 - PowerCard");
             optionSelected = scanner.nextInt();
-            }while(!(optionSelected>0 && optionSelected<3));
+            }while(optionSelected!=1 && optionSelected!=2);
 
         }else{
             do{
@@ -189,12 +219,18 @@ public class Display {
                 System.out.println("Que voulez vous faire : ");
                 System.out.println("1 - Attack");
                 optionSelected = scanner.nextInt();
-                }while(!(optionSelected>0 && optionSelected<2));
+                }while(optionSelected!=1);
         }
         return optionSelected;
     }
 
-    public int playerChooseAttack(Player player, Perso perso){
+    /**
+     * If player choose Attack : choice to choose between mana or weapon.
+     * If perso don't have anougth mana, can't choice mana.
+     * @param perso choosen
+     * @return id of the choice selected (1 = weapon / 2 - mana)
+     */
+    public int playerChooseAttack(Perso perso){
         int attackSelected = 0;
         do{
             attackSelected = 0;
@@ -210,6 +246,12 @@ public class Display {
         return attackSelected;
     }
 
+    /**
+     * 
+     * @param player1
+     * @param player2
+     * @return
+     */
     public int playerChooseAdversToAttack(Player player1, Player player2){
         
         int persoEnemySelected = 0;
@@ -225,6 +267,10 @@ public class Display {
         return  persoEnemySelected ;
     }
 
+    /**
+     * 
+     * @return
+     */
     public int playerChooseCardOption(){
         int optionCardSelected = 0;
         do{
@@ -241,9 +287,9 @@ public class Display {
 
     // TODO : NE PAS POUVOIR SOIGNER OU AJOUTER MANA SI MAX
     // TODO : AFFICHER IS DEAD SI DEAD ET NE PAS POUVOIR SELECTIONNER
-    // TODO debug perso 4 crash
     // TODO debug mana necro
-    // TODO Input mismatch exception
+    // TODO Input mismatch exception (nextint)
+    // TODO make loops whith perso make a getter of the list?
 
 
 }

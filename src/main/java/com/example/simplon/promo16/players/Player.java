@@ -70,19 +70,16 @@ public class Player {
         // take perso list to a variable and check is alive
         Perso persoPlayerTurn = this.getIndividualPlayerPerso(persoAttack);
         Perso persoPlayerAgainst = playerAgainst.getIndividualPlayerPerso(persoToAttack);
-        if (!persoPlayerTurn.isAlive()){
-            System.out.println("error = this perso is dead !");
-            return;
-        }
-        if (!persoPlayerAgainst.isAlive()){
-            System.out.println("error = this perso is dead !");
-            return;
-        }
+        
        
        
         //switch choices and check option
         switch (choiceAttach){
             case 1 :
+            if (!persoPlayerTurn.isAlive()){
+                System.out.println("error = this perso is dead !");
+                return;
+            }
                 persoPlayerTurn.weaponAttack(persoPlayerAgainst);
                 break;
             case 2 :
