@@ -1,7 +1,7 @@
 package com.example.simplon.promo16.perso;
 
 /**
- * Class principal des personnages avec methodes globales
+ * Main class of perso
  */
 public class Perso {
 
@@ -63,7 +63,9 @@ public class Perso {
             this.mana = 0;
         }
     }
-
+    /**
+     * Display all power of perso
+     */
     @Override
     public String toString() {
         return String.format("name : %s\npoints de vie : %s\npoints de mana: %s\narme: %s / degats arme : %s\n pouvoir magique :%s / degats pouvoir magique :%s / cout du pouvoir : %s\n ", 

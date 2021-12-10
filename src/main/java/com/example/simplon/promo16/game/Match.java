@@ -13,30 +13,38 @@ import com.example.simplon.promo16.players.Player;
 public class Match {
     private Player player1;
     private Player player2;
-    private int personnageInitChoice[] = new int[4];
+    
     Display display = new Display();
     
-
+    /**
+     * methode to run the game while a player loose
+     * first players select personnages
+     * next players attack one by one
+     */
     public void runProgramme(){
         
         
-        display.init();
+        String[] playerNames = display.init();
+        int personnageInitChoicePlayer1[] = new int[4];
         
         //choose personnages
-        personnageInitChoice[0] = display.personnageChoice("premier", "player1");
-        personnageInitChoice[1] = display.personnageChoice("second", "player1");
-        personnageInitChoice[2] = display.personnageChoice("troisieme", "player1");
-        personnageInitChoice[3] = display.personnageChoice("quatrieme", "player1");
-        player1 = this.makePlayer(personnageInitChoice[0], personnageInitChoice[1], personnageInitChoice[2], personnageInitChoice[3], "Player1");
+        personnageInitChoicePlayer1[0] = display.personnageChoice("premier", playerNames[0], personnageInitChoicePlayer1);
+        personnageInitChoicePlayer1[1] = display.personnageChoice("second", playerNames[0], personnageInitChoicePlayer1);
+        personnageInitChoicePlayer1[2] = display.personnageChoice("troisieme", playerNames[0], personnageInitChoicePlayer1);
+        personnageInitChoicePlayer1[3] = display.personnageChoice("quatrieme", playerNames[0], personnageInitChoicePlayer1);
+        player1 = this.makePlayer(personnageInitChoicePlayer1[0], personnageInitChoicePlayer1[1], personnageInitChoicePlayer1[2], personnageInitChoicePlayer1[3], playerNames[0]);
         
-        personnageInitChoice[0] = display.personnageChoice("premier", "player2");
-        personnageInitChoice[1] = display.personnageChoice("second", "player2");
-        personnageInitChoice[2] = display.personnageChoice("troisieme", "player2");
-        personnageInitChoice[3] = display.personnageChoice("quatrieme", "player2");
-        player2 = this.makePlayer(personnageInitChoice[0], personnageInitChoice[1], personnageInitChoice[2], personnageInitChoice[3], "Player2");
+        int personnageInitChoicePlayer2[] = new int[4];
+        personnageInitChoicePlayer2[0] = display.personnageChoice("premier", playerNames[1], personnageInitChoicePlayer2);
+        personnageInitChoicePlayer2[1] = display.personnageChoice("second", playerNames[1], personnageInitChoicePlayer2);
+        personnageInitChoicePlayer2[2] = display.personnageChoice("troisieme", playerNames[1], personnageInitChoicePlayer2);
+        personnageInitChoicePlayer2[3] = display.personnageChoice("quatrieme", playerNames[1], personnageInitChoicePlayer2);
+        player2 = this.makePlayer(personnageInitChoicePlayer2[0], personnageInitChoicePlayer2[1], personnageInitChoicePlayer2[2], personnageInitChoicePlayer2[3], playerNames[1]);
         
         while(!player1.playerLoose() || !player2.playerLoose()){
+            display.arena(player1, player2);
             this.playerTurn(player1, player2);
+            display.arena(player1, player2);
             this.playerTurn(player2, player1);
         }
         if (player1.playerLoose()){
@@ -45,26 +53,34 @@ public class Match {
             System.out.println(player1.getPlayerName() +  " win!!");
         }
 
-
-
     }
    
+    /**
+     * Methode to choose card option or Attack
+     * if player choose 1 : weapon
+     * if player choose 2 : card
+     * @param playerTurn player is turn to play
+     * @param playerAdvers player to attack
+     */
     public void playerTurn(Player playerTurn , Player playerAdvers){
 
         int persoSelected = display.playerChoosePerso(playerTurn);
         int playerChooseWhatToDo = display.playerChooseWhatToDo(playerTurn);
-            if (playerChooseWhatToDo == 1){
-                int playerChooseAttack = display.playerChooseAttack(playerTurn, playerTurn.getIndividualPlayerPerso(persoSelected));
-                int playerChooseAdversToAttack = display.playerChooseAdversToAttack(playerAdvers);
-                player1.attackOption(persoSelected, playerChooseAttack, playerChooseAdversToAttack, playerAdvers);
-            }else if (playerChooseWhatToDo == 2){
 
-                int playerChooseCardOption = display.playerChooseCardOption();
-                player1.chooseCardOption(playerChooseCardOption, persoSelected);
-            }else{
-                System.out.println("error in the choose attack");
-            }
+        if (playerChooseWhatToDo == 1){
+            int playerChooseAttack = display.playerChooseAttack(playerTurn, playerTurn.getIndividualPlayerPerso(persoSelected));
+            int playerChooseAdversToAttack = display.playerChooseAdversToAttack(playerTurn, playerAdvers);
+            player1.attackOption(persoSelected, playerChooseAttack, playerChooseAdversToAttack, playerAdvers);
+
+        }else if (playerChooseWhatToDo == 2){
+            int playerChooseCardOption = display.playerChooseCardOption();
+            player1.chooseCardOption(playerChooseCardOption, persoSelected);
+
+        }else{
+            System.out.println("error in the choose attack");
+        }
     }
+
     /**
      * make a player with the choose of user
      * @param userChoosePerso1 int choose by user for perso one
