@@ -22,25 +22,26 @@ public class Match {
      * next players attack one by one
      */
     public void runProgramme(){
-        
-        
+        String timeToChoosePerso[] = {"premier", "second", "troisiéme", "quatrième"};
+
+        // init return names of players
         String[] playerNames = display.init();
+       
+        //choose personnages for player 1
         int personnageInitChoicePlayer1[] = new int[4];
-        
-        //choose personnages
-        personnageInitChoicePlayer1[0] = display.personnageChoice("premier", playerNames[0], personnageInitChoicePlayer1);
-        personnageInitChoicePlayer1[1] = display.personnageChoice("second", playerNames[0], personnageInitChoicePlayer1);
-        personnageInitChoicePlayer1[2] = display.personnageChoice("troisieme", playerNames[0], personnageInitChoicePlayer1);
-        personnageInitChoicePlayer1[3] = display.personnageChoice("quatrieme", playerNames[0], personnageInitChoicePlayer1);
+        for (int i = 0; i < 4; i++) {
+            personnageInitChoicePlayer1[i] = display.personnageChoice(timeToChoosePerso[i], playerNames[0], personnageInitChoicePlayer1);
+        } 
         player1 = this.makePlayer(personnageInitChoicePlayer1[0], personnageInitChoicePlayer1[1], personnageInitChoicePlayer1[2], personnageInitChoicePlayer1[3], playerNames[0]);
         
+        //choose personnages for player 2
         int personnageInitChoicePlayer2[] = new int[4];
-        personnageInitChoicePlayer2[0] = display.personnageChoice("premier", playerNames[1], personnageInitChoicePlayer2);
-        personnageInitChoicePlayer2[1] = display.personnageChoice("second", playerNames[1], personnageInitChoicePlayer2);
-        personnageInitChoicePlayer2[2] = display.personnageChoice("troisieme", playerNames[1], personnageInitChoicePlayer2);
-        personnageInitChoicePlayer2[3] = display.personnageChoice("quatrieme", playerNames[1], personnageInitChoicePlayer2);
+        for (int i = 0; i < 4; i++) {
+            personnageInitChoicePlayer2[i] = display.personnageChoice(timeToChoosePerso[i], playerNames[1], personnageInitChoicePlayer2);
+        } 
         player2 = this.makePlayer(personnageInitChoicePlayer2[0], personnageInitChoicePlayer2[1], personnageInitChoicePlayer2[2], personnageInitChoicePlayer2[3], playerNames[1]);
         
+        //players fight one by one until one of them loose
         while(!player1.playerLoose() && !player2.playerLoose()){
             display.arena(player1, player2);
             this.playerTurn(player1, player2);
@@ -51,12 +52,13 @@ public class Match {
             this.playerTurn(player2, player1);
             
         }
+        // end of game
         if (player1.playerLoose()){
             System.out.println(player2.getPlayerName() +  " win !!");
         }else{
             System.out.println(player1.getPlayerName() +  " win!!");
         }
-
+        //TODO faire un rejouer?
     }
    
     /**
@@ -67,11 +69,12 @@ public class Match {
      * @param playerAdvers player to attack
      */
     public void playerTurn(Player playerTurn , Player playerAdvers){
-
+    
         int persoSelectedID = display.playerChoosePersoToPlay(playerTurn);
         int playerChooseAttackOrCardID = display.playerChooseAttackOrCard(playerTurn);
         Perso persoSelected = playerTurn.getIndividualPlayerPerso(persoSelectedID-1);
 
+        // attack is choose
         if (playerChooseAttackOrCardID == 1){
             int playerAttack = display.playerChooseAttack(persoSelected);
             if (persoSelected.getClass() == Necromancer.class){
@@ -82,11 +85,12 @@ public class Match {
                 playerTurn.attackOption(persoSelectedID, playerAttack, playerAdversToAttack, playerAdvers);
             }
             
-
+        //card is choose
         }else if (playerChooseAttackOrCardID == 2){
             int playerChooseCardOptionID = display.playerChooseCardOption();
             player1.chooseCardOption(playerChooseCardOptionID, persoSelectedID);
-
+        
+        // error
         }else{
             System.out.println("error in the choose attack");
         }
@@ -111,13 +115,13 @@ public class Match {
     }
    
      /**
-     * choose a perso with int to add to player
+     * choose a perso with int ID to add to player
      * @param persoChoosen number choose by user
      * @return perso to add to player
      */
-    public Perso choosePerso(int persoChoosen){
+    public Perso choosePerso(int persoChoosenID){
         Perso perso = null;
-        switch (persoChoosen){
+        switch (persoChoosenID){
             case 1 :
                 perso = new Orc();
                 break;
