@@ -34,7 +34,7 @@ public class Perso {
         this.setMana(-this.getManaCost());
     }
 
-        /**
+    /**
      * give or substract health to perso, can't have more than default health on init. Health = 0 => perso is dead
      * @param attack the num for change health
      */
@@ -52,7 +52,7 @@ public class Perso {
     }
     /**
      * give or substract mana to perso, can't have more than default mana on init and less than 0.
-     * @param manaNumber
+     * @param manaNumber the num to change mana
      */
     public void setMana(int manaNumber) {
         this.mana += manaNumber;
@@ -73,16 +73,24 @@ public class Perso {
     }
 
     //getter
+
+    /**
+     * if player is dead display name with a skull
+     * @return name of player
+     */
     public String getName() {
-        return name;
+        String nameIfDead;
+        return nameIfDead = this.isAlive ? name : name + " 💀";
     }
 
     public String getWeapon() {
-        return weapon;
+        String weaponDecription = this.weapon + " - Degats : " + this.weaponAttack;
+        return weaponDecription;
     }
 
     public String getManaPower() {
-        return manaPower;
+        String manaPowerDescription = this.manaPower + " - Degat : " + this.manaAttack + " - cout " + this.manaCost; 
+        return manaPowerDescription;
     }
 
     public int getHealth() {

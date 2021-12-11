@@ -74,5 +74,19 @@ public class PersoTest {
         assertEquals(0, orc.getMana());
     }
 
+    @Test
+    void testDisplayPerso_WhenPersoIsAlive(){
+        assertEquals("Orc", orc.getName());
+    }
+
+    @Test
+    void testDisplayPerso_WhenPersoIsDead(){
+        orc.setHealth(-200);
+        assertEquals("Orc 💀", orc.getName());
+        assertEquals("Orc 💀", orc.getName());
+        assertEquals("Orc 💀", orc.getName());
+        
+    }
+
 
 }
