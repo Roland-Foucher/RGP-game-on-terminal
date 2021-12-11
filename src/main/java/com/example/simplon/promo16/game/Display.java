@@ -54,7 +54,6 @@ public class Display {
         do{
         inputValue = scanner.nextLine();
         }while(!inputValue.equals("ok"));
-        
 
         do{
             System.out.println("choissir le nom du player 1");
@@ -85,25 +84,16 @@ public class Display {
 
         for (int i = 0; i < 24; i++) {
             if (i == 3){
-                displayTextInArena(player1.getIndividualPlayerPerso(0).getName(), player2.getIndividualPlayerPerso(0).getName());
-                displayTextInArena("Health : " + ((Integer)player1.getIndividualPlayerPerso(0).getHealth()).toString(), "Health : "+((Integer)player2.getIndividualPlayerPerso(0).getHealth()).toString());
-                displayTextInArena("Mana : " + ((Integer)player1.getIndividualPlayerPerso(0).getMana()).toString(), "Mana : "+((Integer)player2.getIndividualPlayerPerso(0).getMana()).toString());
-                
+                displayPersoCharacteristicsInArena(player1, player2, 0);    
             }
             if (i == 9){
-                displayTextInArena(player1.getIndividualPlayerPerso(1).getName(), player2.getIndividualPlayerPerso(1).getName());
-                displayTextInArena("Health : " + ((Integer)player1.getIndividualPlayerPerso(1).getHealth()).toString(), "Health : "+((Integer)player2.getIndividualPlayerPerso(1).getHealth()).toString());
-                displayTextInArena("Mana : " + ((Integer)player1.getIndividualPlayerPerso(1).getMana()).toString(), "Mana : "+((Integer)player2.getIndividualPlayerPerso(1).getMana()).toString());
+               displayPersoCharacteristicsInArena(player1, player2, 1);
             }
             if (i == 15){
-                displayTextInArena(player1.getIndividualPlayerPerso(2).getName(), player2.getIndividualPlayerPerso(2).getName());
-                displayTextInArena("Health : " + ((Integer)player1.getIndividualPlayerPerso(2).getHealth()).toString(), "Health : "+((Integer)player2.getIndividualPlayerPerso(2).getHealth()).toString());
-                displayTextInArena("Mana : " + ((Integer)player1.getIndividualPlayerPerso(2).getMana()).toString(), "Mana : "+((Integer)player2.getIndividualPlayerPerso(2).getMana()).toString());
+                displayPersoCharacteristicsInArena(player1, player2, 2);
             }
             if (i == 21){
-                displayTextInArena(player1.getIndividualPlayerPerso(3).getName(), player2.getIndividualPlayerPerso(3).getName());
-                displayTextInArena("Health : " + ((Integer)player1.getIndividualPlayerPerso(3).getHealth()).toString(), "Health : "+((Integer)player2.getIndividualPlayerPerso(3).getHealth()).toString());
-                displayTextInArena("Mana : " + ((Integer)player1.getIndividualPlayerPerso(3).getMana()).toString(), "Mana : "+((Integer)player2.getIndividualPlayerPerso(3).getMana()).toString());
+                displayPersoCharacteristicsInArena(player1, player2, 3);
             }
             for (int j = 0; j < 72; j++) {
                 System.out.print("-");
@@ -113,17 +103,34 @@ public class Display {
     }
 
     /**
-     * Methode to display the names and caracteristiques of perso into the area.
+     * Methode to display a text line into the area.
      * @param text1 param to display of player 1
      * @param text2 param ot display of player 2
      */
-    private void displayTextInArena(String text1, String text2){
+    public void displayTextInArena(String text1, String text2){
         System.out.print(text1);
         for (int i = 0; i < 72-text1.length()-text2.length(); i++) {
             System.out.print(" ");
         }
         System.out.print(text2);
         System.out.println();
+    }
+    /**
+     * Display the characteristiques of the current perso to display into the Arena
+     * @param player1
+     * @param player2
+     * @param persoID
+     */
+    public void displayPersoCharacteristicsInArena(Player player1, Player player2, int persoID){
+        Perso persoPlayer1 = player1.getIndividualPlayerPerso(persoID);
+        Perso persoPlayer2 = player2.getIndividualPlayerPerso(persoID);
+        
+        
+        displayTextInArena(persoPlayer1.getName(), persoPlayer2.getName());
+        displayTextInArena( "Health : " + ((Integer)persoPlayer1.getHealth()).toString(), 
+                            "Health : " + ((Integer)persoPlayer2.getHealth()).toString());
+        displayTextInArena( "Mana : " + ((Integer)persoPlayer1.getMana()).toString(), 
+                            "Mana : "+((Integer)persoPlayer2.getMana()).toString());
     }
     
     /**
@@ -189,16 +196,17 @@ public class Display {
         Perso perso2 = player.getIndividualPlayerPerso(1);
         Perso perso3 = player.getIndividualPlayerPerso(2);
         Perso perso4 = player.getIndividualPlayerPerso(3);
+        Perso[] persos = {perso1, perso2, perso3, perso4};
         
         int persoSelected = 0;
         do{
             persoSelected = 0;
             String name;
             System.out.println(player.getPlayerName() +  " choisissez votre personnage");
-            System.out.println(name = perso1.isAlive() ? "1 - " + perso1.getName() : "1 - " + perso1.getName() + " 💀");
-            System.out.println(name = perso2.isAlive() ? "2 - " + perso2.getName() : "2 - " + perso2.getName() + " 💀");
-            System.out.println(name = perso3.isAlive() ? "3 - " + perso3.getName() : "3 - " + perso3.getName() + " 💀");
-            System.out.println(name = perso4.isAlive() ? "4 - " + perso4.getName() : "4 - " + perso4.getName() + " 💀");
+
+            for (int i = 0; i < persos.length; i++) {
+                System.out.println((i+1) + " - " +  persos[i].getName());
+            }
             
             persoSelected  = this.userInput();
         }while(!(persoSelected>0 && persoSelected<5));
@@ -271,12 +279,15 @@ public class Display {
         do{
             persoEnemySelected = 0;
             System.out.println(player1.getPlayerName() + " choisissez le personnage à attaquer");
-            System.out.println("1 - " + player2.getIndividualPlayerPerso(0).getName());
-            System.out.println("2 - " + player2.getIndividualPlayerPerso(1).getName());
-            System.out.println("3 - " + player2.getIndividualPlayerPerso(2).getName());
-            System.out.println("4 - " + player2.getIndividualPlayerPerso(3).getName());
+
+            for (int i = 0; i < 4; i++) {
+                System.out.println((i+1) + " - " + player2.getIndividualPlayerPerso(i).getName());
+            }
+
             persoEnemySelected = this.userInput();
+
         }while(!(persoEnemySelected>0 && persoEnemySelected<5));
+
         return  persoEnemySelected ;
     }
 
@@ -302,7 +313,7 @@ public class Display {
      * methode to check if the user input is an integer.
      * @return integer input user OK
      */
-    private int userInput(){
+    public int userInput(){
         boolean inputOk = false;
         int input = 0;
         while (!inputOk){
@@ -318,10 +329,9 @@ public class Display {
         return input;
     }
 
+
     // TODO : NE PAS POUVOIR SOIGNER OU AJOUTER MANA SI MAX
     // TODO : AFFICHER IS DEAD SI DEAD ET NE PAS POUVOIR SELECTIONNER
-    // TODO debug mana necro
-    // TODO Input mismatch exception (nextint)
     // 
 
 
