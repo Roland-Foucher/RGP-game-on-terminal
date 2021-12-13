@@ -1,6 +1,8 @@
 package com.example.simplon.promo16.game;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import java.io.ByteArrayInputStream;
 
@@ -10,18 +12,23 @@ import com.example.simplon.promo16.players.Player;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 public class MatchTest {
     Match match;
-
-
+    Display display;
+    Player player1;
+    Player player2;
     
+
 
     @BeforeEach
     public void init(){
-        match = new Match();
+        match = mock(Match.class);
+        display = mock(Display.class);
+        player1 = mock(Player.class);
+        player2 = mock (Player.class);
+        
     }
     @AfterEach
     public void restoreStreams() {
@@ -33,7 +40,7 @@ public class MatchTest {
         Perso perso1 = match.choosePerso(1);
         assertEquals("Orc", perso1.getName());
         Perso perso2 = match.choosePerso(2);
-        assertEquals("Chevalier", perso2.getName());
+        assertEquals("Chevalier armure : 10", perso2.getName());
         Perso perso3 = match.choosePerso(7);
         assertEquals("Necromancer", perso3.getName());
     }
@@ -46,21 +53,16 @@ public class MatchTest {
         assertEquals("Druide", player.getIndividualPlayerPerso(3).getName());
         assertEquals("Player1", player.getPlayerName());
     }
-
-    @Disabled
     @Test
-    void testPlayerTurnAttackOption() {
-        System.setIn(new ByteArrayInputStream("1\n1\n1\n1\n".getBytes()));
-        Player player1 = match.makePlayer(1, 2, 3, 4, "Player1");
-        Player player2 = match.makePlayer(1, 2, 3, 4, "Player1");
-        match.playerTurn(player1, player2);
+    void runProgrammePlayer1Loose(){
+        when(match.personnageInitChoice("player1")).thenReturn(player1);
+        when(match.personnageInitChoice("player2")).thenReturn(player2);
+        when(player1.playerLoose()).thenReturn(true);
         
-        
-        assertEquals(0, player2.getIndividualPlayerPerso(0).getHealth());
+
     }
 
-    @Test
-    void testRunProgramme() {
 
-    }
+
+
 }

@@ -6,7 +6,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 
@@ -49,25 +48,35 @@ public class PersoTest {
             assertEquals(40, orc.getMana());
         }
     }
-    
-        @Test // health ne depasse pas maxHealth
+
+    @Nested
+    @DisplayName("Test don't have more or less mana and health than max values")
+    class testMaxValues{
+
+        @DisplayName("health no more than maxHealth")
+        @Test
         void given_MoreThanMaxHealth_Then_HealthIsMaxHealth(){
             orc.setHealth(20);
             assertEquals(120, orc.getHealth());
         }
 
-        @Test // mana ne depasse pas maxMana
+        @DisplayName("mana no more than maxMana")
+        @Test // 
         void given_MoreThanMaxMana_Then_ManaIsMaxMana(){
             orc.setMana(20);
             assertEquals(60, orc.getMana());
         }
 
-        @Test // mana n'est pas negatif
+        @DisplayName("mana can't be negative")
+        @Test 
         void given_LessThan0Mana_Then_ManaIs0(){
             orc.setMana(-100);
             assertEquals(0, orc.getMana());
         }
+    }
     
+    @Nested
+    class persoIsDead{
         @Test
         void playerIsDead_whenLifeLessThan0(){
             orc.setHealth(-200);
@@ -81,8 +90,6 @@ public class PersoTest {
             assertEquals(0, orc.getHealth());
             assertEquals(false, orc.isAlive());
         }
-
-
  
         @Test
         void testDisplayPerso_WhenPersoIsAlive(){
@@ -97,6 +104,7 @@ public class PersoTest {
             assertEquals("Orc 💀", orc.getName());
             
         }
+    }
 
 
 }

@@ -22,24 +22,14 @@ public class Match {
      * next players attack one by one
      */
     public void runProgramme(){
-        String timeToChoosePerso[] = {"premier", "second", "troisiéme", "quatrième"};
+        
 
         // init return names of players
         String[] playerNames = display.init();
        
-        //choose personnages for player 1
-        int personnageInitChoicePlayer1[] = new int[4];
-        for (int i = 0; i < 4; i++) {
-            personnageInitChoicePlayer1[i] = display.personnageChoice(timeToChoosePerso[i], playerNames[0], personnageInitChoicePlayer1);
-        } 
-        player1 = this.makePlayer(personnageInitChoicePlayer1[0], personnageInitChoicePlayer1[1], personnageInitChoicePlayer1[2], personnageInitChoicePlayer1[3], playerNames[0]);
         
-        //choose personnages for player 2
-        int personnageInitChoicePlayer2[] = new int[4];
-        for (int i = 0; i < 4; i++) {
-            personnageInitChoicePlayer2[i] = display.personnageChoice(timeToChoosePerso[i], playerNames[1], personnageInitChoicePlayer2);
-        } 
-        player2 = this.makePlayer(personnageInitChoicePlayer2[0], personnageInitChoicePlayer2[1], personnageInitChoicePlayer2[2], personnageInitChoicePlayer2[3], playerNames[1]);
+        player1 = this.personnageInitChoice(playerNames[0]);
+        player2 = this.personnageInitChoice(playerNames[1]);
         
         //players fight one by one until one of them loose
         while(!player1.playerLoose() && !player2.playerLoose()){
@@ -50,16 +40,14 @@ public class Match {
             }
             display.arena(player1, player2);
             this.playerTurn(player2, player1);
-            
         }
+
         // end of game
         if (player1.playerLoose()){
             System.out.println(player2.getPlayerName() +  " win !!");
         }else{
             System.out.println(player1.getPlayerName() +  " win!!");
         }
-        //TODO faire un rejouer?
-
     }
    
     /**
@@ -71,44 +59,15 @@ public class Match {
      */
     public void playerTurn(Player playerTurn , Player playerAdvers){
     
-        int persoSelectedID = display.playerChoosePersoToPlay(playerTurn);
+        int persoSelectedID = this.playerSelectHisPerso(playerTurn);
         Perso persoSelected = playerTurn.getIndividualPlayerPerso(persoSelectedID-1);
-
-        // check if perso is dead
-        while (!persoSelected.isAlive()){
-            System.out.println("Ce perso est mort! Choisir un autre perso.");
-            persoSelectedID = display.playerChoosePersoToPlay(playerTurn);
-            persoSelected = playerTurn.getIndividualPlayerPerso(persoSelectedID-1);
-        }
         
-        int playerChooseAttackOrCardID = display.playerChooseAttackOrCard(playerTurn);
-
-        // don't select card if health and mana are max
-        while(playerChooseAttackOrCardID == 2 && persoSelected.getMana() == persoSelected.getMaxMana() && persoSelected.getHealth() == persoSelected.getMaxHealth()){
-            System.out.println("Ce perso est déjà au max de ses capacités !");
-            playerChooseAttackOrCardID = display.playerChooseAttackOrCard(playerTurn);
-        }
-        
+        int playerChooseAttackOrCardID = this.playerChooseBetweenAttackOrCard(playerTurn, persoSelected);
 
         // attack is choose
         if (playerChooseAttackOrCardID == 1){
-            int playerAttack = display.playerChooseAttack(persoSelected);
-            if (persoSelected.getClass() == Necromancer.class){
-                int selfPersoToMakeAlive = display.playerChoosePersoToPlay(playerTurn);
-                playerTurn.attackOption(persoSelectedID, playerAttack, selfPersoToMakeAlive, playerAdvers);
-            }else{
-                int playerAdversToAttack = display.playerChooseAdversToAttack(playerTurn, playerAdvers);
-                Perso persoToAttack = playerAdvers.getIndividualPlayerPerso(playerAdversToAttack-1);
+            this.attackIsChoosen(playerTurn, playerAdvers, persoSelected, persoSelectedID);
 
-                // check if perso Advers is dead
-                while(!persoToAttack.isAlive()){
-                    System.out.println("Ce perso est mort! Choisir un autre perso.");
-                    playerAdversToAttack = display.playerChooseAdversToAttack(playerTurn, playerAdvers);
-                    persoToAttack = playerAdvers.getIndividualPlayerPerso(playerAdversToAttack-1);
-                }
-                playerTurn.attackOption(persoSelectedID, playerAttack, playerAdversToAttack, playerAdvers);
-            }
-            
         //card is choose
         }else if (playerChooseAttackOrCardID == 2){
             int playerChooseCardOptionID = display.playerChooseCardOption();
@@ -120,6 +79,88 @@ public class Match {
         }
         //TODO test choix perso dead
     }
+
+    /**
+     * player choose perso to attack advers, can't select dead perso
+     * @param playerTurn player is turn to play
+     * @return perso selected
+     */
+    public int playerSelectHisPerso(Player playerTurn){
+
+        int persoSelectedID = display.playerChoosePersoToPlay(playerTurn);
+        Perso persoSelected = playerTurn.getIndividualPlayerPerso(persoSelectedID-1);
+
+        // check if perso is dead
+        while (!persoSelected.isAlive()){
+            System.out.println("Ce perso est mort! Choisir un autre perso.");
+            persoSelectedID = display.playerChoosePersoToPlay(playerTurn);
+            persoSelected = playerTurn.getIndividualPlayerPerso(persoSelectedID-1);
+        }
+
+        return persoSelectedID;
+    }
+
+    /**
+     * player choose between attack or take magic card to his perso. Can't select card if value of health and mana are maxa
+     * @param playerTurn player turn to player
+     * @param persoSelected perso selected to attack
+     * @return ID 1 = Attack / ID 2 = Card
+     */
+    public int playerChooseBetweenAttackOrCard(Player playerTurn, Perso persoSelected){
+        int playerChooseAttackOrCardID = display.playerChooseAttackOrCard(playerTurn);
+        // don't select card if health and mana are max
+        while(playerChooseAttackOrCardID == 2 && persoSelected.getMana() == persoSelected.getMaxMana() && persoSelected.getHealth() == persoSelected.getMaxHealth()){
+            System.out.println("Ce perso est déjà au max de ses capacités !");
+            playerChooseAttackOrCardID = display.playerChooseAttackOrCard(playerTurn);
+        }
+
+        return playerChooseAttackOrCardID;
+    }
+
+    /**
+     * player choose between mana attack and weapon attack, choose advers perso to attack. can't attack a dead perso advers
+     * @param playerTurn player turn to play
+     * @param playerAdvers player to attack
+     * @param persoSelected perso choosen to attack
+     * @param persoSelectedID id of the perso choosen to attack
+     */
+    public void attackIsChoosen(Player playerTurn, Player playerAdvers, Perso persoSelected, int persoSelectedID){
+
+        int playerAttack = display.playerChooseAttack(persoSelected);
+
+        if (persoSelected.getClass() == Necromancer.class){
+            int selfPersoToMakeAlive = display.playerChoosePersoToPlay(playerTurn);
+            playerTurn.attackOption(persoSelectedID, playerAttack, selfPersoToMakeAlive, playerAdvers);
+        }else{
+            int playerAdversToAttack = display.playerChooseAdversToAttack(playerTurn, playerAdvers);
+            Perso persoToAttack = playerAdvers.getIndividualPlayerPerso(playerAdversToAttack-1);
+
+            // check if perso Advers is dead
+            while(!persoToAttack.isAlive()){
+                System.out.println("Ce perso est mort! Choisir un autre perso.");
+                playerAdversToAttack = display.playerChooseAdversToAttack(playerTurn, playerAdvers);
+                persoToAttack = playerAdvers.getIndividualPlayerPerso(playerAdversToAttack-1);
+            }
+            playerTurn.attackOption(persoSelectedID, playerAttack, playerAdversToAttack, playerAdvers);
+        }
+    }
+
+    /**
+     * display the choose of perso and make player
+     * @param playerName name choose by user to the player
+     * @return player to make
+     */
+    public Player personnageInitChoice(String playerName){
+        String timeToChoosePerso[] = {"premier", "second", "troisiéme", "quatrième"};
+
+        int personnageInitChoicePlayer1[] = new int[4];
+        for (int i = 0; i < 4; i++) {
+            personnageInitChoicePlayer1[i] = display.personnageChoice(timeToChoosePerso[i], playerName, personnageInitChoicePlayer1);
+        }
+
+        return this.makePlayer(personnageInitChoicePlayer1[0], personnageInitChoicePlayer1[1], personnageInitChoicePlayer1[2], personnageInitChoicePlayer1[3], playerName);
+    }
+
 
     /**
      * make a player with the choose of user
@@ -134,9 +175,7 @@ public class Match {
         Perso perso2 = this.choosePerso(userChoosePerso2);
         Perso perso3 = this.choosePerso(userChoosePerso3);
         Perso perso4 = this.choosePerso(userChoosePerso4);
-        Player player = new Player(perso1, perso2, perso3, perso4, name);
-
-        return player;
+        return new Player(perso1, perso2, perso3, perso4, name);
     }
    
      /**
