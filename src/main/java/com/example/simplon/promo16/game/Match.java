@@ -59,6 +59,7 @@ public class Match {
             System.out.println(player1.getPlayerName() +  " win!!");
         }
         //TODO faire un rejouer?
+
     }
    
     /**
@@ -71,8 +72,23 @@ public class Match {
     public void playerTurn(Player playerTurn , Player playerAdvers){
     
         int persoSelectedID = display.playerChoosePersoToPlay(playerTurn);
-        int playerChooseAttackOrCardID = display.playerChooseAttackOrCard(playerTurn);
         Perso persoSelected = playerTurn.getIndividualPlayerPerso(persoSelectedID-1);
+
+        // check if perso is dead
+        while (!persoSelected.isAlive()){
+            System.out.println("Ce perso est mort! Choisir un autre perso.");
+            persoSelectedID = display.playerChoosePersoToPlay(playerTurn);
+            persoSelected = playerTurn.getIndividualPlayerPerso(persoSelectedID-1);
+        }
+        
+        int playerChooseAttackOrCardID = display.playerChooseAttackOrCard(playerTurn);
+
+        // don't select card if health and mana are max
+        while(playerChooseAttackOrCardID == 2 && persoSelected.getMana() == persoSelected.getMaxMana() && persoSelected.getHealth() == persoSelected.getMaxHealth()){
+            System.out.println("Ce perso est déjà au max de ses capacités !");
+            playerChooseAttackOrCardID = display.playerChooseAttackOrCard(playerTurn);
+        }
+        
 
         // attack is choose
         if (playerChooseAttackOrCardID == 1){
@@ -82,6 +98,14 @@ public class Match {
                 playerTurn.attackOption(persoSelectedID, playerAttack, selfPersoToMakeAlive, playerAdvers);
             }else{
                 int playerAdversToAttack = display.playerChooseAdversToAttack(playerTurn, playerAdvers);
+                Perso persoToAttack = playerAdvers.getIndividualPlayerPerso(playerAdversToAttack-1);
+
+                // check if perso Advers is dead
+                while(!persoToAttack.isAlive()){
+                    System.out.println("Ce perso est mort! Choisir un autre perso.");
+                    playerAdversToAttack = display.playerChooseAdversToAttack(playerTurn, playerAdvers);
+                    persoToAttack = playerAdvers.getIndividualPlayerPerso(playerAdversToAttack-1);
+                }
                 playerTurn.attackOption(persoSelectedID, playerAttack, playerAdversToAttack, playerAdvers);
             }
             
@@ -94,6 +118,7 @@ public class Match {
         }else{
             System.out.println("error in the choose attack");
         }
+        //TODO test choix perso dead
     }
 
     /**
@@ -149,6 +174,9 @@ public class Match {
         }
         return perso;
     }
+
+    //TODO faire un test mock
+    // TODO Rearanger les test avec nom/ groupes / ...
 
 }
 
