@@ -1,8 +1,7 @@
 package com.example.simplon.promo16.game;
 
-import java.util.HashMap;
+
 import java.util.InputMismatchException;
-import java.util.Map;
 import java.util.Scanner;
 
 
@@ -78,7 +77,7 @@ public class Display {
     public void arena(Player player1, Player player2){
 
         System.out.println();
-        displayTextInArena(player1.getPlayerName(), player2.getPlayerName());
+        displayTextInArena(player1.getPlayerName() + player1.getWin(), player2.getPlayerName() + player2.getWin());
         System.out.println();
         
 
@@ -291,7 +290,7 @@ public class Display {
      * @return
      */
     public int playerChooseCardOption(){
-        int optionCardSelected = 0;
+        int optionCardSelected;
         do{
             optionCardSelected = 0;
             System.out.println("Quelle pouvoir de carte choississez vous ? ");
@@ -302,6 +301,18 @@ public class Display {
         }while(optionCardSelected!=1 && optionCardSelected!=2);
 
         return optionCardSelected;
+    }
+
+    public int replayGame(){
+        int optionReplaySelected;
+        do{
+            optionReplaySelected = 0;
+            System.out.println("voulez-vous refaire une partie?");
+            System.out.println("1 - oui");
+            System.out.println("2 - non");
+            optionReplaySelected = this.userInput();
+        }while(optionReplaySelected!=1 && optionReplaySelected !=2);
+        return optionReplaySelected;
     }
 
     /**

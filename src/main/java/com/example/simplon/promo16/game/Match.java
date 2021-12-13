@@ -22,34 +22,43 @@ public class Match {
      * next players attack one by one
      */
     public void runProgramme(){
-        
 
-        // init return names of players
-        String[] playerNames = display.init();
-       
-        
-        player1 = this.personnageInitChoice(playerNames[0]);
-        player2 = this.personnageInitChoice(playerNames[1]);
-        
-        //players fight one by one until one of them loose
-        while(!player1.playerLoose() && !player2.playerLoose()){
-            display.arena(player1, player2);
-            this.playerTurn(player1, player2);
-            if (player2.playerLoose()){
-                return;
+        boolean replay = true;
+
+        do{
+            // init return names of players
+            String[] playerNames = display.init();
+            
+            
+            player1 = this.personnageInitChoice(playerNames[0]);
+            player2 = this.personnageInitChoice(playerNames[1]);
+            
+            //players fight one by one until one of them loose
+            while(!player1.playerLoose() && !player2.playerLoose()){
+                display.arena(player1, player2);
+                this.playerTurn(player1, player2);
+                if (player2.playerLoose()){
+                    return;
+                }
+                display.arena(player1, player2);
+                this.playerTurn(player2, player1);
             }
-            display.arena(player1, player2);
-            this.playerTurn(player2, player1);
-        }
 
-        // end of game
-        if (player1.playerLoose()){
-            System.out.println(player2.getPlayerName() +  " win !!");
-        }else{
-            System.out.println(player1.getPlayerName() +  " win!!");
-        }
+            // end of game
+            if (player1.playerLoose()){
+                System.out.println(player2.getPlayerName() +  " win !!");
+                player2.setWin();
+            }else{
+                System.out.println(player1.getPlayerName() +  " win!!");
+                player1.setWin();
+            }
+            int replayGame = display.replayGame();
+            replay = replayGame == 1 ? true : false;
+
+        }while(replay);
     }
-   
+
+
     /**
      * Methode to choose card option or Attack
      * if player choose 1 : weapon

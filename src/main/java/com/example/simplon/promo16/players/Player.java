@@ -12,6 +12,7 @@ public class Player {
     private List <Perso> playerListOfPerso = new ArrayList<>();
     private PowerCard powerCard = new PowerCard();
     private String playerName;
+    private int win = 0;
 
     /**
      * constructor of player to add in the list
@@ -140,11 +141,11 @@ public class Player {
     //
 
     private PowerCard getPowerCard() {
-        return powerCard;
+        return this.powerCard;
     }
 
     public int getNumberOfCardPlayer(){
-        return powerCard.getNumberOfCard();
+        return this.powerCard.getNumberOfCard();
     }
 
     /**
@@ -171,9 +172,23 @@ public class Player {
         return null;
     }
 
-    public String getPlayerName() {
-        return playerName;
+    /**
+     * implement the number of time player win game
+     * 
+     */
+    public void setWin() {
+        this.win += 1;
     }
+
+    public String getPlayerName() {
+        return this.playerName;
+    }
+
+    public String getWin() {
+        return " win : " + this.win;
+    }
+
+   
     
 
 
