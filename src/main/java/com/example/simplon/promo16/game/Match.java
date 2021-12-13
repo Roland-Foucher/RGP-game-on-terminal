@@ -22,44 +22,51 @@ public class Match {
      * next players attack one by one
      */
     public void runProgramme(){
-        String timeToChoosePerso[] = {"premier", "second", "troisiéme", "quatrième"};
+        boolean replay = true;
 
-        // init return names of players
-        String[] playerNames = display.init();
-       
-        //choose personnages for player 1
-        int personnageInitChoicePlayer1[] = new int[4];
-        for (int i = 0; i < 4; i++) {
-            personnageInitChoicePlayer1[i] = display.personnageChoice(timeToChoosePerso[i], playerNames[0], personnageInitChoicePlayer1);
-        } 
-        player1 = this.makePlayer(personnageInitChoicePlayer1[0], personnageInitChoicePlayer1[1], personnageInitChoicePlayer1[2], personnageInitChoicePlayer1[3], playerNames[0]);
+        do{
+            String timeToChoosePerso[] = {"premier", "second", "troisiéme", "quatrième"};
+
+            // init return names of players
+            String[] playerNames = display.init();
         
-        //choose personnages for player 2
-        int personnageInitChoicePlayer2[] = new int[4];
-        for (int i = 0; i < 4; i++) {
-            personnageInitChoicePlayer2[i] = display.personnageChoice(timeToChoosePerso[i], playerNames[1], personnageInitChoicePlayer2);
-        } 
-        player2 = this.makePlayer(personnageInitChoicePlayer2[0], personnageInitChoicePlayer2[1], personnageInitChoicePlayer2[2], personnageInitChoicePlayer2[3], playerNames[1]);
-        
-        //players fight one by one until one of them loose
-        while(!player1.playerLoose() && !player2.playerLoose()){
-            display.arena(player1, player2);
-            this.playerTurn(player1, player2);
-            if (player2.playerLoose()){
-                return;
-            }
-            display.arena(player1, player2);
-            this.playerTurn(player2, player1);
+            //choose personnages for player 1
+            int personnageInitChoicePlayer1[] = new int[4];
+            for (int i = 0; i < 4; i++) {
+                personnageInitChoicePlayer1[i] = display.personnageChoice(timeToChoosePerso[i], playerNames[0], personnageInitChoicePlayer1);
+            } 
+            player1 = this.makePlayer(personnageInitChoicePlayer1[0], personnageInitChoicePlayer1[1], personnageInitChoicePlayer1[2], personnageInitChoicePlayer1[3], playerNames[0]);
             
-        }
-        // end of game
-        if (player1.playerLoose()){
-            System.out.println(player2.getPlayerName() +  " win !!");
-        }else{
-            System.out.println(player1.getPlayerName() +  " win!!");
-        }
-        //TODO faire un rejouer?
+            //choose personnages for player 2
+            int personnageInitChoicePlayer2[] = new int[4];
+            for (int i = 0; i < 4; i++) {
+                personnageInitChoicePlayer2[i] = display.personnageChoice(timeToChoosePerso[i], playerNames[1], personnageInitChoicePlayer2);
+            } 
+            player2 = this.makePlayer(personnageInitChoicePlayer2[0], personnageInitChoicePlayer2[1], personnageInitChoicePlayer2[2], personnageInitChoicePlayer2[3], playerNames[1]);
+            
+            //players fight one by one until one of them loose
+            while(!player1.playerLoose() && !player2.playerLoose()){
+                display.arena(player1, player2);
+                this.playerTurn(player1, player2);
+                if (player2.playerLoose()){
+                    break;
+                }
+                display.arena(player1, player2);
+                this.playerTurn(player2, player1);
+                
+            }
+            // end of game
+            if (player1.playerLoose()){
+                System.out.println(player2.getPlayerName() +  " win !!");
+                player2.setWin();
+            }else{
+                System.out.println(player1.getPlayerName() +  " win!!");
+                player1.setWin();
+            }
+            int replayGame = display.replayGame();
+            replay = replayGame == 1 ? true : false;
 
+        }while(replay);
     }
    
     /**
