@@ -42,7 +42,7 @@ public class Display {
         System.out.println("voici la liste des personnage : ");
         System.out.println();
         System.out.println("Orc : beaucoup de vie et puissant");
-        System.out.println("Knight : puissant et à une armure");
+        System.out.println("Chevalier : puissant et à une armure");
         System.out.println("Assassin : peu de vie mais tue en un coup");
         System.out.println("Druide : beaucoup de mana, attack mana puissante");
         System.out.println("Elfe : peu puissant mais regenere sa vie");
@@ -125,12 +125,10 @@ public class Display {
         Perso persoPlayer1 = player1.getIndividualPlayerPerso(persoID);
         Perso persoPlayer2 = player2.getIndividualPlayerPerso(persoID);
         
-        
         displayTextInArena(persoPlayer1.getName(), persoPlayer2.getName());
-        displayTextInArena( "Health : " + ((Integer)persoPlayer1.getHealth()).toString(), 
-                            "Health : " + ((Integer)persoPlayer2.getHealth()).toString());
-        displayTextInArena( "Mana : " + ((Integer)persoPlayer1.getMana()).toString(), 
-                            "Mana : "+((Integer)persoPlayer2.getMana()).toString());
+
+        displayTextInArena( "Health : " + persoPlayer1.getHealth(), "Health : " + persoPlayer2.getHealth());
+        displayTextInArena( "Mana : " + persoPlayer1.getMana(), "Mana : "+ persoPlayer2.getMana());
     }
     
     /**
@@ -143,22 +141,24 @@ public class Display {
      */
     public int personnageChoice(String timeToChoosePerso, String player, int[] personnageChoice){
         int inputValue;
-        HashMap <Integer, String> persos = new HashMap<>(Map.of(1,  "1 - Orc", 2, "2 - Knight", 3, "3 - Assassin", 4, "4 - Druide ", 5, "5 - Elfe", 6, "6 - Magician", 7, "7 - Necromancien"));
+        Perso[] persos = {orc, knigth, assasin, druid, elfe, magician, necro};
+                                                       
         do {
             System.out.println(player + " :");
             System.out.println("choisissez votre " + timeToChoosePerso +" personnage");
             System.out.println();
 
             // loop on collection and not display perso already choosen
-            persos.forEach((num, perso) -> {
-                if (num != personnageChoice[0] && num != personnageChoice[1] && num != personnageChoice[2] && num != personnageChoice[3]){
-                    System.out.println(perso);
+            for (int i = 0; i < 7; i++) {
+                if (i+1 != personnageChoice[0] && i+1 != personnageChoice[1] && i+1 != personnageChoice[2] && i+1 != personnageChoice[3]){
+                    System.out.println(String.format("%s - %s\n%s\n%s\n", i+1, persos[i].getName(),persos[i].getWeapon(), persos[i].getManaPower()));
                 }
-            });
+            }
 
             System.out.println("8 - description des perso");
         
             inputValue = this.userInput();
+
             // check if perso already choosen
             for (int i : personnageChoice) {
                 while (inputValue == i){
@@ -169,13 +169,9 @@ public class Display {
 
             // if 8 is selected, list the differents caracters
             if(inputValue == 8){
-                System.out.println(assasin);
-                System.out.println(druid);
-                System.out.println(elfe);
-                System.out.println(knigth);
-                System.out.println(magician);
-                System.out.println(necro);
-                System.out.println(orc);
+                for (Perso perso : persos) {
+                    System.out.println(perso);
+                }
                 System.out.println("tapez '0' pour continuer");
                 inputValue = this.userInput();
             }
@@ -198,14 +194,13 @@ public class Display {
         Perso perso4 = player.getIndividualPlayerPerso(3);
         Perso[] persos = {perso1, perso2, perso3, perso4};
         
-        int persoSelected = 0;
+        int persoSelected;
         do{
             persoSelected = 0;
-            String name;
             System.out.println(player.getPlayerName() +  " choisissez votre personnage");
 
             for (int i = 0; i < persos.length; i++) {
-                System.out.println((i+1) + " - " +  persos[i].getName());
+                System.out.println((i+1) + " - " +  persos[i].getName() + "\n" + persos[i].getWeapon() + "\n" + persos[i].getManaPower() + "\n");
             }
             
             persoSelected  = this.userInput();
@@ -254,8 +249,8 @@ public class Display {
         do{
             attackSelected = 0;
             System.out.println("Quelle attack choississez vous ? ");
-            System.out.println("1 - weapon");
-            System.out.println("2 - mana");
+            System.out.println("1 - " + perso.getWeapon());
+            System.out.println("2 - " + perso.getManaPower());
 
             attackSelected = this.userInput();
 
@@ -330,8 +325,9 @@ public class Display {
     }
 
 
-    // TODO : NE PAS POUVOIR SOIGNER OU AJOUTER MANA SI MAX
-    // TODO : AFFICHER IS DEAD SI DEAD ET NE PAS POUVOIR SELECTIONNER
+ 
+ 
+    // TODO faire un retour ?
     // 
 
 

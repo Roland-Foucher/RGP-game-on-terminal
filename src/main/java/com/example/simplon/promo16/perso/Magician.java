@@ -7,8 +7,8 @@ public class Magician extends Perso {
 
     public Magician() {
         this.name = "Magician";
-        this.weapon = "Stick";
-        this.manaPower = "Eclaire";
+        this.weapon += "Canne";
+        this.manaPower += "Eclaire";
         this.health = 80;
         this.mana = 150;
         this.manaAttack = 70;

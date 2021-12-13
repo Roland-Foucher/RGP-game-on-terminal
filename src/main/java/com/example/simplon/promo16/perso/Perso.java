@@ -6,8 +6,8 @@ package com.example.simplon.promo16.perso;
 public class Perso {
 
     protected String name;
-    protected String weapon;
-    protected String manaPower;
+    protected String weapon = "🗡️ : ";
+    protected String manaPower = "💧 : ";
     protected int health;
     protected int mana;
     protected int manaAttack;
@@ -15,6 +15,7 @@ public class Perso {
     protected int weaponAttack;
     protected int maxMana;
     protected int maxHealth;
+    protected int armore;
     protected boolean isAlive = true;
 
     /**
@@ -79,8 +80,8 @@ public class Perso {
      * @return name of player
      */
     public String getName() {
-        String nameIfDead;
-        return nameIfDead = this.isAlive ? name : name + " 💀";
+        String nameIfDead = this.isAlive ? name : name + " 💀";
+        return nameIfDead;
     }
 
     public String getWeapon() {
@@ -124,6 +125,10 @@ public class Perso {
 
     public boolean isAlive() {
         return isAlive;
+    }
+
+    public int getArmore() {
+        return armore;
     }
 
 

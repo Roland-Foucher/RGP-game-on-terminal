@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 public class DisplayTest {
 
-    private Display display;
+    Display display;
 
     @BeforeEach
     public void init(){

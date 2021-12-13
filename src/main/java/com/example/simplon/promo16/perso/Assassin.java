@@ -7,8 +7,8 @@ public class Assassin extends Perso{
 
     public Assassin() {
         this.name = "Assassin";
-        this.weapon = "couteau";
-        this.manaPower = "egorge";
+        this.weapon += "couteau";
+        this.manaPower += "Egorge";
         this.health = 50;
         this.mana = 50;
         this.manaAttack = 2000;

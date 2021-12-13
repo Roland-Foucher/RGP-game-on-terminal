@@ -5,12 +5,11 @@ package com.example.simplon.promo16.perso;
  */
 public class Knigth extends Perso {
 
-    private int armore = 10;
 
     public Knigth() {
         this.name = "Chevalier";
-        this.weapon = "Epee";
-        this.manaPower = "protected";
+        this.weapon += "Epee";
+        this.manaPower += "protection";
         this.health = 80;
         this.mana = 50;
         this.manaAttack = 10;
@@ -18,6 +17,7 @@ public class Knigth extends Perso {
         this.weaponAttack = 70;
         this.maxHealth = this.health;
         this.maxMana = this.mana;
+        this.armore = 10;
 
     }
 
@@ -52,6 +52,19 @@ public class Knigth extends Perso {
         perso.setHealth(-this.getManaAttack());
         this.setMana(-this.getManaCost());
     }
+
+    @Override
+    public String getManaPower() {
+        String manaPowerDescription = this.manaPower + " - Degat : " + this.manaAttack + " - cout " + this.manaCost + " - 🛡️ +20 Armure";
+        return manaPowerDescription;
+    }
+
+    @Override
+    public String getName() {
+        
+        return this.name + " armure : " + armore;
+    }
+    
     
 
 }

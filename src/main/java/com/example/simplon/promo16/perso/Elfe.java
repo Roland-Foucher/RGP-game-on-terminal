@@ -5,9 +5,9 @@ public class Elfe extends Perso {
      * Constructor Elfe
      */
     public Elfe(){
-        this.name = " Elfe" ;
-        this.weapon = "Arc";
-        this.manaPower = "giveHealth";
+        this.name = "Elfe" ;
+        this.weapon += "Arc";
+        this.manaPower += "Soigne";
         this.health = 80;
         this.mana = 60;
         this.manaAttack = 0;
@@ -26,6 +26,12 @@ public class Elfe extends Perso {
         perso.setHealth(-this.manaAttack);
         this.setMana(-this.getManaCost());
         this.setHealth(30);
+    }
+
+    @Override
+    public String getManaPower() {
+        String manaPowerDescription = this.manaPower + " - Degat : " + this.manaAttack + " - cout " + this.manaCost + " - ajoute 30 health au personnage";
+        return manaPowerDescription;
     }
 
     

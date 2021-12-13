@@ -7,15 +7,15 @@ public class Necromancer extends Perso {
 
     public Necromancer() {
         this.name = "Necromancer";
-        this.weapon = "Baton";
-        this.manaPower = "Resurection";
+        this.weapon += "Baton";
+        this.manaPower += "Resurection";
         this.health = 80;
         this.mana = 100;
         this.manaAttack = 0;
         this.manaCost = 50;
         this.weaponAttack = 20;
         this.maxHealth = this.health;
-        this.maxMana = this.mana;
+        this.maxMana = this.mana;    
     }
 
     /**
@@ -33,6 +33,12 @@ public class Necromancer extends Perso {
             System.out.println(perso.getName() + "is not dead");
         }
         
+    }
+
+    @Override
+    public String getManaPower() {
+        String manaPowerDescription = this.manaPower + " - Degat : " + this.manaAttack + " - cout " + this.manaCost + " - ressucite un personnage";
+        return manaPowerDescription;
     }
 
     

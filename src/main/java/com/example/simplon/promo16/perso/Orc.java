@@ -8,8 +8,8 @@ public class Orc extends Perso {
      */
     public Orc(){
         this.name = "Orc";
-        this.weapon = "Gourdin";
-        this.manaPower = "Morsure";
+        this.weapon += "Gourdin";
+        this.manaPower += "Morsure";
         this.health = 120;
         this.mana = 60;
         this.manaAttack = 40;
