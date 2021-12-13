@@ -61,8 +61,8 @@ public class Knigth extends Perso {
 
     @Override
     public String getName() {
-        
-        return this.name + " armure : " + armore;
+        String nameIfDead = this.isAlive ? name : name + " 💀";
+        return nameIfDead + " armure : " + armore;
     }
     
     
