@@ -57,6 +57,8 @@ public class Match {
 
         }while(replay);
          //TODO debug replay (player is same) return array of perso plutot qu'un player
+         //TODO readme
+         //TODO make an
     }
 
 
@@ -87,7 +89,6 @@ public class Match {
         }else{
             System.out.println("error in the choose attack");
         }
-        //TODO test choix perso dead
        
     }
 
@@ -224,9 +225,6 @@ public class Match {
         }
         return perso;
     }
-
-    //TODO faire un test mock
-    // TODO Rearanger les test avec nom/ groupes / ...
 
 }
 
