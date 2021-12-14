@@ -29,16 +29,16 @@ public class Match {
             // init return names of players
             String[] playerNames = display.init();
             
-            
+          
             player1 = this.personnageInitChoice(playerNames[0]);
             player2 = this.personnageInitChoice(playerNames[1]);
-            
+        
             //players fight one by one until one of them loose
             while(!player1.playerLoose() && !player2.playerLoose()){
                 display.arena(player1, player2);
                 this.playerTurn(player1, player2);
                 if (player2.playerLoose()){
-                    return;
+                    break;
                 }
                 display.arena(player1, player2);
                 this.playerTurn(player2, player1);
@@ -56,6 +56,7 @@ public class Match {
             replay = replayGame == 1 ? true : false;
 
         }while(replay);
+         //TODO debug replay (player is same) return array of perso plutot qu'un player
     }
 
 
@@ -80,7 +81,7 @@ public class Match {
         //card is choose
         }else if (playerChooseAttackOrCardID == 2){
             int playerChooseCardOptionID = display.playerChooseCardOption();
-            player1.chooseCardOption(playerChooseCardOptionID, persoSelectedID);
+            playerTurn.chooseCardOption(playerChooseCardOptionID, persoSelectedID);
         
         // error
         }else{
@@ -88,6 +89,7 @@ public class Match {
         }
         return persoSelected;
         //TODO test choix perso dead
+       
     }
 
     /**
