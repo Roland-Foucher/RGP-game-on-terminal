@@ -2,6 +2,8 @@ package com.example.simplon.promo16.game;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.io.ByteArrayInputStream;
@@ -24,10 +26,11 @@ public class MatchTest {
 
     @BeforeEach
     public void init(){
-        match = mock(Match.class);
+        match = new Match();
         display = mock(Display.class);
         player1 = mock(Player.class);
         player2 = mock (Player.class);
+        
         
     }
     @AfterEach
@@ -55,10 +58,12 @@ public class MatchTest {
     }
     @Test
     void runProgrammePlayer1Loose(){
-        when(match.personnageInitChoice("player1")).thenReturn(player1);
-        when(match.personnageInitChoice("player2")).thenReturn(player2);
+        String[] playerNames = {"player1", "player2"};
+        when(display.init()).thenReturn(playerNames);
         when(player1.playerLoose()).thenReturn(true);
-        
+        match.runProgramme();
+        verify(player1, times(1)).setWin();
+
 
     }
 
