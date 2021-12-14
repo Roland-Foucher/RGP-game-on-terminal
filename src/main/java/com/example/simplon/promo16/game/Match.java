@@ -38,7 +38,7 @@ public class Match {
                 display.arena(player1, player2);
                 this.playerTurn(player1, player2);
                 if (player2.playerLoose()){
-                    return;
+                    break;
                 }
                 display.arena(player1, player2);
                 this.playerTurn(player2, player1);
