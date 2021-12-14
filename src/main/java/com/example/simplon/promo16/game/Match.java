@@ -66,7 +66,7 @@ public class Match {
      * @param playerTurn player is turn to play
      * @param playerAdvers player to attack
      */
-    public void playerTurn(Player playerTurn , Player playerAdvers){
+    public Perso playerTurn(Player playerTurn , Player playerAdvers){
     
         int persoSelectedID = this.playerSelectHisPerso(playerTurn);
         Perso persoSelected = playerTurn.getIndividualPlayerPerso(persoSelectedID-1);
@@ -86,6 +86,7 @@ public class Match {
         }else{
             System.out.println("error in the choose attack");
         }
+        return persoSelected;
         //TODO test choix perso dead
     }
 
@@ -105,7 +106,7 @@ public class Match {
             persoSelectedID = display.playerChoosePersoToPlay(playerTurn);
             persoSelected = playerTurn.getIndividualPlayerPerso(persoSelectedID-1);
         }
-
+        
         return persoSelectedID;
     }
 
