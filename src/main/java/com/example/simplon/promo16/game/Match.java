@@ -13,6 +13,9 @@ import com.example.simplon.promo16.players.Player;
 public class Match {
     private Player player1;
     private Player player2;
+    private static int player1Win = 0;
+    private static int player2Win = 0;
+    private String[] playerNames;
     
     Display display = new Display();
     
@@ -27,7 +30,8 @@ public class Match {
 
         do{
             // init return names of players
-            String[] playerNames = display.init();
+            if (player1 == null || player2 == null)
+                playerNames = display.init();
             
           
             player1 = this.personnageInitChoice(playerNames[0]);
@@ -47,10 +51,10 @@ public class Match {
             // end of game
             if (player1.playerLoose()){
                 System.out.println(player2.getPlayerName() +  " win !!");
-                player2.setWin();
+                Match.player2Win+=1;
             }else{
                 System.out.println(player1.getPlayerName() +  " win!!");
-                player1.setWin();
+                Match.player1Win+=1;
             }
             int replayGame = display.replayGame();
             replay = replayGame == 1 ? true : false;
@@ -189,6 +193,7 @@ public class Match {
         Perso perso4 = this.choosePerso(userChoosePerso4);
         return new Player(perso1, perso2, perso3, perso4, name);
     }
+
    
      /**
      * choose a perso with int ID to add to player
@@ -224,6 +229,16 @@ public class Match {
                 break;
         }
         return perso;
+    }
+
+
+    public static String getPlayer1Win() {
+        return " win : " + player1Win;
+    }
+
+
+    public static String getPlayer2Win() {
+        return " win : " + player2Win;
     }
 
 }

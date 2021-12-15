@@ -77,7 +77,7 @@ public class Display {
     public void arena(Player player1, Player player2){
 
         System.out.println();
-        displayTextInArena(player1.getPlayerName() + player1.getWin(), player2.getPlayerName() + player2.getWin());
+        displayTextInArena(player1.getPlayerName() + Match.getPlayer1Win(), player2.getPlayerName() + Match.getPlayer2Win());
         System.out.println();
         
 
