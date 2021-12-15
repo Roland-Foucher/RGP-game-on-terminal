@@ -1,5 +1,6 @@
 package com.example.simplon.promo16.game;
 
+import com.example.simplon.promo16.App;
 import com.example.simplon.promo16.perso.Assassin;
 import com.example.simplon.promo16.perso.Druid;
 import com.example.simplon.promo16.perso.Elfe;
@@ -11,14 +12,16 @@ import com.example.simplon.promo16.perso.Perso;
 import com.example.simplon.promo16.players.Player;
 
 public class Match {
-    private Player player1;
-    private Player player2;
+    private static Player player1;
+    private static Player player2;
     private static int player1Win = 0;
     private static int player2Win = 0;
     private String[] playerNames;
+    private RouterSelect routerSelect = new RouterSelect();
 
     Display display = new Display();
 
+    
     /**
      * methode to run the game while a player loose
      * first players select personnages
@@ -98,8 +101,12 @@ public class Match {
      * @return perso selected
      */
     public int playerSelectHisPerso(Player playerTurn) {
-
-        int persoSelectedID = display.playerChoosePersoToPlay(playerTurn);
+        int persoSelectedID = 0;
+        App.scene.selectPlayer(playerTurn);
+        while(persoSelectedID == 0){
+            persoSelectedID = routerSelect.getPersoID();
+        }
+        System.out.println(persoSelectedID);
         Perso persoSelected = playerTurn.getIndividualPlayerPerso(persoSelectedID - 1);
 
         // check if perso is dead
@@ -243,5 +250,14 @@ public class Match {
     public static String getPlayer2Win() {
         return " win : " + player2Win;
     }
+
+    public static Player getPlayer1() {
+        return player1;
+    }
+
+    public static Player getPlayer2() {
+        return player2;
+    }
+
 
 }

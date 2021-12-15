@@ -3,10 +3,13 @@ package com.example.simplon.promo16.game.keyboard;
 import java.awt.event.KeyListener;
 
 import com.example.simplon.promo16.App;
+import com.example.simplon.promo16.game.RouterSelect;
 
 import java.awt.event.KeyEvent;
 
 public class KeyboardSelectPlayer1 implements KeyListener {
+
+    private RouterSelect routerSelect = new RouterSelect();
     
     @Override
     public void keyPressed(KeyEvent e){
@@ -20,6 +23,9 @@ public class KeyboardSelectPlayer1 implements KeyListener {
             if (e.getKeyCode() == KeyEvent.VK_LEFT){
                 App.scene.setSelectPlayerKey(-120,20);
             }
+        }
+        if(e.getKeyCode() == KeyEvent.VK_UP){
+            routerSelect.playerChoosePersoToPlay();
         }
     }
 

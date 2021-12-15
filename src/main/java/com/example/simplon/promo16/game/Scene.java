@@ -2,12 +2,17 @@ package com.example.simplon.promo16.game;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
 import com.example.simplon.promo16.game.keyboard.KeyboardSelectPlayer2;
 import com.example.simplon.promo16.game.keyboard.KeyboardSelectPlayer1;
 import com.example.simplon.promo16.players.Player;
 
 import java.awt.Image;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
@@ -45,8 +50,13 @@ public class Scene extends JPanel {
     private Image imagePerso3Player2;
     private Image imagePerso4Player2;
 
+    private JTextArea textSelectAttackOrCard;
+
     int selectPlayerKeyX;
     int selectPlayerKeyY;
+
+    int displayTextKeyX;
+    int displayTextKeyY;
     
 
     public Scene() {
@@ -54,6 +64,9 @@ public class Scene extends JPanel {
 
         this.selectPlayerKeyX = -20;
         this.selectPlayerKeyY = -300;
+
+        this.displayTextKeyX = -20;
+        this.displayTextKeyY = -300;
         
         icoBack = new ImageIcon(getClass().getResource("../images/backGround.png"));
         icoSelectPlayer = new ImageIcon(getClass().getResource("../images/selectPlayer.png"));
@@ -92,25 +105,40 @@ public class Scene extends JPanel {
         g2.drawImage(this.imagePerso2Player2, 1040, 400, null);
 
         g2.drawImage(this.imageSelectPlayer, selectPlayerKeyX, selectPlayerKeyY, null);
+
+        
+        g2.setColor(Color.WHITE);
+        g2.fillRect(displayTextKeyX, displayTextKeyY, 100, 50);
+
+        g2.setColor(Color.black);
+        g2.drawString("Attack", displayTextKeyX , displayTextKeyY+20);
+        g2.drawString("Card", displayTextKeyX , displayTextKeyY+40);
+        
+
     }
 
-    public void selectPlayer1(){
+    public void selectPlayer(Player playerTurn){
 
-        this.selectPlayerKeyX = 20;
-        this.selectPlayerKeyY = 300;
+        if(playerTurn == Match.getPlayer1()){ 
+            this.selectPlayerKeyX = 20;
+            this.selectPlayerKeyY = 300;
 
-        this.setFocusable(true);
-        this.requestFocusInWindow();
-        this.addKeyListener(new KeyboardSelectPlayer1());
+            this.setFocusable(true);
+            this.requestFocusInWindow();
+            this.addKeyListener(new KeyboardSelectPlayer1());
+        }else{
+            this.selectPlayerKeyX = 1080;
+            this.selectPlayerKeyY = 300;
+
+            this.setFocusable(true);
+            this.requestFocusInWindow();
+            this.addKeyListener(new KeyboardSelectPlayer2());
+        }
     }
-    public void selectPlayer2(){
 
-        this.selectPlayerKeyX = 1080;
-        this.selectPlayerKeyY = 300;
-
-        this.setFocusable(true);
-        this.requestFocusInWindow();
-        this.addKeyListener(new KeyboardSelectPlayer2());
+    public void displaySelectAttackOrCard(){
+        this.displayTextKeyX = selectPlayerKeyX;
+        this.displayTextKeyY = selectPlayerKeyY;
     }
 
     public int getSelectPlayerKeyX() {
@@ -122,6 +150,7 @@ public class Scene extends JPanel {
         this.selectPlayerKeyY += selectPlayerKeyY;
     }
 
+ 
 
 
 }

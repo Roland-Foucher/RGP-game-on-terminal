@@ -6,6 +6,8 @@ import javax.swing.JFrame;
 import com.example.simplon.promo16.game.Display;
 import com.example.simplon.promo16.game.Match;
 import com.example.simplon.promo16.game.Scene;
+import com.example.simplon.promo16.perso.Orc;
+import com.example.simplon.promo16.players.Player;
 
 /**
  * Hello world!
@@ -30,6 +32,11 @@ public class App
         display.setContentPane(scene);
         display.setVisible(true);
         
-        scene.selectPlayer2();
+        Match match = new Match();
+        match.runProgramme();
+        
+        // scene.getSelectPlayerKeyX();
+        // scene.selectPlayer();
+    
     }
 }
