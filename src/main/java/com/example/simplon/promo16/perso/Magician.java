@@ -1,7 +1,7 @@
 package com.example.simplon.promo16.perso;
 
 /**
- * magician have a lot of mana 
+ * magician have a lot of mana
  */
 public class Magician extends Perso {
 
@@ -17,5 +17,5 @@ public class Magician extends Perso {
         this.maxHealth = this.health;
         this.maxMana = this.mana;
     }
-    
+
 }

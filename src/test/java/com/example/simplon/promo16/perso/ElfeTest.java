@@ -12,18 +12,19 @@ public class ElfeTest {
     Perso elfe;
 
     @BeforeEach
-    public void init(){
+    public void init() {
         orc = new Orc();
         elfe = new Elfe();
     }
+
     @AfterEach
-    public void finish(){
+    public void finish() {
         orc = null;
         elfe = null;
     }
 
     @Test
-    void testManaAttackElfe(){
+    void testManaAttackElfe() {
         orc.weaponAttack(elfe);
         elfe.manaAttack(orc);
         assertEquals(120, orc.getHealth());

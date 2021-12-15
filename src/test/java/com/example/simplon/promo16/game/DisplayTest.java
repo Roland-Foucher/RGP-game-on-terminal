@@ -8,18 +8,18 @@ public class DisplayTest {
     Display display;
 
     @BeforeEach
-    public void init(){
+    public void init() {
         display = new Display();
     }
 
     // @Test
     // void testArena() {
-        
+
     // }
 
     @Test
     void testInit() {
-        
+
     }
 
     @Test

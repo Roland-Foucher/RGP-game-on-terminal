@@ -3,7 +3,7 @@ package com.example.simplon.promo16.perso;
 /**
  * Assassin kill with mana
  */
-public class Assassin extends Perso{
+public class Assassin extends Perso {
 
     public Assassin() {
         this.name = "Assassin";
@@ -17,5 +17,5 @@ public class Assassin extends Perso{
         this.maxHealth = this.health;
         this.maxMana = this.mana;
     }
-    
+
 }

@@ -12,16 +12,16 @@ public class NecromancerTest {
     Perso necro;
 
     @BeforeEach
-    public void init(){
+    public void init() {
         orc = new Orc();
         necro = new Necromancer();
     }
+
     @AfterEach
-    public void finish(){
+    public void finish() {
         orc = null;
         necro = null;
     }
-
 
     @Test
     void testManaAttackondeathPerso() {

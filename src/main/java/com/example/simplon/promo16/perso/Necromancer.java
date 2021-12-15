@@ -15,7 +15,7 @@ public class Necromancer extends Perso {
         this.manaCost = 50;
         this.weaponAttack = 20;
         this.maxHealth = this.health;
-        this.maxMana = this.mana;    
+        this.maxMana = this.mana;
     }
 
     /**
@@ -24,24 +24,21 @@ public class Necromancer extends Perso {
      */
     @Override
     public void manaAttack(Perso perso) {
-        if (!perso.isAlive()){
+        if (!perso.isAlive()) {
             perso.isAlive = true;
-            perso.setHealth(perso.getMaxHealth()/2);
+            perso.setHealth(perso.getMaxHealth() / 2);
             this.setMana(-this.getManaCost());
-        }
-        else{
+        } else {
             System.out.println(perso.getName() + "is not dead");
         }
-        
+
     }
 
     @Override
     public String getManaPower() {
-        String manaPowerDescription = this.manaPower + " - Degat : " + this.manaAttack + " - cout " + this.manaCost + " - ressucite un personnage";
+        String manaPowerDescription = this.manaPower + " - Degat : " + this.manaAttack + " - cout " + this.manaCost
+                + " - ressucite un personnage";
         return manaPowerDescription;
     }
 
-    
-    
-    
 }

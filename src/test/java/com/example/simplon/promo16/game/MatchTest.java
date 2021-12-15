@@ -36,7 +36,7 @@ public class MatchTest {
     Perso knight2;
 
     @BeforeEach
-    public void init(){
+    public void init() {
         match = mock(Match.class);
         match2 = new Match();
         display = mock(Display.class);
@@ -50,9 +50,8 @@ public class MatchTest {
         knight2 = new Knigth();
         player1 = new Player(orc, elfe, necro, knight, "test");
         player2 = new Player(orc2, elfe2, necro2, knight2, "test");
-        
-        
     }
+
     @AfterEach
     public void restoreStreams() {
         match = null;
@@ -88,40 +87,31 @@ public class MatchTest {
 
     @Disabled
     @Test
-    void runProgrammePlayer1Loose(){
-        
+    void runProgrammePlayer1Loose() {
+
         when(match.personnageInitChoice("player1")).thenReturn(player1);
         when(match.personnageInitChoice("player2")).thenReturn(player2);
         when(player1.playerLoose()).thenReturn(true);
         match.runProgramme();
-        assertEquals(1, player2.getWin());
+        assertEquals(1, Match.getPlayer2Win());
 
     }
 
-    @Disabled
     @Test
-    void playerTurnChooseAttack(){
-        when(match.playerSelectHisPerso(player1)).thenReturn(1);
-        Perso perso = match.playerTurn(player1, player2);
-        assertEquals(player1.getIndividualPlayerPerso(2), perso);
-    }
-
-    @Test
-    void PlayerSelectHisPerso_WhenPersoIsDead(){
+    void PlayerSelectHisPerso_WhenPersoIsDead() {
         when(display.playerChoosePersoToPlay(player1)).thenReturn(1);
         player1.getIndividualPlayerPerso(0).setHealth(-200);
         int persoID = match.playerSelectHisPerso(player1);
         assertEquals(0, persoID);
     }
+
+    @Disabled
     @Test
-    void PlayerSelectHisPerso_WhenPersoIsNotDead(){
-        
+    void PlayerSelectHisPerso_WhenPersoIsNotDead() {
+
         int persoID = match2.playerSelectHisPerso(player1);
         when(display.playerChoosePersoToPlay(player1)).thenReturn(1);
         assertEquals(1, persoID);
     }
-
-
-
 
 }

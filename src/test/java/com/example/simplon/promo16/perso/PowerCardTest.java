@@ -10,16 +10,18 @@ public class PowerCardTest {
     Perso orc;
     PowerCard powercard;
 
-    @BeforeEach 
-    public void init(){
+    @BeforeEach
+    public void init() {
         orc = new Orc();
         powercard = new PowerCard();
     }
+
     @AfterEach
-    public void finish(){
+    public void finish() {
         orc = null;
         powercard = null;
     }
+
     @Test
     void testAddHealth() {
         orc.setHealth(-40);
@@ -35,7 +37,7 @@ public class PowerCardTest {
     }
 
     @Test
-    void testCardNegative(){
+    void testCardNegative() {
         powercard.addHealth(orc);
         powercard.addHealth(orc);
         powercard.addHealth(orc);
