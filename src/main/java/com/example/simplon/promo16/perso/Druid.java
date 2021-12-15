@@ -15,5 +15,5 @@ public class Druid extends Perso {
         this.maxMana = this.mana;
 
     }
-    
+
 }

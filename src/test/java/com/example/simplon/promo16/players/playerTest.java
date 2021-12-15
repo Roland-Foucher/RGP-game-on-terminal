@@ -13,7 +13,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-
 public class playerTest {
 
     Perso orc;
@@ -28,7 +27,7 @@ public class playerTest {
     Player player2;
 
     @BeforeEach
-    public void init(){
+    public void init() {
         orc = new Orc();
         elfe = new Elfe();
         necro = new Necromancer();
@@ -40,8 +39,9 @@ public class playerTest {
         player1 = new Player(orc, elfe, necro, knight, "test");
         player2 = new Player(orc2, elfe2, necro2, knight2, "test");
     }
+
     @AfterEach
-    public void finish(){
+    public void finish() {
         orc = null;
         elfe = null;
         necro = null;
@@ -54,7 +54,7 @@ public class playerTest {
     }
 
     @Nested
-    class playerLoose{
+    class playerLoose {
 
         @Test
         void testPlayerLoose_WhenAllPersoDead() {
@@ -73,10 +73,8 @@ public class playerTest {
         }
     }
 
-
-
     @Nested
-    class getPersoTest{
+    class getPersoTest {
 
         @Test
         void testGetNumberOfPerso() {
@@ -84,42 +82,42 @@ public class playerTest {
         }
 
         @Test
-        void getIndividualPlayerPerso(){
-            
+        void getIndividualPlayerPerso() {
+
             assertEquals(knight, player1.getIndividualPlayerPerso(3));
         }
 
         @Test
-        void getIndividualPlayerPerso_WithBadNumberInput(){
+        void getIndividualPlayerPerso_WithBadNumberInput() {
             assertEquals(null, player1.getIndividualPlayerPerso(10));
         }
     }
 
     @Nested
-    class cardOptionTest{
+    class cardOptionTest {
         @Test
-        void chooseCardOption_GetMana(){
+        void chooseCardOption_GetMana() {
             player1.getIndividualPlayerPerso(1).setMana(-100);
             player1.chooseCardOption(2, 2);
             assertEquals(50, player1.getIndividualPlayerPerso(1).getMana());
         }
 
         @Test
-        void chooseCardOption_GetHealth(){
+        void chooseCardOption_GetHealth() {
             player1.getIndividualPlayerPerso(1).setHealth(-70);
             player1.chooseCardOption(1, 2);
             assertEquals(50, player1.getIndividualPlayerPerso(1).getHealth());
         }
 
         @Test
-        void chooseCardOption_InvalideNumber(){
+        void chooseCardOption_InvalideNumber() {
             player1.getIndividualPlayerPerso(1).setHealth(-70);
             player1.chooseCardOption(3, 2);
             assertEquals(10, player1.getIndividualPlayerPerso(1).getHealth());
         }
 
         @Test
-        void chooseCardOption_GetHealth_WhenPersoIsDead(){
+        void chooseCardOption_GetHealth_WhenPersoIsDead() {
             player1.getIndividualPlayerPerso(1).setHealth(-200);
             player1.chooseCardOption(1, 2);
             assertEquals(0, player1.getIndividualPlayerPerso(1).getHealth());
@@ -127,7 +125,7 @@ public class playerTest {
         }
 
         @Test
-        void chooseCardOption_NotAnougthCard(){
+        void chooseCardOption_NotAnougthCard() {
             player1.getIndividualPlayerPerso(1).setMana(-100);
             player1.chooseCardOption(2, 2);
             player1.getIndividualPlayerPerso(1).setMana(-100);
@@ -139,15 +137,15 @@ public class playerTest {
     }
 
     @Nested
-    class chooseOptionAttack{
-        @Test 
-        void attackOption_chooseWeaponAttack(){
+    class chooseOptionAttack {
+        @Test
+        void attackOption_chooseWeaponAttack() {
             player1.attackOption(1, 1, 1, player2);
             assertEquals(60, player2.getIndividualPlayerPerso(0).getHealth());
         }
 
         @Test
-        void attackOption_chooseManaAttack(){
+        void attackOption_chooseManaAttack() {
             player1.attackOption(1, 2, 1, player2);
             assertEquals(80, player2.getIndividualPlayerPerso(0).getHealth());
             assertEquals(40, player1.getIndividualPlayerPerso(0).getMana());
@@ -157,19 +155,18 @@ public class playerTest {
         }
 
         @Test
-        void attackOption_invalidAttackNumber(){
+        void attackOption_invalidAttackNumber() {
             player1.attackOption(1, 4, 1, player2);
             assertEquals(120, player2.getIndividualPlayerPerso(0).getHealth());
         }
 
         @Test
-        void attackOption_ChooseManaAttackNecro(){
+        void attackOption_ChooseManaAttackNecro() {
             player1.getIndividualPlayerPerso(0).setHealth(-200);
             player1.attackOption(3, 2, 1, player2);
             assertEquals(60, player1.getIndividualPlayerPerso(0).getHealth());
-            
+
         }
     }
-
 
 }

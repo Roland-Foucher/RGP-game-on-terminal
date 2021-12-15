@@ -5,7 +5,6 @@ package com.example.simplon.promo16.perso;
  */
 public class Knigth extends Perso {
 
-
     public Knigth() {
         this.name = "Chevalier";
         this.weapon += "Epee";
@@ -22,14 +21,14 @@ public class Knigth extends Perso {
     }
 
     /**
-     * make a percentage with armore if attack is<0 (hurt) 
+     * make a percentage with armore if attack is<0 (hurt)
      */
     @Override
     public void setHealth(int attack) {
 
-        if (attack<0){
-            this.health+= attack + armore;
-        }else{
+        if (attack < 0) {
+            this.health += attack + armore;
+        } else {
             this.health += attack;
         }
 
@@ -47,7 +46,7 @@ public class Knigth extends Perso {
      */
     @Override
     public void manaAttack(Perso perso) {
-        
+
         this.armore += 20;
         perso.setHealth(-this.getManaAttack());
         this.setMana(-this.getManaCost());
@@ -55,7 +54,8 @@ public class Knigth extends Perso {
 
     @Override
     public String getManaPower() {
-        String manaPowerDescription = this.manaPower + " - Degat : " + this.manaAttack + " - cout " + this.manaCost + " - 🛡️ +20 Armure";
+        String manaPowerDescription = this.manaPower + " - Degat : " + this.manaAttack + " - cout " + this.manaCost
+                + " - 🛡️ +20 Armure";
         return manaPowerDescription;
     }
 
@@ -64,7 +64,5 @@ public class Knigth extends Perso {
         String nameIfDead = this.isAlive ? name : name + " 💀";
         return nameIfDead + " armure : " + armore;
     }
-    
-    
 
 }

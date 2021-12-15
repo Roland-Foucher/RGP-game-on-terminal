@@ -19,15 +19,17 @@ public class Perso {
     protected boolean isAlive = true;
 
     /**
-     * perso weapon attack an other personnage 
+     * perso weapon attack an other personnage
+     * 
      * @param advers lost health = weaponAttack
      */
     public void weaponAttack(Perso advers) {
         advers.setHealth(-this.weaponAttack);
     }
-    
+
     /**
      * perso mana atatck an other personnage
+     * 
      * @param advers lost health = manaAttack
      */
     public void manaAttack(Perso advers) {
@@ -36,7 +38,9 @@ public class Perso {
     }
 
     /**
-     * give or substract health to perso, can't have more than default health on init. Health = 0 => perso is dead
+     * give or substract health to perso, can't have more than default health on
+     * init. Health = 0 => perso is dead
+     * 
      * @param attack the num for change health
      */
     public void setHealth(int attack) {
@@ -51,8 +55,11 @@ public class Perso {
             this.health = 0;
         }
     }
+
     /**
-     * give or substract mana to perso, can't have more than default mana on init and less than 0.
+     * give or substract mana to perso, can't have more than default mana on init
+     * and less than 0.
+     * 
      * @param manaNumber the num to change mana
      */
     public void setMana(int manaNumber) {
@@ -60,23 +67,27 @@ public class Perso {
         if (this.mana > this.maxMana) {
             this.mana = this.maxMana;
         }
-        if (this.mana <0){
+        if (this.mana < 0) {
             this.mana = 0;
         }
     }
+
     /**
      * Display all power of perso
      */
     @Override
     public String toString() {
-        return String.format("name : %s\npoints de vie : %s\npoints de mana: %s\narme: %s / degats arme : %s\n pouvoir magique :%s / degats pouvoir magique :%s / cout du pouvoir : %s\n ", 
-        this.name, this.health, this.mana, this.weapon, this.weaponAttack, this.manaPower, this.manaAttack, this.manaCost);
+        return String.format(
+                "name : %s\npoints de vie : %s\npoints de mana: %s\narme: %s / degats arme : %s\n pouvoir magique :%s / degats pouvoir magique :%s / cout du pouvoir : %s\n ",
+                this.name, this.health, this.mana, this.weapon, this.weaponAttack, this.manaPower, this.manaAttack,
+                this.manaCost);
     }
 
-    //getter
+    // getter
 
     /**
      * if player is dead display name with a skull
+     * 
      * @return name of player
      */
     public String getName() {
@@ -90,7 +101,7 @@ public class Perso {
     }
 
     public String getManaPower() {
-        String manaPowerDescription = this.manaPower + " - Degat : " + this.manaAttack + " - cout " + this.manaCost; 
+        String manaPowerDescription = this.manaPower + " - Degat : " + this.manaAttack + " - cout " + this.manaCost;
         return manaPowerDescription;
     }
 
@@ -111,7 +122,7 @@ public class Perso {
     }
 
     public int getMaxMana() {
-    return maxMana;
+        return maxMana;
 
     }
 
@@ -130,10 +141,5 @@ public class Perso {
     public int getArmore() {
         return armore;
     }
-
-
-
-
-
 
 }
