@@ -86,6 +86,15 @@ public class MatchTest {
         assertEquals("Player1", player.getPlayerName());
     }
 
+    @Test
+    void personnageInitChoice(){
+        int[] perso = {1,2,3,4};
+        when(display.personnageChoice("", "player1", perso)).thenReturn(1);
+        match2.personnageInitChoice("player1");
+        assertEquals(, actual);
+        
+    }
+
     @Disabled
     @Test
     void runProgrammePlayer1Loose() {
@@ -97,7 +106,7 @@ public class MatchTest {
         assertEquals(1, Match.getPlayer2Win());
 
     }
-
+    @Disabled
     @Test
     void PlayerSelectHisPerso_WhenPersoIsDead() {
         when(display.playerChoosePersoToPlay(player1)).thenReturn(1);

@@ -99,6 +99,7 @@ public class Display {
                 System.out.print("-");
             }
             System.out.println();
+            
         }
     }
 
