@@ -1,12 +1,16 @@
 package com.example.simplon.promo16.game;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTimeout;
+import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.io.ByteArrayInputStream;
+import java.time.Duration;
+import java.util.concurrent.TimeUnit;
 
 import com.example.simplon.promo16.perso.Elfe;
 import com.example.simplon.promo16.perso.Knigth;
@@ -19,6 +23,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Timeout;
 
 public class MatchTest {
     Match match;
@@ -34,6 +39,8 @@ public class MatchTest {
     Perso elfe2;
     Perso necro2;
     Perso knight2;
+    Player player1Mock;
+    Player player2Mock;
 
     @BeforeEach
     public void init() {
@@ -50,6 +57,8 @@ public class MatchTest {
         knight2 = new Knigth();
         player1 = new Player(orc, elfe, necro, knight, "test");
         player2 = new Player(orc2, elfe2, necro2, knight2, "test");
+        player1Mock = mock(Player.class);
+        player2Mock = mock(Player.class);
 
     }
 
@@ -64,7 +73,12 @@ public class MatchTest {
         orc2 = null;
         elfe2 = null;
         necro2 = null;
+        knight2 = null;
         player2 = null;
+        player1Mock = null;
+        player2Mock = null;
+        match2 = null;
+        display = null;
     }
 
     @Test
@@ -86,33 +100,46 @@ public class MatchTest {
         assertEquals("Player1", player.getPlayerName());
     }
 
+    
+
     @Disabled
+    @Test
+    void personnageInitChoice(){
+        int[] perso = {1,2,3,4};
+        when(display.personnageChoice("", "player1", perso)).thenReturn(1);
+        match2.personnageInitChoice("player1");
+        
+        
+    }
+
+    
     @Test
     void runProgrammePlayer1Loose() {
-
-        when(match.personnageInitChoice("player1")).thenReturn(player1);
-        when(match.personnageInitChoice("player2")).thenReturn(player2);
-        when(player1.playerLoose()).thenReturn(true);
-        match.runProgramme();
-        assertEquals(1, Match.getPlayer2Win());
+        when(player1Mock.playerLoose()).thenReturn(true);
+        match2.playertoTest(player1Mock, player2Mock);
+        match2.playerMatch();
+        match2.playerLoose();
+        assertEquals(" win : 1", Match.getPlayer2Win());
 
     }
-
     @Test
-    void PlayerSelectHisPerso_WhenPersoIsDead() {
-        when(display.playerChoosePersoToPlay(player1)).thenReturn(1);
-        player1.getIndividualPlayerPerso(0).setHealth(-200);
-        int persoID = match.playerSelectHisPerso(player1);
-        assertEquals(0, persoID);
-    }
+    void runProgrammePlayer2Loose() {
+        when(player2Mock.playerLoose()).thenReturn(true);
+        match2.playertoTest(player1Mock, player2Mock);
+        match2.playerMatch();
+        match2.playerLoose();
+        assertEquals(" win : 1", Match.getPlayer1Win());
 
-    @Disabled
+    }
+    
     @Test
-    void PlayerSelectHisPerso_WhenPersoIsNotDead() {
-
-        int persoID = match2.playerSelectHisPerso(player1);
+    void PlayerSelectHisPerso() {
         when(display.playerChoosePersoToPlay(player1)).thenReturn(1);
-        assertEquals(1, persoID);
+        
+        
+        match2.mockDisplay(display);
+        assertEquals(1, match2.playerSelectHisPerso(player1)); 
     }
+
 
 }

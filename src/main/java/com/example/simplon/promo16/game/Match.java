@@ -17,12 +17,14 @@ public class Match {
     private static int player2Win = 0;
     private String[] playerNames;
 
-    Display display = new Display();
+    private Display display = new Display();
+
 
     /**
      * methode to run the game while a player loose
      * first players select personnages
      * next players attack one by one
+     * players can replay game
      */
     public void runProgramme() {
 
@@ -37,28 +39,39 @@ public class Match {
             player2 = this.personnageInitChoice(playerNames[1]);
 
             // players fight one by one until one of them loose
-            while (!player1.playerLoose() && !player2.playerLoose()) {
-                display.arena(player1, player2);
-                this.playerTurn(player1, player2);
-                if (player2.playerLoose()) {
-                    break;
-                }
-                display.arena(player1, player2);
-                this.playerTurn(player2, player1);
-            }
+            this.playerMatch();
+            this.playerLoose();
 
-            // end of game
-            if (player1.playerLoose()) {
-                System.out.println(player2.getPlayerName() + " win !!");
-                Match.player2Win += 1;
-            } else {
-                System.out.println(player1.getPlayerName() + " win!!");
-                Match.player1Win += 1;
-            }
             int replayGame = display.replayGame();
             replay = replayGame == 1 ? true : false;
 
         } while (replay);
+    }
+    /**
+     * While nobody loose, player play one by one with call playerTurn methode
+     */
+    public void playerMatch(){
+        while (!player1.playerLoose() && !player2.playerLoose()) {
+            display.arena(player1, player2);
+            this.playerTurn(player1, player2);
+            if (player2.playerLoose()) {
+                return;
+            }
+            display.arena(player1, player2);
+            this.playerTurn(player2, player1);
+        }
+    }
+    /**
+     * Get +1 to one player if other looseq
+     */
+    public void playerLoose(){
+        if (player1.playerLoose()) {
+            System.out.println(player2.getPlayerName() + " win !!");
+            Match.player2Win += 1;
+        } else {
+            System.out.println(player1.getPlayerName() + " win!!");
+            Match.player1Win += 1;
+        }
     }
 
     /**
@@ -123,6 +136,7 @@ public class Match {
      */
     public int playerChooseBetweenAttackOrCard(Player playerTurn, Perso persoSelected) {
         int playerChooseAttackOrCardID = display.playerChooseAttackOrCard(playerTurn);
+        
         // don't select card if health and mana are max
         while (playerChooseAttackOrCardID == 2 && persoSelected.getMana() == persoSelected.getMaxMana()
                 && persoSelected.getHealth() == persoSelected.getMaxHealth()) {
@@ -243,6 +257,13 @@ public class Match {
 
     public static String getPlayer2Win() {
         return " win : " + player2Win;
+    }
+    public void playertoTest(Player player1, Player player2){
+        this.player1 = player1;
+        this.player2 = player2;
+    }
+    public void mockDisplay(Display display){
+        this.display = display;
     }
 
 }
