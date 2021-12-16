@@ -7,26 +7,24 @@ import com.example.simplon.promo16.game.RouterSelect;
 
 import java.awt.event.KeyEvent;
 
-public class KeyboardSelectPlayer1 implements KeyListener {
-
+public class KeyboardSelect2option implements KeyListener {
     
     @Override
     public void keyPressed(KeyEvent e){
 
-        if(App.scene.getSelectPlayerKeyX()<380){
+        if(App.scene.getSelectPlayerKeyX()<1080){
             if (e.getKeyCode() == KeyEvent.VK_RIGHT){
-                App.scene.setSelectPlayerKey(120,-20);
+                App.scene.setSelectPlayerKey(120,20);
             }
         }
-        if(App.scene.getSelectPlayerKeyX()>20){
+        if(App.scene.getSelectPlayerKeyX()>800){
             if (e.getKeyCode() == KeyEvent.VK_LEFT){
-                App.scene.setSelectPlayerKey(-120,20);
+                App.scene.setSelectPlayerKey(-120,-20);
             }
         }
         if(e.getKeyCode() == KeyEvent.VK_ENTER){
-             RouterSelect.playerChoosePersoToPlay();
-             App.scene.displaySelectAttackOrCard();
-             App.scene.setSelectPlayerKey(-1000, -3000);
+            RouterSelect.playerChoosePersoToPlay();
+            App.scene.setSelectPlayerKey(-300, -300);
         }
     }
 

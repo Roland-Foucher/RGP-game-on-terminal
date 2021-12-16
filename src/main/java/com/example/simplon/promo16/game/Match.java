@@ -100,19 +100,22 @@ public class Match {
      * @param playerTurn player is turn to play
      * @return perso selected
      */
-    public int playerSelectHisPerso(Player playerTurn) {
+    public int playerSelectHisPerso(Player playerTurn) { // 2D OK
         int persoSelectedID = 0;
         App.scene.selectPlayer(playerTurn);
         while(persoSelectedID == 0){
             persoSelectedID = routerSelect.getPersoID();
         }
-        System.out.println(persoSelectedID);
         Perso persoSelected = playerTurn.getIndividualPlayerPerso(persoSelectedID - 1);
 
         // check if perso is dead
         while (!persoSelected.isAlive()) {
             System.out.println("Ce perso est mort! Choisir un autre perso.");
-            persoSelectedID = display.playerChoosePersoToPlay(playerTurn);
+            persoSelectedID = 0;
+            App.scene.selectPlayer(playerTurn);
+            while(persoSelectedID == 0){
+                persoSelectedID = routerSelect.getPersoID();
+            }
             persoSelected = playerTurn.getIndividualPlayerPerso(persoSelectedID - 1);
         }
         
@@ -128,6 +131,7 @@ public class Match {
      * @return ID 1 = Attack / ID 2 = Card
      */
     public int playerChooseBetweenAttackOrCard(Player playerTurn, Perso persoSelected) {
+        
         int playerChooseAttackOrCardID = display.playerChooseAttackOrCard(playerTurn);
         // don't select card if health and mana are max
         while (playerChooseAttackOrCardID == 2 && persoSelected.getMana() == persoSelected.getMaxMana()

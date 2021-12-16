@@ -8,8 +8,6 @@ import com.example.simplon.promo16.game.RouterSelect;
 import java.awt.event.KeyEvent;
 
 public class KeyboardSelectPlayer2 implements KeyListener {
-
-    private RouterSelect routerSelect = new RouterSelect();
     
     @Override
     public void keyPressed(KeyEvent e){
@@ -25,7 +23,8 @@ public class KeyboardSelectPlayer2 implements KeyListener {
             }
         }
         if(e.getKeyCode() == KeyEvent.VK_ENTER){
-            routerSelect.playerChoosePersoToPlay();
+            RouterSelect.playerChoosePersoToPlay();
+            App.scene.setSelectPlayerKey(-300, -300);
         }
     }
 

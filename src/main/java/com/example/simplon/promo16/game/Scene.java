@@ -9,9 +9,6 @@ import com.example.simplon.promo16.game.keyboard.KeyboardSelectPlayer1;
 import com.example.simplon.promo16.players.Player;
 
 import java.awt.Image;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -148,6 +145,15 @@ public class Scene extends JPanel {
     public void setSelectPlayerKey(int selectPlayerKeyX, int selectPlayerKeyY) {
         this.selectPlayerKeyX += selectPlayerKeyX;
         this.selectPlayerKeyY += selectPlayerKeyY;
+    }
+
+    public int getDisplayTextKeyY() {
+        return displayTextKeyY;
+    }
+
+    public void setDisplayTextKeyXY(int displayTextKeyX, int displayTextKeyY) {
+        this.displayTextKeyY = displayTextKeyY;
+        this.displayTextKeyX = displayTextKeyX;
     }
 
  
