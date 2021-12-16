@@ -103,10 +103,10 @@ public class Display {
     }
 
     /**
-     * Methode to display a text line into the area.
+     * Methode to display a text line into the arena.
      * 
-     * @param text1 param to display of player 1
-     * @param text2 param ot display of player 2
+     * @param text1 param to display of player 1 in left side
+     * @param text2 param ot display of player 2 in right side
      */
     public void displayTextInArena(String text1, String text2) {
         System.out.print(text1);
@@ -120,9 +120,9 @@ public class Display {
     /**
      * Display the characteristiques of the current perso to display into the Arena
      * 
-     * @param player1
-     * @param player2
-     * @param persoID
+     * @param player1 perso in left side arena
+     * @param player2 perso in right side arena
+     * @param persoID perso to display characteristiques
      */
     public void displayPersoCharacteristicsInArena(Player player1, Player player2, int persoID) {
         Perso persoPlayer1 = player1.getIndividualPlayerPerso(persoID);
@@ -139,7 +139,7 @@ public class Display {
      * The player can't choose the same perso two times
      * 
      * @param timeToChoosePerso the turn of choose (1 to 4)
-     * @param player            player turn to choose perso
+     * @param player player turn to choose perso
      * @param personnageChoice  array of ids selected before
      * @return the id of perso selected
      */
@@ -297,8 +297,9 @@ public class Display {
     }
 
     /**
-     * 
-     * @return
+     * Select the card option between add health and and  mana
+     * @return 1 if add health
+     * @return 2 if add mana
      */
     public int playerChooseCardOption() {
         int optionCardSelected;
@@ -314,6 +315,11 @@ public class Display {
         return optionCardSelected;
     }
 
+    /**
+     * players choose if they want to replay the game
+     * @return 1 if yes
+     * @return 2 if no
+     */
     public int replayGame() {
         int optionReplaySelected;
         do {
