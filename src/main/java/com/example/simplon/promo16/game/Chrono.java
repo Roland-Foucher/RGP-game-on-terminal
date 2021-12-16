@@ -3,14 +3,15 @@ package com.example.simplon.promo16.game;
 import com.example.simplon.promo16.App;
 
 public class Chrono implements Runnable {
-    private final int PAUSE = 20;
+    private final int PAUSE = 60;
 
     @Override
     public void run() {
         
         while(true){
 
-            App.scene.repaint();
+            App.sceneMatch.repaint();
+            
 
             try {
                 Thread.sleep(PAUSE);

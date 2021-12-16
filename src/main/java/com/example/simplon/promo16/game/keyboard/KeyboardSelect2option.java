@@ -12,19 +12,19 @@ public class KeyboardSelect2option implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e){
 
-        if(App.scene.getSelectPlayerKeyX()<1080){
+        if(App.sceneMatch.getSelectPlayerKeyX()<1080){
             if (e.getKeyCode() == KeyEvent.VK_RIGHT){
-                App.scene.setSelectPlayerKey(120,20);
+                App.sceneMatch.setSelectPlayerKey(120,20);
             }
         }
-        if(App.scene.getSelectPlayerKeyX()>800){
+        if(App.sceneMatch.getSelectPlayerKeyX()>800){
             if (e.getKeyCode() == KeyEvent.VK_LEFT){
-                App.scene.setSelectPlayerKey(-120,-20);
+                App.sceneMatch.setSelectPlayerKey(-120,-20);
             }
         }
         if(e.getKeyCode() == KeyEvent.VK_ENTER){
             RouterSelect.playerChoosePersoToPlay();
-            App.scene.setSelectPlayerKey(-300, -300);
+            App.sceneMatch.setSelectPlayerKey(-300, -300);
         }
     }
 

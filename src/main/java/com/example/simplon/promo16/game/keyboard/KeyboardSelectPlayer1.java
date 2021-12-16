@@ -13,20 +13,20 @@ public class KeyboardSelectPlayer1 implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e){
 
-        if(App.scene.getSelectPlayerKeyX()<380){
+        if(App.sceneMatch.getSelectPlayerKeyX()<380){
             if (e.getKeyCode() == KeyEvent.VK_RIGHT){
-                App.scene.setSelectPlayerKey(120,-20);
+                App.sceneMatch.setSelectPlayerKey(120,-20);
             }
         }
-        if(App.scene.getSelectPlayerKeyX()>20){
+        if(App.sceneMatch.getSelectPlayerKeyX()>20){
             if (e.getKeyCode() == KeyEvent.VK_LEFT){
-                App.scene.setSelectPlayerKey(-120,20);
+                App.sceneMatch.setSelectPlayerKey(-120,20);
             }
         }
         if(e.getKeyCode() == KeyEvent.VK_ENTER){
              RouterSelect.playerChoosePersoToPlay();
-             App.scene.displaySelectAttackOrCard();
-             App.scene.setSelectPlayerKey(-1000, -3000);
+             App.sceneMatch.displaySelectAttackOrCard();
+             App.sceneMatch.setSelectPlayerKey(-1000, -3000);
         }
     }
 

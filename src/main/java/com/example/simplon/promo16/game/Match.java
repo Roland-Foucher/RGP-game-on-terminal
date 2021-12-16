@@ -18,6 +18,8 @@ public class Match {
     private static int player2Win = 0;
     private String[] playerNames;
     private RouterSelect routerSelect = new RouterSelect();
+    private static int[] personnageInitChoicePlayer1 = new int[4];
+    private static int[] personnageInitChoicePlayer2 = new int[4];
 
     Display display = new Display();
 
@@ -29,15 +31,10 @@ public class Match {
      */
     public void runProgramme() {
 
-        boolean replay = true;
+        // boolean replay = true;
 
-        do {
-            // init return names of players
-            if (player1 == null || player2 == null)
-                playerNames = display.init();
-
-            player1 = this.personnageInitChoice(playerNames[0]);
-            player2 = this.personnageInitChoice(playerNames[1]);
+        // do {
+            
 
             // players fight one by one until one of them loose
             while (!player1.playerLoose() && !player2.playerLoose()) {
@@ -58,10 +55,19 @@ public class Match {
                 System.out.println(player1.getPlayerName() + " win!!");
                 Match.player1Win += 1;
             }
-            int replayGame = display.replayGame();
-            replay = replayGame == 1 ? true : false;
+        //     int replayGame = display.replayGame();
+        //     replay = replayGame == 1 ? true : false;
 
-        } while (replay);
+        // } while (replay);
+    }
+
+    public void playerInit(){
+        if (player1 == null || player2 == null)
+                playerNames = display.init();
+
+            player1 = this.personnageInitChoicePlayer1(playerNames[0]);
+            player2 = this.personnageInitChoicePlayer2(playerNames[1]);
+            
     }
 
     /**
@@ -102,7 +108,7 @@ public class Match {
      */
     public int playerSelectHisPerso(Player playerTurn) { // 2D OK
         int persoSelectedID = 0;
-        App.scene.selectPlayer(playerTurn);
+        App.sceneMatch.selectPlayer(playerTurn);
         while(persoSelectedID == 0){
             persoSelectedID = routerSelect.getPersoID();
         }
@@ -112,7 +118,7 @@ public class Match {
         while (!persoSelected.isAlive()) {
             System.out.println("Ce perso est mort! Choisir un autre perso.");
             persoSelectedID = 0;
-            App.scene.selectPlayer(playerTurn);
+            App.sceneMatch.selectPlayer(playerTurn);
             while(persoSelectedID == 0){
                 persoSelectedID = routerSelect.getPersoID();
             }
@@ -179,10 +185,9 @@ public class Match {
      * @param playerName name choose by user to the player
      * @return player to make
      */
-    public Player personnageInitChoice(String playerName) {
+    public Player personnageInitChoicePlayer1(String playerName) {
         String timeToChoosePerso[] = { "premier", "second", "troisiéme", "quatrième" };
 
-        int personnageInitChoicePlayer1[] = new int[4];
         for (int i = 0; i < 4; i++) {
             personnageInitChoicePlayer1[i] = display.personnageChoice(timeToChoosePerso[i], playerName,
                     personnageInitChoicePlayer1);
@@ -190,6 +195,18 @@ public class Match {
 
         return this.makePlayer(personnageInitChoicePlayer1[0], personnageInitChoicePlayer1[1],
                 personnageInitChoicePlayer1[2], personnageInitChoicePlayer1[3], playerName);
+    }
+
+    public Player personnageInitChoicePlayer2(String playerName) {
+        String timeToChoosePerso[] = { "premier", "second", "troisiéme", "quatrième" };
+
+        for (int i = 0; i < 4; i++) {
+            personnageInitChoicePlayer2[i] = display.personnageChoice(timeToChoosePerso[i], playerName,
+                    personnageInitChoicePlayer2);
+        }
+
+        return this.makePlayer(personnageInitChoicePlayer2[0], personnageInitChoicePlayer2[1],
+                personnageInitChoicePlayer2[2], personnageInitChoicePlayer2[3], playerName);
     }
 
     /**
@@ -261,6 +278,15 @@ public class Match {
 
     public static Player getPlayer2() {
         return player2;
+    }
+
+    public static int[] getPersonnageInitChoicePlayer1() {
+        return personnageInitChoicePlayer1;
+    }
+
+
+    public static int[] getPersonnageInitChoicePlayer2() {
+        return personnageInitChoicePlayer2;
     }
 
 

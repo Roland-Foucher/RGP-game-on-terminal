@@ -5,13 +5,12 @@ import com.example.simplon.promo16.players.Player;
 
 public class RouterSelect {
     private static int persoID;
-    private static int attackOrCard;
 
     
     public static void playerChoosePersoToPlay(){
 
 
-        int key = App.scene.getSelectPlayerKeyX();
+        int key = App.sceneMatch.getSelectPlayerKeyX();
         
 
         switch (key){

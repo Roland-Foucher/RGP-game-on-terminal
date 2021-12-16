@@ -89,8 +89,8 @@ public class MatchTest {
     @Test
     void runProgrammePlayer1Loose() {
 
-        when(match.personnageInitChoice("player1")).thenReturn(player1);
-        when(match.personnageInitChoice("player2")).thenReturn(player2);
+        when(match.personnageInitChoicePlayer1("player1")).thenReturn(player1);
+        when(match.personnageInitChoicePlayer2("player2")).thenReturn(player2);
         when(player1.playerLoose()).thenReturn(true);
         match.runProgramme();
         assertEquals(1, Match.getPlayer2Win());
