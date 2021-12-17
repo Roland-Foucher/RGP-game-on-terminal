@@ -1,16 +1,8 @@
 package com.example.simplon.promo16.game;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTimeout;
-import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-
-import java.io.ByteArrayInputStream;
-import java.time.Duration;
-import java.util.concurrent.TimeUnit;
 
 import com.example.simplon.promo16.perso.Elfe;
 import com.example.simplon.promo16.perso.Knigth;
@@ -23,7 +15,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Timeout;
 
 public class MatchTest {
     Match match;
@@ -98,18 +89,6 @@ public class MatchTest {
         assertEquals("Assassin", player.getIndividualPlayerPerso(2).getName());
         assertEquals("Druide", player.getIndividualPlayerPerso(3).getName());
         assertEquals("Player1", player.getPlayerName());
-    }
-
-    
-
-    @Disabled
-    @Test
-    void personnageInitChoice(){
-        int[] perso = {1,2,3,4};
-        when(display.personnageChoice("", "player1", perso)).thenReturn(1);
-        match2.personnageInitChoice("player1");
-        
-        
     }
 
     
