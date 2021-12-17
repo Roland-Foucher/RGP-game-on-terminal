@@ -1,5 +1,6 @@
 package com.example.simplon.promo16.game;
 
+import com.example.simplon.promo16.App;
 import com.example.simplon.promo16.perso.Assassin;
 import com.example.simplon.promo16.perso.Druid;
 import com.example.simplon.promo16.perso.Elfe;
@@ -11,15 +12,19 @@ import com.example.simplon.promo16.perso.Perso;
 import com.example.simplon.promo16.players.Player;
 
 public class Match {
-    private Player player1;
-    private Player player2;
+    private static Player player1;
+    private static Player player2;
     private static int player1Win = 0;
     private static int player2Win = 0;
     private String[] playerNames;
+    private RouterSelect routerSelect = new RouterSelect();
+    private static int[] personnageInitChoicePlayer1 = new int[4];
+    private static int[] personnageInitChoicePlayer2 = new int[4];
 
     private Display display = new Display();
 
 
+    
     /**
      * methode to run the game while a player loose
      * first players select personnages
@@ -28,24 +33,36 @@ public class Match {
      */
     public void runProgramme() {
 
-        boolean replay = true;
+        // boolean replay = true;
 
-        do {
-            // init return names of players
-            if (player1 == null || player2 == null)
-                playerNames = display.init();
-
-            player1 = this.personnageInitChoice(playerNames[0]);
-            player2 = this.personnageInitChoice(playerNames[1]);
+        // do {
+            
 
             // players fight one by one until one of them loose
             this.playerMatch();
             this.playerLoose();
 
-            int replayGame = display.replayGame();
-            replay = replayGame == 1 ? true : false;
+            // end of game
+            if (player1.playerLoose()) {
+                System.out.println(player2.getPlayerName() + " win !!");
+                Match.player2Win += 1;
+            } else {
+                System.out.println(player1.getPlayerName() + " win!!");
+                Match.player1Win += 1;
+            }
+        //     int replayGame = display.replayGame();
+        //     replay = replayGame == 1 ? true : false;
 
-        } while (replay);
+        // } while (replay);
+    }
+
+    public void playerInit(){
+        if (player1 == null || player2 == null)
+                playerNames = display.init();
+
+            player1 = this.personnageInitChoicePlayer1(playerNames[0]);
+            player2 = this.personnageInitChoicePlayer2(playerNames[1]);
+            
     }
     /**
      * While nobody loose, player play one by one with call playerTurn methode
@@ -102,7 +119,6 @@ public class Match {
         } else {
             System.out.println("error in the choose attack");
         }
-
     }
 
     /**
@@ -111,18 +127,25 @@ public class Match {
      * @param playerTurn player is turn to play
      * @return perso selected
      */
-    public int playerSelectHisPerso(Player playerTurn) {
-
-        int persoSelectedID = display.playerChoosePersoToPlay(playerTurn);
+    public int playerSelectHisPerso(Player playerTurn) { // 2D OK
+        int persoSelectedID = 0;
+        App.sceneMatch.selectPlayer(playerTurn);
+        while(persoSelectedID == 0){
+            persoSelectedID = routerSelect.getPersoID();
+        }
         Perso persoSelected = playerTurn.getIndividualPlayerPerso(persoSelectedID - 1);
 
         // check if perso is dead
         while (!persoSelected.isAlive()) {
             System.out.println("Ce perso est mort! Choisir un autre perso.");
-            persoSelectedID = display.playerChoosePersoToPlay(playerTurn);
+            persoSelectedID = 0;
+            App.sceneMatch.selectPlayer(playerTurn);
+            while(persoSelectedID == 0){
+                persoSelectedID = routerSelect.getPersoID();
+            }
             persoSelected = playerTurn.getIndividualPlayerPerso(persoSelectedID - 1);
         }
-
+        
         return persoSelectedID;
     }
 
@@ -135,6 +158,7 @@ public class Match {
      * @return ID 1 = Attack / ID 2 = Card
      */
     public int playerChooseBetweenAttackOrCard(Player playerTurn, Perso persoSelected) {
+        
         int playerChooseAttackOrCardID = display.playerChooseAttackOrCard(playerTurn);
         
         // don't select card if health and mana are max
@@ -183,10 +207,9 @@ public class Match {
      * @param playerName name choose by user to the player
      * @return player to make
      */
-    public Player personnageInitChoice(String playerName) {
+    public Player personnageInitChoicePlayer1(String playerName) {
         String timeToChoosePerso[] = { "premier", "second", "troisiéme", "quatrième" };
 
-        int personnageInitChoicePlayer1[] = new int[4];
         for (int i = 0; i < 4; i++) {
             personnageInitChoicePlayer1[i] = display.personnageChoice(timeToChoosePerso[i], playerName,
                     personnageInitChoicePlayer1);
@@ -194,6 +217,18 @@ public class Match {
 
         return this.makePlayer(personnageInitChoicePlayer1[0], personnageInitChoicePlayer1[1],
                 personnageInitChoicePlayer1[2], personnageInitChoicePlayer1[3], playerName);
+    }
+
+    public Player personnageInitChoicePlayer2(String playerName) {
+        String timeToChoosePerso[] = { "premier", "second", "troisiéme", "quatrième" };
+
+        for (int i = 0; i < 4; i++) {
+            personnageInitChoicePlayer2[i] = display.personnageChoice(timeToChoosePerso[i], playerName,
+                    personnageInitChoicePlayer2);
+        }
+
+        return this.makePlayer(personnageInitChoicePlayer2[0], personnageInitChoicePlayer2[1],
+                personnageInitChoicePlayer2[2], personnageInitChoicePlayer2[3], playerName);
     }
 
     /**
@@ -265,5 +300,23 @@ public class Match {
     public void mockDisplay(Display display){
         this.display = display;
     }
+
+    public static Player getPlayer1() {
+        return player1;
+    }
+
+    public static Player getPlayer2() {
+        return player2;
+    }
+
+    public static int[] getPersonnageInitChoicePlayer1() {
+        return personnageInitChoicePlayer1;
+    }
+
+
+    public static int[] getPersonnageInitChoicePlayer2() {
+        return personnageInitChoicePlayer2;
+    }
+
 
 }
