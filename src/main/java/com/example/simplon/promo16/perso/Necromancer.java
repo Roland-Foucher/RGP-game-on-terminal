@@ -29,7 +29,7 @@ public class Necromancer extends Perso {
             perso.setHealth(perso.getMaxHealth() / 2);
             this.setMana(-this.getManaCost());
         } else {
-            System.out.println(perso.getName() + "is not dead");
+            throw new Error("perso to apply resurection is not dead");
         }
 
     }

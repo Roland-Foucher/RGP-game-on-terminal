@@ -100,7 +100,7 @@ public class Match {
 
             // error
         } else {
-            System.out.println("error in the choose attack");
+            throw new Error("error number when choose attack or card");
         }
 
     }
@@ -245,8 +245,7 @@ public class Match {
                 perso = new Necromancer();
                 break;
             default:
-                System.out.println("please choose a good value");
-                break;
+                throw new Error("Invalide value init of perso");
         }
         return perso;
     }
@@ -265,5 +264,6 @@ public class Match {
     public void mockDisplay(Display display){
         this.display = display;
     }
-
+    //TODO exception
+    // TODO player computer
 }

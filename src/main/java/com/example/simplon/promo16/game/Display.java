@@ -274,10 +274,10 @@ public class Display {
     }
 
     /**
-     * 
-     * @param player1
-     * @param player2
-     * @return
+     *  player choose advers to attack, value must be between 1 and 4
+     * @param player1 player turn
+     * @param player2 player to attack
+     * @return player ID to attack between 1 and 4
      */
     public int playerChooseAdversToAttack(Player player1, Player player2) {
 

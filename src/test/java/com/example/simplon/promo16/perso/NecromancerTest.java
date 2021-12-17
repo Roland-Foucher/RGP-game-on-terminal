@@ -1,6 +1,8 @@
 package com.example.simplon.promo16.perso;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -24,10 +26,19 @@ public class NecromancerTest {
     }
 
     @Test
-    void testManaAttackondeathPerso() {
+    void testManaAttackonDeathPerso() {
         orc.setHealth(-2000);
         necro.manaAttack(orc);
         assertEquals(60, orc.getHealth());
         assertEquals(50, necro.getMana());
     }
+
+    @Test
+    void testManaAttackonAlivePerso() {
+        assertThrows(Error.class, () -> {
+            necro.manaAttack(orc);
+        });
+        
+    }
+    
 }

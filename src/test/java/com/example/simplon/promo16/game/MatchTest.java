@@ -1,6 +1,7 @@
 package com.example.simplon.promo16.game;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -13,7 +14,6 @@ import com.example.simplon.promo16.players.Player;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 public class MatchTest {
@@ -80,6 +80,14 @@ public class MatchTest {
         assertEquals("Chevalier armure : 10", perso2.getName());
         Perso perso3 = match2.choosePerso(7);
         assertEquals("Necromancer", perso3.getName());
+    }
+    @Test
+    void testChoosePersoInvalid() {
+        
+        assertThrows(Error.class, () ->{
+            match2.choosePerso(8);
+        });
+        
     }
 
     @Test
