@@ -2,7 +2,6 @@ package com.example.simplon.promo16.perso;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -38,7 +37,7 @@ public class NecromancerTest {
         assertThrows(Error.class, () -> {
             necro.manaAttack(orc);
         });
-        
+
     }
-    
+
 }

@@ -1,6 +1,7 @@
 package com.example.simplon.promo16.players;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.example.simplon.promo16.perso.Elfe;
 import com.example.simplon.promo16.perso.Knigth;
@@ -112,14 +113,20 @@ public class playerTest {
         @Test
         void chooseCardOption_InvalideNumber() {
             player1.getIndividualPlayerPerso(1).setHealth(-70);
-            player1.chooseCardOption(3, 2);
+            assertThrows(Error.class, () -> {
+                player1.chooseCardOption(3, 2);
+            });
+
             assertEquals(10, player1.getIndividualPlayerPerso(1).getHealth());
         }
 
         @Test
         void chooseCardOption_GetHealth_WhenPersoIsDead() {
             player1.getIndividualPlayerPerso(1).setHealth(-200);
-            player1.chooseCardOption(1, 2);
+            assertThrows(Error.class, () -> {
+                player1.chooseCardOption(1, 2);
+            });
+
             assertEquals(0, player1.getIndividualPlayerPerso(1).getHealth());
             assertEquals(false, player1.getIndividualPlayerPerso(1).isAlive());
         }
@@ -131,7 +138,10 @@ public class playerTest {
             player1.getIndividualPlayerPerso(1).setMana(-100);
             player1.chooseCardOption(2, 2);
             player1.getIndividualPlayerPerso(1).setMana(-100);
-            player1.chooseCardOption(2, 2);
+            assertThrows(Error.class, () -> {
+                player1.chooseCardOption(2, 2);
+            });
+
             assertEquals(0, player1.getIndividualPlayerPerso(1).getMana());
         }
     }
@@ -156,7 +166,11 @@ public class playerTest {
 
         @Test
         void attackOption_invalidAttackNumber() {
-            player1.attackOption(1, 4, 1, player2);
+
+            assertThrows(Error.class, () -> {
+                player1.attackOption(1, 4, 1, player2);
+            });
+
             assertEquals(120, player2.getIndividualPlayerPerso(0).getHealth());
         }
 

@@ -78,8 +78,7 @@ public class Player {
         switch (choiceAttach) {
             case 1:
                 if (!persoPlayerTurn.isAlive()) {
-                    System.out.println("error = this perso is dead !");
-                    return;
+                    throw new Error("error = perso selected is dead !");
                 }
                 persoPlayerTurn.weaponAttack(persoPlayerAgainst);
                 break;
@@ -90,8 +89,8 @@ public class Player {
                 persoPlayerTurn.manaAttack(persoPlayerAgainst);
                 break;
             default:
-                System.out.println("invalid choice of perso");
-                break;
+                throw new Error("invalid choice of perso");
+
         }
     }
 
@@ -105,22 +104,22 @@ public class Player {
     public void chooseCardOption(int option, int perso) {
 
         if (this.getPowerCard().getNumberOfCard() == 0) {
-            System.out.println("not anougth card to do this");
-            return;
+            throw new Error("not anougth card to do this");
+
         }
 
         // check perso choice is OK
         if (perso < 1 || perso > 4) {
-            System.out.println("invalid choice of perso");
-            return;
+            throw new Error("invalid choice of perso");
+
         }
         // convert choice to index list value
         perso -= 1;
         // take perso list to a variable and check is alive
         Perso persoToApplyCard = this.getIndividualPlayerPerso(perso);
         if (!persoToApplyCard.isAlive()) {
-            System.out.println("error = this perso is dead !");
-            return;
+            throw new Error("error = this perso is dead !");
+
         }
 
         // switch choices and check option is OK
@@ -132,8 +131,8 @@ public class Player {
                 this.getPowerCard().addMana(persoToApplyCard);
                 break;
             default:
-                System.out.println("this option does not exist");
-                break;
+                throw new Error("this option does not exist");
+
         }
     }
 
