@@ -102,7 +102,11 @@ public class PlayerTurnService {
 
         if (persoSelected.getClass() == Necromancer.class && playerAttack == 2) {
             int selfPersoToMakeAlive = display.playerChoosePersoToPlay(playerTurn);
-            persoToAttack = playerTurn.getIndividualPlayerPerso(selfPersoToMakeAlive);
+            while(selfPersoToMakeAlive == playerAttack){
+                System.out.println("Vous ne pouvez pas choisir le necromancer!");
+                selfPersoToMakeAlive = display.playerChoosePersoToPlay(playerTurn);
+            }
+            persoToAttack = playerTurn.getIndividualPlayerPerso(selfPersoToMakeAlive - 1);
             playerTurn.attackOption(persoSelectedID, playerAttack, selfPersoToMakeAlive, playerAdvers);
         } else {
             int playerAdversToAttack = display.playerChooseAdversToAttack(playerTurn, playerAdvers);

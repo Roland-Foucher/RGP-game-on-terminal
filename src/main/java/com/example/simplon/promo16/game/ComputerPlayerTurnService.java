@@ -47,7 +47,7 @@ public class ComputerPlayerTurnService extends PlayerTurnService {
             System.out.println("computer choose : attack");
             this.attackIsChoosen(player2, player1, persoSelected, persoSelectedID);
 
-        // card is choose
+            // card is choose
         } else if (playerChooseAttackOrCardID == 2) {
             System.out.println("computer choose : card");
             int cardOptionID = random.nextInt(2) + 1;
@@ -111,9 +111,13 @@ public class ComputerPlayerTurnService extends PlayerTurnService {
         // change the perso to apply mana to computer perso
         if (persoSelected.getClass() == Necromancer.class && playerAttack == 2) {
             int selfPersoToMakeAlive = random.nextInt(4) + 1;
-            persoToAttack = player2.getIndividualPlayerPerso(selfPersoToMakeAlive);
-            System.out
-                    .println("computer soigne " + player2.getIndividualPlayerPerso(selfPersoToMakeAlive - 1).getName());
+            // check not choose necro!
+            while (selfPersoToMakeAlive == playerAttack) {
+                selfPersoToMakeAlive = random.nextInt(4) + 1;
+            }
+            persoToAttack = player2.getIndividualPlayerPerso(selfPersoToMakeAlive - 1);
+
+            System.out.println("computer soigne " + persoToAttack.getName());
             player2.attackOption(persoSelectedID, playerAttack, selfPersoToMakeAlive, player1);
 
         } else {
@@ -131,7 +135,5 @@ public class ComputerPlayerTurnService extends PlayerTurnService {
         }
         return persoToAttack.getHealth();
     }
-
-
 
 }
