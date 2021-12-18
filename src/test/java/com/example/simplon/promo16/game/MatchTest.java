@@ -5,10 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import com.example.simplon.promo16.perso.Elfe;
-import com.example.simplon.promo16.perso.Knigth;
-import com.example.simplon.promo16.perso.Necromancer;
-import com.example.simplon.promo16.perso.Orc;
 import com.example.simplon.promo16.perso.Perso;
 import com.example.simplon.promo16.players.Player;
 
@@ -17,55 +13,26 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class MatchTest {
-    Match match;
     Match match2;
     Display display;
-    Player player1;
-    Player player2;
-    Perso orc;
-    Perso elfe;
-    Perso necro;
-    Perso knight;
-    Perso orc2;
-    Perso elfe2;
-    Perso necro2;
-    Perso knight2;
-    Player player1Mock;
-    Player player2Mock;
+
+    Player player1Mock, player2Mock;
+    PlayerTurnService playerTurnService;
 
     @BeforeEach
     public void init() {
-        match = mock(Match.class);
         match2 = new Match();
         display = mock(Display.class);
-        orc = new Orc();
-        elfe = new Elfe();
-        necro = new Necromancer();
-        knight = new Knigth();
-        orc2 = new Orc();
-        elfe2 = new Elfe();
-        necro2 = new Necromancer();
-        knight2 = new Knigth();
-        player1 = new Player(orc, elfe, necro, knight, "test");
-        player2 = new Player(orc2, elfe2, necro2, knight2, "test");
+
         player1Mock = mock(Player.class);
         player2Mock = mock(Player.class);
+        playerTurnService = new PlayerTurnService(display);
 
     }
 
     @AfterEach
     public void restoreStreams() {
-        match = null;
-        orc = null;
-        elfe = null;
-        necro = null;
-        knight = null;
-        player1 = null;
-        orc2 = null;
-        elfe2 = null;
-        necro2 = null;
-        knight2 = null;
-        player2 = null;
+
         player1Mock = null;
         player2Mock = null;
         match2 = null;
@@ -81,13 +48,14 @@ public class MatchTest {
         Perso perso3 = match2.choosePerso(7);
         assertEquals("Necromancer", perso3.getName());
     }
+
     @Test
     void testChoosePersoInvalid() {
-        
-        assertThrows(Error.class, () ->{
+
+        assertThrows(Error.class, () -> {
             match2.choosePerso(8);
         });
-        
+
     }
 
     @Test
@@ -99,34 +67,23 @@ public class MatchTest {
         assertEquals("Player1", player.getPlayerName());
     }
 
-    
     @Test
     void runProgrammePlayer1Loose() {
         when(player1Mock.playerLoose()).thenReturn(true);
         match2.playertoTest(player1Mock, player2Mock);
-        match2.playerMatch();
+        match2.playerMatch(playerTurnService, playerTurnService);
         match2.playerLoose();
         assertEquals(" win : 1", Match.getPlayer2Win());
 
     }
+
     @Test
     void runProgrammePlayer2Loose() {
         when(player2Mock.playerLoose()).thenReturn(true);
         match2.playertoTest(player1Mock, player2Mock);
-        match2.playerMatch();
+        match2.playerMatch(playerTurnService, playerTurnService);
         match2.playerLoose();
         assertEquals(" win : 1", Match.getPlayer1Win());
-
     }
-    
-    @Test
-    void PlayerSelectHisPerso() {
-        when(display.playerChoosePersoToPlay(player1)).thenReturn(1);
-        
-        
-        match2.mockDisplay(display);
-        assertEquals(1, match2.playerSelectHisPerso(player1)); 
-    }
-
 
 }
