@@ -5,7 +5,7 @@ import com.example.simplon.promo16.perso.Necromancer;
 import com.example.simplon.promo16.perso.Perso;
 import com.example.simplon.promo16.players.Player;
 
-public class PlayerTurnService {
+public class PlayerTurnService implements IPlayerturnService {
 
     Display display;
     RouterSelect routerSelect;
@@ -133,4 +133,5 @@ public class PlayerTurnService {
         }
         return persoToAttack.getHealth();
     }
+
 }

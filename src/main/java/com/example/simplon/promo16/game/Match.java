@@ -13,7 +13,7 @@ import com.example.simplon.promo16.perso.Orc;
 import com.example.simplon.promo16.perso.Perso;
 import com.example.simplon.promo16.players.Player;
 
-public class Match {
+public class Match implements IMatch {
     private static Player player1;
     private static Player player2;
     private static int player1Win = 0;
