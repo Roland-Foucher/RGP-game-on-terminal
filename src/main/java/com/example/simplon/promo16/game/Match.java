@@ -20,8 +20,8 @@ public class Match implements IMatch {
     private static int player2Win = 0;
     private String[] playerNames = new String[2];
     private RouterSelect routerSelect = new RouterSelect();
-    private static int[] personnageInitChoicePlayer1 = new int[4];
-    private static int[] personnageInitChoicePlayer2 = new int[4];
+    private int[] personnageInitChoicePlayer = new int[4];
+   
 
     private Display display = new Display();
 
@@ -75,8 +75,13 @@ public class Match implements IMatch {
                 playerNames[1] = display.choosePlayer2Name();
             }
 
-            player1 = this.personnageInitChoicePlayer1(playerNames[0]);
-            player2 = this.personnageInitChoicePlayer2(playerNames[1]);
+            player1 = this.personnageInitChoicePlayer(playerNames[0]);
+            App.sceneMatch.displayPersoPlayer1(personnageInitChoicePlayer);
+            for (int i = 0; i < personnageInitChoicePlayer.length; i++) {
+                personnageInitChoicePlayer[i] = 0;
+            }
+            player2 = this.personnageInitChoicePlayer(playerNames[1]);
+            App.sceneMatch.displayPersoPlayer2(personnageInitChoicePlayer);
         }
 
         if (gameMode == 2) {
@@ -86,8 +91,10 @@ public class Match implements IMatch {
                 playerNames[0] = display.choosePlayer1Name();
             }
 
-            player1 = this.personnageInitChoicePlayer1(playerNames[0]);
+            player1 = this.personnageInitChoicePlayer(playerNames[0]);
+            App.sceneMatch.displayPersoPlayer1(personnageInitChoicePlayer);
             player2 = this.makePlayerComputer();
+            App.sceneMatch.displayPersoPlayer2(personnageInitChoicePlayer);
         }
             
     }
@@ -127,28 +134,16 @@ public class Match implements IMatch {
      * @param playerName name choose by user to the player
      * @return player to make
      */
-    public Player personnageInitChoicePlayer1(String playerName) {
+    public Player personnageInitChoicePlayer(String playerName) {
         String timeToChoosePerso[] = { "premier", "second", "troisiéme", "quatrième" };
 
         for (int i = 0; i < 4; i++) {
-            personnageInitChoicePlayer1[i] = display.personnageChoice(timeToChoosePerso[i], playerName,
-                    personnageInitChoicePlayer1);
+            personnageInitChoicePlayer[i] = display.personnageChoice(timeToChoosePerso[i], playerName,
+                    personnageInitChoicePlayer);
         }
 
-        return this.makePlayer(personnageInitChoicePlayer1[0], personnageInitChoicePlayer1[1],
-                personnageInitChoicePlayer1[2], personnageInitChoicePlayer1[3], playerName);
-    }
-
-    public Player personnageInitChoicePlayer2(String playerName) {
-        String timeToChoosePerso[] = { "premier", "second", "troisiéme", "quatrième" };
-
-        for (int i = 0; i < 4; i++) {
-            personnageInitChoicePlayer2[i] = display.personnageChoice(timeToChoosePerso[i], playerName,
-                    personnageInitChoicePlayer2);
-        }
-
-        return this.makePlayer(personnageInitChoicePlayer2[0], personnageInitChoicePlayer2[1],
-                personnageInitChoicePlayer2[2], personnageInitChoicePlayer2[3], playerName);
+        return this.makePlayer(personnageInitChoicePlayer[0], personnageInitChoicePlayer[1],
+                personnageInitChoicePlayer[2], personnageInitChoicePlayer[3], playerName);
     }
 
     /**
@@ -224,6 +219,11 @@ public class Match implements IMatch {
             num4 = random.nextInt(7) + 1;
         } while (num4 == num1 || num4 == num2 || num4 == num3);
 
+        personnageInitChoicePlayer[0] = num1;
+        personnageInitChoicePlayer[1] = num2;
+        personnageInitChoicePlayer[2] = num3;
+        personnageInitChoicePlayer[3] = num4;
+
         Perso perso1 = this.choosePerso(num1);
         Perso perso2 = this.choosePerso(num2);
         Perso perso3 = this.choosePerso(num3);
@@ -254,15 +254,6 @@ public class Match implements IMatch {
 
     public static Player getPlayer2() {
         return player2;
-    }
-
-    public static int[] getPersonnageInitChoicePlayer1() {
-        return personnageInitChoicePlayer1;
-    }
-
-
-    public static int[] getPersonnageInitChoicePlayer2() {
-        return personnageInitChoicePlayer2;
     }
 
 

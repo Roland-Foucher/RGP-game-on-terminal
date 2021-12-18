@@ -37,9 +37,9 @@ public class App
         display.setContentPane(sceneInit);
         display.setVisible(true);
         
-        
+        sceneMatch = new SceneMatch();
         match.playerInit();
-        sceneMatch = new SceneMatch(Match.getPersonnageInitChoicePlayer1(), Match.getPersonnageInitChoicePlayer2());
+        
         
         display.setContentPane(sceneMatch);
         display.setVisible(true);

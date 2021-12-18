@@ -22,44 +22,29 @@ public class SceneMatch extends JPanel {
     private ImageIcon icoBack;
     private ImageIcon icoSelectPlayer;
 
-    private ImageIcon icoOrcP1;
-    private ImageIcon icoOrcP2;
-    private ImageIcon icoKnightP1;
-    private ImageIcon icoKnightP2;
-    private ImageIcon icoAssassinP1;
-    private ImageIcon icoAssassinP2;
-    private ImageIcon icoDruidP1;
-    private ImageIcon icoDruidP2;
-    private ImageIcon icoElfeP1;
-    private ImageIcon icoElfeP2;
-    private ImageIcon icoMagicianP1;
-    private ImageIcon icoMagicianP2;
-    private ImageIcon icoNecromancerP1;
-    private ImageIcon icoNecromancerP2;
+    private ImageIcon icoOrcP1,icoOrcP2;
+    private ImageIcon icoKnightP1, icoKnightP2;
+    private ImageIcon icoAssassinP1, icoAssassinP2;
+    private ImageIcon icoDruidP1, icoDruidP2;
+    private ImageIcon icoElfeP1, icoElfeP2;
+    private ImageIcon icoMagicianP1, icoMagicianP2;
+    private ImageIcon icoNecromancerP1, icoNecromancerP2;
 
 
     private Image imageBack;
     private Image imageSelectPlayer;
 
-    private Image imagePerso1Player1;
-    private Image imagePerso2Player1;
-    private Image imagePerso3Player1;
-    private Image imagePerso4Player1;
-    private Image imagePerso1Player2;
-    private Image imagePerso2Player2;
-    private Image imagePerso3Player2;
-    private Image imagePerso4Player2;
+    private Image imagePerso1Player1, imagePerso2Player1, imagePerso3Player1, imagePerso4Player1;
+    private Image imagePerso1Player2, imagePerso2Player2, imagePerso3Player2, imagePerso4Player2;
     private Image[] imagesPlayer1 = {imagePerso1Player1, imagePerso2Player1, imagePerso3Player1, imagePerso4Player1};
     private Image[] imagesPlayer2 = {imagePerso1Player2, imagePerso2Player2, imagePerso3Player2, imagePerso4Player2};
 
-    int selectPlayerKeyX;
-    int selectPlayerKeyY;
+    private int selectPlayerKeyX, selectPlayerKeyY;
 
-    int displayTextKeyX;
-    int displayTextKeyY;
+    private int displayTextKeyX, displayTextKeyY;
     
 
-    public SceneMatch(int[] persoInitChoicePlayer1, int[]persoInitChoicePlayer2) {
+    public SceneMatch() {
         super();
 
         this.selectPlayerKeyX = -20;
@@ -89,10 +74,6 @@ public class SceneMatch extends JPanel {
         
         this.imageBack = this.icoBack.getImage();
         this.imageSelectPlayer = this.icoSelectPlayer.getImage();
-
-        this.displayPersoPlayer1(persoInitChoicePlayer1);
-        this.displayPersoPlayer2(persoInitChoicePlayer2);
-
 
         Thread chronoDisplay = new Thread(new Chrono());
         chronoDisplay.start();
