@@ -1,5 +1,7 @@
 package com.example.simplon.promo16.game;
 
+import java.util.Random;
+
 import com.example.simplon.promo16.perso.Assassin;
 import com.example.simplon.promo16.perso.Druid;
 import com.example.simplon.promo16.perso.Elfe;
@@ -15,7 +17,8 @@ public class Match {
     private Player player2;
     private static int player1Win = 0;
     private static int player2Win = 0;
-    private String[] playerNames;
+    private String[] playerNames = new String[2];
+    private Random random = new Random();
 
     private Display display = new Display();
 
@@ -29,14 +32,26 @@ public class Match {
     public void runProgramme() {
 
         boolean replay = true;
-
+        int gameMode = display.init();
         do {
             // init return names of players
-            if (player1 == null || player2 == null)
-                playerNames = display.init();
+            
+            if (player1 == null || player2 == null){
+                if (gameMode == 1){
+                    playerNames[0] = display.choosePlayer1Name();
+                    playerNames[1] = display.choosePlayer2Name();
+                    
+                    player1 = this.personnageInitChoice(playerNames[0]);
+                    player2 = this.personnageInitChoice(playerNames[1]);
+                }
+                if (gameMode == 2){
+                    playerNames[0] = display.choosePlayer1Name();
+                    player1 = this.personnageInitChoice(playerNames[0]);
+                    player2 = this.makePlayerComputer();
+                }
+            }
 
-            player1 = this.personnageInitChoice(playerNames[0]);
-            player2 = this.personnageInitChoice(playerNames[1]);
+            
 
             // players fight one by one until one of them loose
             this.playerMatch();
@@ -213,6 +228,29 @@ public class Match {
         Perso perso4 = this.choosePerso(userChoosePerso4);
         return new Player(perso1, perso2, perso3, perso4, name);
     }
+
+    public Player makePlayerComputer() {
+        int num1 = random.nextInt(7)+1;
+        int num2;
+        int num3;
+        int num4;
+        do{
+            num2 = random.nextInt(7)+1;
+        }while(num2 == num1);
+        do{
+            num3 = random.nextInt(7)+1;
+        }while(num3 == num1 || num3 == num2);
+        do{
+            num4 = random.nextInt(7)+1;
+        }while(num4 == num1 || num4 == num2 || num4 == num3);
+
+        Perso perso1 = this.choosePerso(num1);
+        Perso perso2 = this.choosePerso(num2);
+        Perso perso3 = this.choosePerso(num3);
+        Perso perso4 = this.choosePerso(num4);
+        return new Player(perso1, perso2, perso3, perso4, "computer");
+    }
+
 
     /**
      * choose a perso with int ID to add to player
