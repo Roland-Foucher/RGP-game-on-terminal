@@ -18,7 +18,7 @@ public class Match {
     private static Player player2;
     private static int player1Win = 0;
     private static int player2Win = 0;
-    private String[] playerNames;
+    private String[] playerNames = new String[2];
     private RouterSelect routerSelect = new RouterSelect();
     private static int[] personnageInitChoicePlayer1 = new int[4];
     private static int[] personnageInitChoicePlayer2 = new int[4];
