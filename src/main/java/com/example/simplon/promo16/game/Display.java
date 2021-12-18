@@ -29,11 +29,9 @@ public class Display {
      * 
      * @return array of player's names to init players
      */
-    public String[] init() {
-        String[] playerNames = new String[2];
-        String player1 = "";
-        String player2 = "";
-        String inputValue = "";
+    public int init() {
+
+        int inputValue = 0;
         System.out.println("Bienvenue dans le game !");
         System.out.println("Ce jeux est un RPG, chaque joueur à 4 personnages qui se battent à tour de role");
         System.out.println();
@@ -47,25 +45,36 @@ public class Display {
         System.out.println("Magician : attack mana puissante et beacoup de mana");
         System.out.println("Necromancien : peu puissant mais peu réssuciter ses alliers");
         System.out.println();
-        System.out.println("entrez 'ok' pour continuer");
+        System.out.println("choisir le mode de jeu");
+        System.out.println("1 : Player vs Player");
+        System.out.println("2 : Player vs Computer");
 
         do {
-            inputValue = scanner.nextLine();
-        } while (!inputValue.equals("ok"));
+            inputValue = this.userInput();
+        } while (inputValue != 1 && inputValue != 2);
+        return inputValue;
+    }
 
+    public String choosePlayer1Name() {
+        String player1 = "";
+        scanner.nextLine();
         do {
-            System.out.println("choissir le nom du player 1");
+            System.out.println("choisir le nom du player 1");
             player1 = scanner.nextLine();
         } while (player1.isBlank());
 
+        return player1;
+    }
+
+    public String choosePlayer2Name() {
+        String player2 = "";
+
         do {
-            System.out.println("choissir le nom du player 2");
+            System.out.println("choisir le nom du player 2");
             player2 = scanner.nextLine();
         } while (player2.isBlank());
 
-        playerNames[0] = player1;
-        playerNames[1] = player2;
-        return playerNames;
+        return player2;
     }
 
     /**
@@ -99,7 +108,7 @@ public class Display {
                 System.out.print("-");
             }
             System.out.println();
-            
+
         }
     }
 
@@ -140,7 +149,7 @@ public class Display {
      * The player can't choose the same perso two times
      * 
      * @param timeToChoosePerso the turn of choose (1 to 4)
-     * @param player player turn to choose perso
+     * @param player            player turn to choose perso
      * @param personnageChoice  array of ids selected before
      * @return the id of perso selected
      */
@@ -274,10 +283,11 @@ public class Display {
     }
 
     /**
+     * player choose advers to attack, value must be between 1 and 4
      * 
-     * @param player1
-     * @param player2
-     * @return
+     * @param player1 player turn
+     * @param player2 player to attack
+     * @return player ID to attack between 1 and 4
      */
     public int playerChooseAdversToAttack(Player player1, Player player2) {
 
@@ -298,7 +308,8 @@ public class Display {
     }
 
     /**
-     * Select the card option between add health and and  mana
+     * Select the card option between add health and and mana
+     * 
      * @return 1 if add health
      * @return 2 if add mana
      */
@@ -318,6 +329,7 @@ public class Display {
 
     /**
      * players choose if they want to replay the game
+     * 
      * @return 1 if yes
      * @return 2 if no
      */

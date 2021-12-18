@@ -11,7 +11,7 @@ import com.example.simplon.promo16.perso.Orc;
 import com.example.simplon.promo16.players.Player;
 
 /**
- * Hello world!
+ * this class run programme
  *
  */
 public class App 

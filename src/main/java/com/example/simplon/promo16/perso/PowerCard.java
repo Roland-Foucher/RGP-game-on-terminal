@@ -8,7 +8,7 @@ public class PowerCard {
             perso.setHealth(40);
             this.playOneCard();
         } else {
-            System.out.println("you don't have any card");
+            throw new Error("player don't have any card");
         }
     }
 
@@ -17,7 +17,7 @@ public class PowerCard {
             perso.setMana(50);
             this.playOneCard();
         } else {
-            System.out.println("you don't have any card");
+            throw new Error("player don't have any card");
         }
     }
 

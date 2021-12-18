@@ -1,6 +1,7 @@
 package com.example.simplon.promo16.perso;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -40,7 +41,11 @@ public class PowerCardTest {
     void testCardNegative() {
         powercard.addHealth(orc);
         powercard.addHealth(orc);
-        powercard.addHealth(orc);
+        assertThrows(Error.class, () -> {
+            powercard.addHealth(orc);
+        });
+        
         assertEquals(0, powercard.getNumberOfCard());
     }
+
 }
