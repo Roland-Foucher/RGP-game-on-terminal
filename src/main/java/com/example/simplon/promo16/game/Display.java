@@ -30,7 +30,7 @@ public class Display {
      * @return array of player's names to init players
      */
     public int init() {
-       
+
         int inputValue = 0;
         System.out.println("Bienvenue dans le game !");
         System.out.println("Ce jeux est un RPG, chaque joueur à 4 personnages qui se battent à tour de role");
@@ -51,11 +51,11 @@ public class Display {
 
         do {
             inputValue = this.userInput();
-        } while (inputValue!=1 && inputValue != 2);
+        } while (inputValue != 1 && inputValue != 2);
         return inputValue;
     }
 
-    public String choosePlayer1Name(){
+    public String choosePlayer1Name() {
         String player1 = "";
         scanner.nextLine();
         do {
@@ -65,9 +65,10 @@ public class Display {
 
         return player1;
     }
-    public String choosePlayer2Name(){
+
+    public String choosePlayer2Name() {
         String player2 = "";
-        
+
         do {
             System.out.println("choisir le nom du player 2");
             player2 = scanner.nextLine();
@@ -107,7 +108,7 @@ public class Display {
                 System.out.print("-");
             }
             System.out.println();
-            
+
         }
     }
 
@@ -148,7 +149,7 @@ public class Display {
      * The player can't choose the same perso two times
      * 
      * @param timeToChoosePerso the turn of choose (1 to 4)
-     * @param player player turn to choose perso
+     * @param player            player turn to choose perso
      * @param personnageChoice  array of ids selected before
      * @return the id of perso selected
      */
@@ -282,7 +283,8 @@ public class Display {
     }
 
     /**
-     *  player choose advers to attack, value must be between 1 and 4
+     * player choose advers to attack, value must be between 1 and 4
+     * 
      * @param player1 player turn
      * @param player2 player to attack
      * @return player ID to attack between 1 and 4
@@ -306,7 +308,8 @@ public class Display {
     }
 
     /**
-     * Select the card option between add health and and  mana
+     * Select the card option between add health and and mana
+     * 
      * @return 1 if add health
      * @return 2 if add mana
      */
@@ -326,6 +329,7 @@ public class Display {
 
     /**
      * players choose if they want to replay the game
+     * 
      * @return 1 if yes
      * @return 2 if no
      */
