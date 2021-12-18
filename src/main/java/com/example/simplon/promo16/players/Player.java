@@ -7,7 +7,7 @@ import com.example.simplon.promo16.perso.Necromancer;
 import com.example.simplon.promo16.perso.Perso;
 import com.example.simplon.promo16.perso.PowerCard;
 
-public class Player {
+public class Player implements IPlayer {
 
     private List<Perso> playerListOfPerso = new ArrayList<>();
     private PowerCard powerCard = new PowerCard();
@@ -140,7 +140,7 @@ public class Player {
     // getter
     //
 
-    private PowerCard getPowerCard() {
+    public PowerCard getPowerCard() {
         return this.powerCard;
     }
 

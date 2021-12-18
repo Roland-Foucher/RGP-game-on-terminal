@@ -3,7 +3,7 @@ package com.example.simplon.promo16.perso;
 /**
  * Main class of perso
  */
-public class Perso {
+public class Perso implements IPerso{
 
     protected String name;
     protected String weapon = "🗡️ : ";

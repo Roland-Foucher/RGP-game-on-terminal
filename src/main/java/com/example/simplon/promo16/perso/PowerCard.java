@@ -1,6 +1,6 @@
 package com.example.simplon.promo16.perso;
 
-public class PowerCard {
+public class PowerCard implements IPowerCard{
     private int numberOfCard = 2;
 
     public void addHealth(Perso perso) {
