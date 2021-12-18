@@ -20,4 +20,22 @@ public class Orc extends Perso {
         this.maxMana = this.mana;
     }
 
+    /**
+     * mana power add 20 to attack
+     */
+    @Override
+    public void manaAttack(Perso perso) {
+
+        this.weaponAttack += 20;
+        perso.setHealth(-this.getManaAttack());
+        this.setMana(-this.getManaCost());
+    }
+
+    @Override
+    public String getManaPower() {
+        String manaPowerDescription = this.manaPower + " - Degat : " + this.manaAttack + " - cout " + this.manaCost
+                + " - ajoute 20 degats au personnage";
+        return manaPowerDescription;
+    }
+
 }
