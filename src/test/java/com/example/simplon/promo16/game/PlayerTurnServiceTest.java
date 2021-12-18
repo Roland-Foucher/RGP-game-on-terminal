@@ -34,6 +34,7 @@ public class PlayerTurnServiceTest {
         match2 = new Match();
 
         display = mock(Display.class);
+        RouterSelect routerSelect = new RouterSelect();
 
         orc = new Orc();
         elfe = new Elfe();
@@ -52,7 +53,7 @@ public class PlayerTurnServiceTest {
 
         player1Mock = mock(Player.class);
         player2Mock = mock(Player.class);
-        playerTurnService = new PlayerTurnService(display);
+        playerTurnService = new PlayerTurnService(display, routerSelect);
 
     }
 

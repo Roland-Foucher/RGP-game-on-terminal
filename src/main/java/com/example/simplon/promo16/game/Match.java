@@ -66,7 +66,7 @@ public class Match {
     public void playerInit(){
 
         gameMode = display.init();
-        humanPlayerTurn = new PlayerTurnService(display);
+        humanPlayerTurn = new PlayerTurnService(display, routerSelect);
 
         if (gameMode == 1) {
 
@@ -81,7 +81,7 @@ public class Match {
 
         if (gameMode == 2) {
 
-            computerPlayerTurn = new ComputerPlayerTurnService(display);
+            computerPlayerTurn = new ComputerPlayerTurnService(display, routerSelect);
             if (player1 == null || player2 == null) {
                 playerNames[0] = display.choosePlayer1Name();
             }

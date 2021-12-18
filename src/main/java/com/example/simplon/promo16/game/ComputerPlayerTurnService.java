@@ -9,8 +9,8 @@ import com.example.simplon.promo16.players.Player;
 public class ComputerPlayerTurnService extends PlayerTurnService {
     private Random random = new Random();
 
-    public ComputerPlayerTurnService(Display diplay) {
-        super(diplay);
+    public ComputerPlayerTurnService(Display diplay, RouterSelect routerSelect) {
+        super(diplay, routerSelect);
     }
 
     /**

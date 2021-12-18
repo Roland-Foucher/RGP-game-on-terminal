@@ -1,5 +1,6 @@
 package com.example.simplon.promo16.game;
 
+import com.example.simplon.promo16.App;
 import com.example.simplon.promo16.perso.Necromancer;
 import com.example.simplon.promo16.perso.Perso;
 import com.example.simplon.promo16.players.Player;
@@ -7,9 +8,11 @@ import com.example.simplon.promo16.players.Player;
 public class PlayerTurnService {
 
     Display display;
+    RouterSelect routerSelect;
 
-    public PlayerTurnService(Display diplay) {
+    public PlayerTurnService(Display diplay, RouterSelect routerSelect) {
         this.display = diplay;
+        this.routerSelect = routerSelect;
     }
 
     /**
@@ -50,20 +53,28 @@ public class PlayerTurnService {
      * @param playerTurn player is turn to play
      * @return perso selected
      */
-    public int playerSelectHisPerso(Player playerTurn) {
-
-        int persoSelectedID = display.playerChoosePersoToPlay(playerTurn);
+    public int playerSelectHisPerso(Player playerTurn) { // 2D OK
+        int persoSelectedID = 0;
+        App.sceneMatch.selectPlayer(playerTurn);
+        while(persoSelectedID == 0){
+            persoSelectedID = routerSelect.getPersoID();
+        }
         Perso persoSelected = playerTurn.getIndividualPlayerPerso(persoSelectedID - 1);
 
         // check if perso is dead
         while (!persoSelected.isAlive()) {
             System.out.println("Ce perso est mort! Choisir un autre perso.");
-            persoSelectedID = display.playerChoosePersoToPlay(playerTurn);
+            persoSelectedID = 0;
+            App.sceneMatch.selectPlayer(playerTurn);
+            while(persoSelectedID == 0){
+                persoSelectedID = routerSelect.getPersoID();
+            }
             persoSelected = playerTurn.getIndividualPlayerPerso(persoSelectedID - 1);
         }
-
+        
         return persoSelectedID;
     }
+
 
     /**
      * player choose between attack or take magic card to his perso. Can't select

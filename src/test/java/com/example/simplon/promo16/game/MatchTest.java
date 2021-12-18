@@ -18,6 +18,7 @@ public class MatchTest {
 
     Player player1Mock, player2Mock;
     PlayerTurnService playerTurnService;
+    RouterSelect routerSelect;
 
     @BeforeEach
     public void init() {
@@ -26,7 +27,7 @@ public class MatchTest {
 
         player1Mock = mock(Player.class);
         player2Mock = mock(Player.class);
-        playerTurnService = new PlayerTurnService(display);
+        playerTurnService = new PlayerTurnService(display, routerSelect);
 
     }
 
