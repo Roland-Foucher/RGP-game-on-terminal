@@ -32,14 +32,14 @@ public class Display {
     public int init() {
 
         int inputValue = 0;
-        System.out.println("Bienvenue dans le game !");
-        System.out.println("Ce jeux est un RPG, chaque joueur à 4 personnages qui se battent à tour de role");
+        System.out.println("Bienvenue !");
+        System.out.println("But du jeu : éliminer tous les personnages advers");
         System.out.println();
-        System.out.println("voici la liste des personnage : ");
+        System.out.println("voici la liste des personnages : ");
         System.out.println();
-        System.out.println("Orc : beaucoup de vie et puissant");
-        System.out.println("Chevalier : puissant et à une armure");
-        System.out.println("Assassin : peu de vie mais tue en un coup");
+        System.out.println("Orc : puissant, peut augmenter sa force, beaucoup de vie");
+        System.out.println("Chevalier : puissant, équipé d'une armure");
+        System.out.println("Assassin : peu de vie mais a le pouvoir de tuer en un coup");
         System.out.println("Druide : beaucoup de mana, attack mana puissante");
         System.out.println("Elfe : peu puissant mais regenere sa vie");
         System.out.println("Magician : attack mana puissante et beacoup de mana");
