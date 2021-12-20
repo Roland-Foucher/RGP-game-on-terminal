@@ -4,22 +4,22 @@ import com.example.simplon.promo16.perso.Necromancer;
 import com.example.simplon.promo16.perso.Perso;
 import com.example.simplon.promo16.players.Player;
 
+/**
+ * services of differents options that user have to select on his turn.
+ */
 public class PlayerTurnService implements IPlayerturnService {
 
     Display display;
 
+
+    /**
+     * add the display instanciate in Match class
+     * @param diplay display instanciate in match class
+     */
     public PlayerTurnService(Display diplay) {
         this.display = diplay;
     }
 
-    /**
-     * Methode to choose card option or Attack
-     * if player choose 1 : weapon
-     * if player choose 2 : card
-     * 
-     * @param playerTurn   player is turn to play
-     * @param playerAdvers player to attack
-     */
     public Perso playerTurn(Player playerTurn, Player playerAdvers) {
 
         int persoSelectedID = this.playerSelectHisPerso(playerTurn);
@@ -43,13 +43,7 @@ public class PlayerTurnService implements IPlayerturnService {
         return persoSelected;
 
     }
-
-    /**
-     * player choose perso to attack advers, can't select dead perso
-     * 
-     * @param playerTurn player is turn to play
-     * @return perso selected
-     */
+ 
     public int playerSelectHisPerso(Player playerTurn) {
 
         int persoSelectedID = display.playerChoosePersoToPlay(playerTurn);
@@ -65,14 +59,6 @@ public class PlayerTurnService implements IPlayerturnService {
         return persoSelectedID;
     }
 
-    /**
-     * player choose between attack or take magic card to his perso. Can't select
-     * card if value of health and mana are maxa
-     * 
-     * @param playerTurn    player turn to player
-     * @param persoSelected perso selected to attack
-     * @return ID 1 = Attack / ID 2 = Card
-     */
     public int playerChooseBetweenAttackOrCard(Player playerTurn, Perso persoSelected) {
         int playerChooseAttackOrCardID = display.playerChooseAttackOrCard(playerTurn);
 
@@ -86,15 +72,7 @@ public class PlayerTurnService implements IPlayerturnService {
         return playerChooseAttackOrCardID;
     }
 
-    /**
-     * player choose between mana attack and weapon attack, choose advers perso to
-     * attack. can't attack a dead perso advers
-     * 
-     * @param playerTurn      player turn to play
-     * @param playerAdvers    player to attack
-     * @param persoSelected   perso choosen to attack
-     * @param persoSelectedID id of the perso choosen to attack
-     */
+  
     public int attackIsChoosen(Player playerTurn, Player playerAdvers, Perso persoSelected, int persoSelectedID) {
 
         int playerAttack = display.playerChooseAttack(persoSelected);

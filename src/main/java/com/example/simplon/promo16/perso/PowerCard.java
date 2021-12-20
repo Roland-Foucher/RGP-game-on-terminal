@@ -1,5 +1,8 @@
 package com.example.simplon.promo16.perso;
 
+/**
+ * Player have 2 card to add health or mana to perso.
+ */
 public class PowerCard implements IPowerCard{
     private int numberOfCard = 2;
 

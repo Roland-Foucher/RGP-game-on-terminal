@@ -18,31 +18,16 @@ public class Perso implements IPerso{
     protected int armore;
     protected boolean isAlive = true;
 
-    /**
-     * perso weapon attack an other personnage
-     * 
-     * @param advers lost health = weaponAttack
-     */
+   
     public void weaponAttack(Perso advers) {
         advers.setHealth(-this.weaponAttack);
     }
 
-    /**
-     * perso mana atatck an other personnage
-     * 
-     * @param advers lost health = manaAttack
-     */
     public void manaAttack(Perso advers) {
         advers.setHealth(-this.manaAttack);
         this.setMana(-this.getManaCost());
     }
-
-    /**
-     * give or substract health to perso, can't have more than default health on
-     * init. Health = 0 => perso is dead
-     * 
-     * @param attack the num for change health
-     */
+    
     public void setHealth(int attack) {
 
         this.health += attack;
@@ -55,13 +40,7 @@ public class Perso implements IPerso{
             this.health = 0;
         }
     }
-
-    /**
-     * give or substract mana to perso, can't have more than default mana on init
-     * and less than 0.
-     * 
-     * @param manaNumber the num to change mana
-     */
+  
     public void setMana(int manaNumber) {
         this.mana += manaNumber;
         if (this.mana > this.maxMana) {
@@ -72,9 +51,6 @@ public class Perso implements IPerso{
         }
     }
 
-    /**
-     * Display all power of perso
-     */
     @Override
     public String toString() {
         return String.format(
@@ -83,13 +59,8 @@ public class Perso implements IPerso{
                 this.manaCost);
     }
 
-    // getter
+    // getters
 
-    /**
-     * if player is dead display name with a skull
-     * 
-     * @return name of player
-     */
     public String getName() {
         String nameIfDead = this.isAlive ? name : name + " 💀";
         return nameIfDead;

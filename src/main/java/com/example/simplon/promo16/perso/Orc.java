@@ -4,9 +4,7 @@ package com.example.simplon.promo16.perso;
  * Orc have standard attack and a lot of life
  */
 public class Orc extends Perso {
-    /**
-     * constructor Orc
-     */
+
     public Orc() {
         this.name = "Orc";
         this.weapon += "Gourdin";

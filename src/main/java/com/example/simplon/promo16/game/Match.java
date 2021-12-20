@@ -12,6 +12,9 @@ import com.example.simplon.promo16.perso.Orc;
 import com.example.simplon.promo16.perso.Perso;
 import com.example.simplon.promo16.players.Player;
 
+/**
+ * class main of the game, run the match between two players or player vs computer
+ */
 public class Match implements IMatch {
     private Player player1;
     private Player player2;
@@ -25,12 +28,6 @@ public class Match implements IMatch {
 
     private Display display = new Display();
 
-    /**
-     * methode to run the game while a player loose
-     * first players select personnages
-     * next players attack one by one
-     * players can replay game
-     */
     public void runProgramme() {
         humanPlayerTurn = new PlayerTurnService(display);
         boolean replay = true;
@@ -39,8 +36,8 @@ public class Match implements IMatch {
             // Player choose name and perso
             if (gameMode == 1) {
                 if (player1 == null || player2 == null) {
-                    playerNames[0] = display.choosePlayer1Name();
-                    playerNames[1] = display.choosePlayer2Name();
+                    playerNames[0] = display.choosePlayerName(1);
+                    playerNames[1] = display.choosePlayerName(2);
                 }
                 player1 = this.personnageInitChoice(playerNames[0]);
                 player2 = this.personnageInitChoice(playerNames[1]);
@@ -69,9 +66,6 @@ public class Match implements IMatch {
         } while (replay);
     }
 
-    /**
-     * While nobody loose, player play one by one with call playerTurn methode
-     */
     public void playerMatch(PlayerTurnService playerTurnType1, PlayerTurnService playerTurnType2) {
 
         while (!player1.playerLoose() && !player2.playerLoose()) {
@@ -85,9 +79,6 @@ public class Match implements IMatch {
         }
     }
 
-    /**
-     * Get +1 to one player if other loose
-     */
     public void playerLoose() {
         if (player1.playerLoose()) {
             System.out.println(player2.getPlayerName() + " win !!");
@@ -98,12 +89,6 @@ public class Match implements IMatch {
         }
     }
 
-    /**
-     * display the choose of perso and make player
-     * 
-     * @param playerName name choose by user to the player
-     * @return player to make
-     */
     public Player personnageInitChoice(String playerName) {
         String timeToChoosePerso[] = { "premier", "second", "troisiéme", "quatrième" };
 
@@ -117,12 +102,6 @@ public class Match implements IMatch {
                 personnageInitChoicePlayer1[2], personnageInitChoicePlayer1[3], playerName);
     }
 
-    /**
-     * choose a perso with int ID to add to player
-     * 
-     * @param persoChoosen number choose by user
-     * @return perso to add to player
-     */
     public Perso choosePerso(int persoChoosenID) {
         Perso perso = null;
         switch (persoChoosenID) {
@@ -153,15 +132,6 @@ public class Match implements IMatch {
         return perso;
     }
 
-    /**
-     * make a player with the choose of user
-     * 
-     * @param userChoosePerso1 int choose by user for perso one
-     * @param userChoosePerso2 int choose by user for perso two
-     * @param userChoosePerso3 int choose by user for perso three
-     * @param userChoosePerso4 int choose by user for perso four
-     * @return player created
-     */
     public Player makePlayer(int userChoosePerso1, int userChoosePerso2, int userChoosePerso3, int userChoosePerso4,
             String name) {
         Perso perso1 = this.choosePerso(userChoosePerso1);
@@ -171,10 +141,6 @@ public class Match implements IMatch {
         return new Player(perso1, perso2, perso3, perso4, name);
     }
 
-    /**
-     * make a player with random number, can't have two same perso. 
-     * @return Player for computer
-     */
     public Player makePlayerComputer() {
         int num1 = random.nextInt(7) + 1;
         int num2;

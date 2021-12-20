@@ -13,6 +13,10 @@ import com.example.simplon.promo16.perso.Orc;
 import com.example.simplon.promo16.perso.Perso;
 import com.example.simplon.promo16.players.Player;
 
+/**
+ * class to display game on terminal.
+ * make interaction with player for the choices.
+ */
 public class Display {
     private Scanner scanner = new Scanner(System.in);
     private Perso assasin = new Assassin();
@@ -23,12 +27,7 @@ public class Display {
     private Perso necro = new Necromancer();
     private Perso orc = new Orc();
 
-    /**
-     * First display of perso description. Next players choose names (verify input
-     * not blank)
-     * 
-     * @return array of player's names to init players
-     */
+
     public int init() {
 
         int inputValue = 0;
@@ -55,35 +54,17 @@ public class Display {
         return inputValue;
     }
 
-    public String choosePlayer1Name() {
-        String player1 = "";
+    public String choosePlayerName(int playerID) {
+        String player = "";
         scanner.nextLine();
         do {
-            System.out.println("choisir le nom du player 1");
-            player1 = scanner.nextLine();
-        } while (player1.isBlank());
+            System.out.println("choisir le nom du player " + playerID);
+            player = scanner.nextLine();
+        } while (player.isBlank());
 
-        return player1;
+        return player;
     }
-
-    public String choosePlayer2Name() {
-        String player2 = "";
-
-        do {
-            System.out.println("choisir le nom du player 2");
-            player2 = scanner.nextLine();
-        } while (player2.isBlank());
-
-        return player2;
-    }
-
-    /**
-     * Display the arena with all the perso's of player with health points and mana
-     * points.
-     * 
-     * @param player1 player1 to display perso
-     * @param player2 player2 to display perso
-     */
+    
     public void arena(Player player1, Player player2) {
 
         System.out.println();
@@ -112,12 +93,6 @@ public class Display {
         }
     }
 
-    /**
-     * Methode to display a text line into the arena.
-     * 
-     * @param text1 param to display of player 1 in left side
-     * @param text2 param ot display of player 2 in right side
-     */
     public void displayTextInArena(String text1, String text2) {
         System.out.print(text1);
         for (int i = 0; i < 72 - text1.length() - text2.length(); i++) {
@@ -127,13 +102,6 @@ public class Display {
         System.out.println();
     }
 
-    /**
-     * Display the characteristiques of the current perso to display into the Arena
-     * 
-     * @param player1 perso in left side arena
-     * @param player2 perso in right side arena
-     * @param persoID perso to display characteristiques
-     */
     public void displayPersoCharacteristicsInArena(Player player1, Player player2, int persoID) {
         Perso persoPlayer1 = player1.getIndividualPlayerPerso(persoID);
         Perso persoPlayer2 = player2.getIndividualPlayerPerso(persoID);
@@ -144,15 +112,7 @@ public class Display {
         displayTextInArena("Mana : " + persoPlayer1.getMana(), "Mana : " + persoPlayer2.getMana());
     }
 
-    /**
-     * Display the differents perso to choose and return the id of perso choosen.
-     * The player can't choose the same perso two times
-     * 
-     * @param timeToChoosePerso the turn of choose (1 to 4)
-     * @param player            player turn to choose perso
-     * @param personnageChoice  array of ids selected before
-     * @return the id of perso selected
-     */
+
     public int personnageChoice(String timeToChoosePerso, String player, int[] personnageChoice) {
         int inputValue;
         Perso[] persos = { orc, knigth, assasin, druid, elfe, magician, necro };
@@ -197,13 +157,6 @@ public class Display {
 
     }
 
-    /**
-     * On game, player choose his perso to play.
-     * take a skull if player dead
-     * 
-     * @param player player turn
-     * @return id of perso selected (-1 to match the array)
-     */
     public int playerChoosePersoToPlay(Player player) {
         Perso perso1 = player.getIndividualPlayerPerso(0);
         Perso perso2 = player.getIndividualPlayerPerso(1);
@@ -227,13 +180,6 @@ public class Display {
 
     }
 
-    /**
-     * After choose perso, player choose Attack option or Card option
-     * If player don't have any card, don't display et can't select card
-     * 
-     * @param player player turn
-     * @return id of the option selected (1 = attack / 2 = Card)
-     */
     public int playerChooseAttackOrCard(Player player) {
         int optionSelected = 0;
         if (player.getNumberOfCardPlayer() > 0) {
@@ -257,13 +203,6 @@ public class Display {
         return optionSelected;
     }
 
-    /**
-     * If player choose Attack : choice to choose between mana or weapon.
-     * If perso don't have anougth mana, can't choice mana.
-     * 
-     * @param perso choosen
-     * @return id of the choice selected (1 = weapon / 2 - mana)
-     */
     public int playerChooseAttack(Perso perso) {
         int attackSelected = 0;
         do {
@@ -282,13 +221,6 @@ public class Display {
         return attackSelected;
     }
 
-    /**
-     * player choose advers to attack, value must be between 1 and 4
-     * 
-     * @param player1 player turn
-     * @param player2 player to attack
-     * @return player ID to attack between 1 and 4
-     */
     public int playerChooseAdversToAttack(Player player1, Player player2) {
 
         int persoEnemySelected = 0;
@@ -307,12 +239,6 @@ public class Display {
         return persoEnemySelected;
     }
 
-    /**
-     * Select the card option between add health and and mana
-     * 
-     * @return 1 if add health
-     * @return 2 if add mana
-     */
     public int playerChooseCardOption() {
         int optionCardSelected;
         do {
@@ -327,12 +253,6 @@ public class Display {
         return optionCardSelected;
     }
 
-    /**
-     * players choose if they want to replay the game
-     * 
-     * @return 1 if yes
-     * @return 2 if no
-     */
     public int replayGame() {
         int optionReplaySelected;
         do {
@@ -345,11 +265,6 @@ public class Display {
         return optionReplaySelected;
     }
 
-    /**
-     * methode to check if the user input is an integer.
-     * 
-     * @return integer input user OK
-     */
     public int userInput() {
         boolean inputOk = false;
         int input = 0;
