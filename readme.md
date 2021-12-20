@@ -21,12 +21,16 @@ Il existe 7 personnage  : l'Orc, le chevalier, le magicien, l'elfe, le necromenc
   
 Le joueur à 2 carte optionnel pour redonner de la vie ou de la mana à un personnage.
 
+Il y a deux modes de jeux : player vs player et player vs computer.
+
 ## Deroulé
 
 ### Init
 
 * Le programme s'initialise en présentant globalement le jeu et les personnages
-* Les players choissient leurs nom et leurs 4 personnages. Il ne peux pas avoir deux personnages identiques
+* L'utilisateur choisie le mode entre player vs player et player vs computer.
+* Les players choissient leurs noms et leurs 4 personnages. Il ne peux pas avoir deux personnages identiques
+  
 
 ### affichage
 
