@@ -46,7 +46,7 @@ public class Match implements IMatch {
             if (gameMode == 2) {
                 computerPlayerTurn = new ComputerPlayerTurnService(display);
                 if (player1 == null || player2 == null) {
-                    playerNames[0] = display.choosePlayer1Name();
+                    playerNames[0] = display.choosePlayerName(1);
                 }
                 player1 = this.personnageInitChoice(playerNames[0]);
                 player2 = this.makePlayerComputer();
