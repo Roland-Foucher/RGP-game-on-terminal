@@ -1,5 +1,26 @@
 # RPG GAME PROJECT ON TERMINALE
 
+## Context
+
+Ce projet a été efféctué lors de ma foramtion de developpeur web et web mobile.
+Le sujet est la création d'un jeu en Java, avec un affichage et une interraction avec l'utilisateur sur le terminal.
+
+Ce projet m'a permis de travailler sur les éléments suivants :
+
+* POO
+* Héritage
+* Interfaces
+* Tests Unitaires / Mock
+* Algoritmie avec Java
+
+## Stack technique 
+
+* Java 17
+* Junit-Jupiter 5.5.1
+* Mockito 4.1.0
+
+sur la branche 2Dscene : Un début de mise en forme 2D avec Swing et awt
+
 ## base
 
 Le joueur choisi 4 personnages, il choisi quel personnage joue à son tour.
@@ -53,3 +74,7 @@ jusqu'à qu'un joueur n'ait plus de perso vivants :
 * Le joueur n'ayant plus de perso perd,
 * Le gagnant implemente son nombre de victoires
 * Les joueurs peuvent choisir de rejouer une partie
+
+## Author
+
+Roland FOUCHER
